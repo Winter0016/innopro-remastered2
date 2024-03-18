@@ -10,7 +10,7 @@ export const Checkout = () => {
     <>
         <div className='checkout-show'>
           <h1 className='w-full text-center mb-2 text-4xl'>Please fill this form to submit your order.</h1>
-          <form className=' max-w-3xl bg-yellow-100 m-auto rounded-lg overflow-hidden pb-3 pt-3 pl-2' action="#" onSubmit={(e) => {
+          <form className=' max-w-3xl bg-yellow-100 m-auto rounded-lg overflow-auto border-4 pb-3 pt-3 pl-2' action="#" onSubmit={(e) => {
             e.preventDefault();
             submitorder();
             }}>
@@ -63,9 +63,9 @@ export const Checkout = () => {
             </div>
             <div className='flex flex-wrap pt-3 pl-2  overflow-hidden checkout-submit'>
               <button type="submit" class="text-white bg-blue-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center hover:cursor-pointer">Submit my order</button>        
-              <div class="flex justify-center items-center">
-                <div class="flex items-center h-5">
-                  <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50" required />
+              <div class="flex justify-center items-center ml-9 sm:mb-1">
+                <div class="flex items-center">
+                  <input id="remember" type="checkbox" value="" class="w-6 h-6 border border-gray-300 rounded bg-gray-50" required />
                 </div>
                 <label class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Please confirm you're not G4y?</label>
               </div>
