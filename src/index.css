@@ -388,7 +388,6 @@ hr{
     overflow: auto;
     display:flex;
     flex-direction: column;
-    flex-wrap: wrap;
     border-radius:0.5rem;
     padding-right:1rem;
     padding-left:1rem;

@@ -5,6 +5,7 @@ import { useAuth } from "../../../context/shopContext";
 
 export const Show = () => {
   const {productlist} = useAuth();
+  console.log(productlist);
 
     
   return (

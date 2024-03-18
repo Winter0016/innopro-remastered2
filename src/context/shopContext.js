@@ -31,22 +31,23 @@ export const ShopContextProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     const getcommentlist = async () => {
-      try{
+      try {
         const data2 = await getDocs(collection(db, "comments"));
         const filtereddata2 = data2.docs.map((doc) => ({
           ...doc.data()
         }));
         setcommentlist(filtereddata2);
         setloadingpage(false);
-      } catch(error){
+      } catch (error) {
         console.log(error);
       }
     };
     getcommentlist();
-  },[]);
-  //console.log(JSON.stringify(commentlist));
+  }, []);
+  
+  // console.log(JSON.stringify(commentlist));
 
   useEffect(() => {
     const getProductlist = async () => {
@@ -164,7 +165,7 @@ const product_total = async (currentdate) => {
       await updateDoc(productDoc, { total: productstotalprice, username: username , useremail:useremail, usercomment:usercomment , useraddress: useraddress,userphone:userphone });
       const productDoc2 = doc(db, "comments",currentdateonly)
       const dataupdate2 = {
-        [auth.currentUser.displayName? `${auth.currentUser.displayName}_${currentdate}` : `${username}_${currentdate}`]:{
+        [currentdate]:{
           comment_username : auth.currentUser.displayName ? auth.currentUser.displayName : username,
           comment: usercomment,
           photo: auth.currentUser.photoURL? auth.currentUser.photoURL : null,

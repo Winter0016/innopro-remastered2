@@ -2,9 +2,9 @@ import React from 'react'
 
 export const Com = (props) => {
     const {comment , comment_username , photo,time} = props.data;
-    console.log(`comment : ${comment}`);
-    console.log(`photo : ${photo}`);
-    console.log(`comment_username : ${comment_username}`);
+    // console.log(`comment : ${comment}`);
+    // console.log(`photo : ${photo}`);
+    // console.log(`comment_username : ${comment_username}`);
   return (
     <div className='flex gap-3 mt-2 w-full h-fit'>
         {/* <svg className='w-8 h-8 rounded-full' data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
