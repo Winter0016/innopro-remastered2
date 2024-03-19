@@ -45,7 +45,7 @@ export const ShopContextProvider = ({ children }) => {
       }
     };
     getcommentlist();
-  }, []);
+  }, [commentlist]);
   
   // console.log(JSON.stringify(commentlist));
 
