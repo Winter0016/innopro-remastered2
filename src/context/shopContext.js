@@ -25,6 +25,8 @@ export const ShopContextProvider = ({ children }) => {
   const [username,setusername] = useState("");
   const [commentlist,setcommentlist] = useState([]);
   const [loadingpage,setloadingpage] = useState(false);
+  let cookievalue;
+  const [cartItems2,setcartItems2] = useState({});
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
@@ -45,7 +47,7 @@ export const ShopContextProvider = ({ children }) => {
       }
     };
     getcommentlist();
-  }, [commentlist]);
+  }, []);
   
   // console.log(JSON.stringify(commentlist));
 
@@ -70,6 +72,7 @@ export const ShopContextProvider = ({ children }) => {
     setCartItems(getDefaultCart());
   }, [productlist]);
 
+
   const initializeUser = (user) => {
     if (user) {
       setCurrentUser({ ...user });
@@ -85,8 +88,15 @@ export const ShopContextProvider = ({ children }) => {
     for (let i = 0; i < productlist.length; i++) {
       cart[productlist[i].id] = 0;
     }
+    const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `cartItems= ${JSON.stringify(cart)},expires=${expires}`;
+    // console.log(`cart: ${JSON.stringify(cart)}`);
+    // console.log(`document.cookie : ${document.cookie}`);
+    cookievalue = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
+    // console.log(`cookie.value : ${cookievalue}`);
     return cart;
   };
+
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
@@ -98,6 +108,12 @@ export const ShopContextProvider = ({ children }) => {
     }
     return totalAmount;
   };
+
+  useEffect(()=>{
+    setcartItems2(cookievalue);
+  },[])
+
+  // console.log(`cartItems2: ${cartItems2}`);
 
   const addToCart = (itemId) => {
     if(userLoggedIn) {
