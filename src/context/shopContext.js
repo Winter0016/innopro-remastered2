@@ -25,8 +25,16 @@ export const ShopContextProvider = ({ children }) => {
   const [username,setusername] = useState("");
   const [commentlist,setcommentlist] = useState([]);
   const [loadingpage,setloadingpage] = useState(false);
-  let cookievalue;
-  const [cartItems2,setcartItems2] = useState({});
+
+//   const clearAllCookies = () => {
+//     const cookies = document.cookie.split('; ');
+//     for (let i = 0; i < cookies.length; i++) {
+//         const cookieParts = cookies[i].split('=');
+//         const cookieName = cookieParts[0];
+//         document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+//     }
+// };
+//   clearAllCookies();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
@@ -48,6 +56,20 @@ export const ShopContextProvider = ({ children }) => {
     };
     getcommentlist();
   }, []);
+
+  const onchangecommentlist = async () => {
+    try {
+      // console.log(`changing comment`)
+      const data2 = await getDocs(collection(db, "comments"));
+      const filtereddata2 = data2.docs.map((doc) => ({
+        ...doc.data()
+      }));
+      setcommentlist(filtereddata2);
+      setloadingpage(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   
   // console.log(JSON.stringify(commentlist));
 
@@ -88,12 +110,6 @@ export const ShopContextProvider = ({ children }) => {
     for (let i = 0; i < productlist.length; i++) {
       cart[productlist[i].id] = 0;
     }
-    const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
-    document.cookie = `cartItems= ${JSON.stringify(cart)},expires=${expires}`;
-    // console.log(`cart: ${JSON.stringify(cart)}`);
-    // console.log(`document.cookie : ${document.cookie}`);
-    cookievalue = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
-    // console.log(`cookie.value : ${cookievalue}`);
     return cart;
   };
 
@@ -109,11 +125,6 @@ export const ShopContextProvider = ({ children }) => {
     return totalAmount;
   };
 
-  useEffect(()=>{
-    setcartItems2(cookievalue);
-  },[])
-
-  // console.log(`cartItems2: ${cartItems2}`);
 
   const addToCart = (itemId) => {
     if(userLoggedIn) {
@@ -165,7 +176,7 @@ const onsubmitproduct = async (product, currentdate) => {
           }
       };
       await setDoc(productDoc, dataToUpdate, { merge: true });
-      console.log("Document updated successfully");
+      // console.log("Document updated successfully");
   } catch (err) {
       console.error(err);
   }
@@ -189,14 +200,15 @@ const product_total = async (currentdate) => {
         }
       };
       await setDoc(productDoc2,dataupdate2,{merge:true});
-      console.log('updated comment successfully')
+      // console.log('updated comment successfully')
+      onchangecommentlist();
   } catch (err) {
       console.log(err);
   }
 };
 
 const submitorder = async () => {
-  console.log('submit order');
+  // console.log('submit order');
   const currentdate = getCurrentDateTime();
   let checking = false;
   productlist.forEach((product) => {
@@ -232,9 +244,7 @@ useEffect(() => {
 
   const contextValue = {
     userLoggedIn,
-    // isEmailUser,
-    // isGoogleUser,
-    // currentUser,
+    onchangecommentlist,
     productlist,
     cartItems,
     getTotalCartAmount,
