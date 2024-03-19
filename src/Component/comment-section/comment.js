@@ -30,7 +30,7 @@ export const Comment = () => {
         return new Date(a.time) - new Date(b.time);
     });
 
-    console.log(`newcommentlist: ${JSON.stringify(newcommentlist)}`);
+    // console.log(`newcommentlist: ${JSON.stringify(newcommentlist)}`);
     
 
     return (
