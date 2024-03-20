@@ -168,7 +168,8 @@ export const ShopContextProvider = ({ children }) => {
       if (cookieValue) {
           const cartItemsString = cookieValue.split('=')[1];
           cartItems = JSON.parse(cartItemsString);
-      }
+          console.log(`cartitemsjsondata : ${JSON.stringify(cartItems)}`);
+        }
       cartItems[itemId] = (cartItems[itemId] || 0) + 1;
       const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
       document.cookie = `cartItems=${JSON.stringify(cartItems)}; expires=${expires}; path=/`;
