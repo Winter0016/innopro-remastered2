@@ -15,7 +15,7 @@ export const Cart = () => {
     const { cartItems} = useAuth();
     const {totalAmount} = useAuth();
     // console.log(`total at shop : ${totalAmount}`);
-  
+    console.log(`cart items : ${JSON.stringify(cartItems)}`);
     const navigate = useNavigate();
 
   return (
@@ -33,7 +33,7 @@ export const Cart = () => {
               </div> 
               <div className="si-container">
                 {productlist.map((product)=>{
-                  if(cartItems[product.id]!==0){
+                  if(cartItems[product.id]!==0 && cartItems[product.id] !== undefined){
                     return <CartItem data={product} />
                   }
                 })}
@@ -67,7 +67,7 @@ export const Cart = () => {
                   </div>
                   <div className="si-container">
                     {productlist.map((product)=>{
-                      if(cartItems[product.id]!==0){
+                      if(cartItems[product.id]!==0 && cartItems[product.id] !== undefined){
                         return <CartItem2 data={product} />
                       }
                     })}

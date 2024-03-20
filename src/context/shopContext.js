@@ -27,6 +27,14 @@ export const ShopContextProvider = ({ children }) => {
   const [loadingpage,setloadingpage] = useState(false);
   const [totalAmount,settotalAmount] = useState();
 
+  const getDefaultCart = () => {
+    // console.log(`get default baby`)
+    let cart = {};
+    for (let i = 0; i < productlist.length; i++) {
+      cart[productlist[i].id] = 0;
+    }
+    return cart;
+  };
     const clearAllCookies = () => {
       const cookies = document.cookie.split('; ');
       for (let i = 0; i < cookies.length; i++) {
@@ -34,9 +42,8 @@ export const ShopContextProvider = ({ children }) => {
           const cookieName = cookieParts[0];
           document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
       }
-      setCartItems(getDefaultCart());
     };
-//   clearAllCookies();
+  // clearAllCookies();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
@@ -150,14 +157,7 @@ export const ShopContextProvider = ({ children }) => {
     }
     setLoading(false);
   };
-  const getDefaultCart = () => {
-    // console.log(`get default baby`)
-    let cart = {};
-    for (let i = 0; i < productlist.length; i++) {
-      cart[productlist[i].id] = 0;
-    }
-    return cart;
-  };
+
 
 
 
@@ -217,8 +217,8 @@ export const ShopContextProvider = ({ children }) => {
     // console.log(`cart1 after add : ${JSON.stringify(cartItems)}`);
   };
 
-  // console.log(`cart1 : ${JSON.stringify(cartItems)}`);
-  // console.log(document.cookie);
+  console.log(`cart1 : ${JSON.stringify(cartItems)}`);
+  console.log(document.cookie);
 
   //submit order function
   const getCurrentDate = () => {
@@ -305,6 +305,7 @@ const submitorder = async () => {
     await product_total(currentdate);
     setpaymentdone(true);
     clearAllCookies();
+    setCartItems(getDefaultCart());
   }
 };
 
