@@ -27,23 +27,7 @@ export const ShopContextProvider = ({ children }) => {
   const [loadingpage,setloadingpage] = useState(false);
   const [totalAmount,settotalAmount] = useState();
 
-  const getDefaultCart = () => {
-    // console.log(`get default baby`)
-    let cart = {};
-    for (let i = 0; i < productlist.length; i++) {
-      cart[productlist[i].id] = 0;
-    }
-    return cart;
-  };
-    const clearAllCookies = () => {
-      const cookies = document.cookie.split('; ');
-      for (let i = 0; i < cookies.length; i++) {
-          const cookieParts = cookies[i].split('=');
-          const cookieName = cookieParts[0];
-          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-      }
-    };
-  // clearAllCookies();
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
@@ -98,6 +82,24 @@ export const ShopContextProvider = ({ children }) => {
     getProductlist();
   }, []);
   // console.log(JSON.stringify(productlist));
+
+  const getDefaultCart = () => {
+    console.log(`get default baby`)
+    let cart = {};
+    for (let i = 0; i < productlist.length; i++) {
+      cart[productlist[i].id] = 0;
+    }
+    return cart;
+  };
+    const clearAllCookies = () => {
+      const cookies = document.cookie.split('; ');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookieParts = cookies[i].split('=');
+          const cookieName = cookieParts[0];
+          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+      }
+    };
+  clearAllCookies();
 
   useEffect(() => {
     const checkdocumentcookie = async () => {
