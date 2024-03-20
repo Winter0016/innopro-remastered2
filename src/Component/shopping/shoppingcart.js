@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/shopContext.js';
@@ -12,8 +12,9 @@ export const Cart = () => {
     const { userLoggedIn } = useAuth();
     const[closecart,setclosecart] =useState(true);
     const {productlist} = useAuth();
-    const { cartItems, getTotalCartAmount } = useAuth();
-    const totalAmount = getTotalCartAmount();
+    const { cartItems} = useAuth();
+    const {totalAmount} = useAuth();
+    // console.log(`total at shop : ${totalAmount}`);
   
     const navigate = useNavigate();
 

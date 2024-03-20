@@ -8,8 +8,7 @@ export const CartItem = (props) => {
     const { name,price,id } = props.data;
     const { cartItems, addToCart, removeFromCart, updateCartItemAmount } = useAuth();
     const imageName = name.replace(/\s+/g,''); 
-    const {getTotalCartAmount } = useAuth();
-    const totalAmount = getTotalCartAmount();
+
   return (
     <>
         <div className='si-info'>

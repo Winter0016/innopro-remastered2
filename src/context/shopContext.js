@@ -25,15 +25,17 @@ export const ShopContextProvider = ({ children }) => {
   const [username,setusername] = useState("");
   const [commentlist,setcommentlist] = useState([]);
   const [loadingpage,setloadingpage] = useState(false);
+  const [totalAmount,settotalAmount] = useState();
 
-//   const clearAllCookies = () => {
-//     const cookies = document.cookie.split('; ');
-//     for (let i = 0; i < cookies.length; i++) {
-//         const cookieParts = cookies[i].split('=');
-//         const cookieName = cookieParts[0];
-//         document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-//     }
-// };
+    const clearAllCookies = () => {
+      const cookies = document.cookie.split('; ');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookieParts = cookies[i].split('=');
+          const cookieName = cookieParts[0];
+          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+      }
+      setCartItems(getDefaultCart());
+    };
 //   clearAllCookies();
 
   useEffect(() => {
@@ -91,8 +93,51 @@ export const ShopContextProvider = ({ children }) => {
   // console.log(JSON.stringify(productlist));
 
   useEffect(() => {
-    setCartItems(getDefaultCart());
+    const checkdocumentcookie = async () => {
+      if(!document.cookie.includes('cartItems=')){
+        // console.log(`hello`)
+        setCartItems(getDefaultCart());
+        let cart = {};
+        for (let i = 0; i < productlist.length; i++) {
+          cart[productlist[i].id] = 0;
+        }
+        const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
+        // console.log(`cart : ${cart}`)
+        const cartString = JSON.stringify(cart);
+        // console.log(`cartstring: ${(cartString)}`);
+        document.cookie = `cartItems=${cartString}; expires=${expires}`;
+        // console.log(`document.cookie : ${document.cookie}`);
+      }else{
+        // console.log(`bye`);
+        const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
+        const cartItemsString = cookieValue ? cookieValue.substring(cookieValue.indexOf('=') + 1) : null;
+        setCartItems(cartItemsString ? JSON.parse(cartItemsString) : {});
+      }
+    }
+    checkdocumentcookie();
   }, [productlist]);
+
+  useEffect(() =>{
+    settotalAmount(getTotalCartAmount());
+  },[cartItems])
+
+  const getTotalCartAmount = () => {
+    let totalAmount = 0;
+    // console.log(`cart in total : ${JSON.stringify(cartItems)}`);
+    if (productlist && productlist.length > 0) {
+      for (const item in cartItems) {
+        if (cartItems[item] > 0) {
+          const itemInfo = productlist.find((product) => product.id === Number(item));
+          if (itemInfo && itemInfo.price) {
+            totalAmount += cartItems[item] * itemInfo.price;
+          }
+        }
+      }
+    }
+    // console.log(`totalamount : ${totalAmount}`);
+    return totalAmount;
+  };
+  
 
 
   const initializeUser = (user) => {
@@ -106,6 +151,7 @@ export const ShopContextProvider = ({ children }) => {
     setLoading(false);
   };
   const getDefaultCart = () => {
+    // console.log(`get default baby`)
     let cart = {};
     for (let i = 0; i < productlist.length; i++) {
       cart[productlist[i].id] = 0;
@@ -114,21 +160,23 @@ export const ShopContextProvider = ({ children }) => {
   };
 
 
-  const getTotalCartAmount = () => {
-    let totalAmount = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        const itemInfo = productlist.find((product) => product.id === Number(item));
-        totalAmount += cartItems[item] * itemInfo.price;
-      }
-    }
-    return totalAmount;
-  };
-
 
   const addToCart = (itemId) => {
     if(userLoggedIn) {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+      const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
+      let cartItems = {};
+      if (cookieValue) {
+          const cartItemsString = cookieValue.split('=')[1];
+          cartItems = JSON.parse(cartItemsString);
+      }
+      cartItems[itemId] = (cartItems[itemId] || 0) + 1;
+      const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
+      document.cookie = `cartItems=${JSON.stringify(cartItems)}; expires=${expires}; path=/`;
+      // console.log(`document.cookie after add : ${document.cookie}`);
+      const cookieValue2 = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
+      const cartItemsString = cookieValue2 ? cookieValue2.substring(cookieValue2.indexOf('=') + 1) : null;
+      setCartItems(cartItemsString ? JSON.parse(cartItemsString) : {});    
+      // console.log(`cart1 after add : ${JSON.stringify(cartItems)}`);
     }
     else{
       alert('please login to purchase');
@@ -136,12 +184,41 @@ export const ShopContextProvider = ({ children }) => {
   };
 
   const removeFromCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
+    let cartItems = {};
+    if (cookieValue) {
+        const cartItemsString = cookieValue.split('=')[1];
+        cartItems = JSON.parse(cartItemsString);
+    }
+    cartItems[itemId] = (cartItems[itemId] || 0) - 1;
+    const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `cartItems=${JSON.stringify(cartItems)}; expires=${expires}; path=/`;
+    // console.log(`document.cookie after add : ${document.cookie}`);
+    const cookieValue2 = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
+    const cartItemsString = cookieValue2 ? cookieValue2.substring(cookieValue2.indexOf('=') + 1) : null;
+    setCartItems(cartItemsString ? JSON.parse(cartItemsString) : {});    
+    // console.log(`cart1 after add : ${JSON.stringify(cartItems)}`);
   };
 
   const updateCartItemAmount = (newAmount, itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: newAmount }));
+    const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
+    let cartItems = {};
+    if (cookieValue) {
+        const cartItemsString = cookieValue.split('=')[1];
+        cartItems = JSON.parse(cartItemsString);
+    }
+    cartItems[itemId] = newAmount;
+    const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `cartItems=${JSON.stringify(cartItems)}; expires=${expires}; path=/`;
+    // console.log(`document.cookie after add : ${document.cookie}`);
+    const cookieValue2 = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
+    const cartItemsString = cookieValue2 ? cookieValue2.substring(cookieValue2.indexOf('=') + 1) : null;
+    setCartItems(cartItemsString ? JSON.parse(cartItemsString) : {});    
+    // console.log(`cart1 after add : ${JSON.stringify(cartItems)}`);
   };
+
+  // console.log(`cart1 : ${JSON.stringify(cartItems)}`);
+  // console.log(document.cookie);
 
   //submit order function
   const getCurrentDate = () => {
@@ -227,7 +304,7 @@ const submitorder = async () => {
     });
     await product_total(currentdate);
     setpaymentdone(true);
-    setCartItems(getDefaultCart());
+    clearAllCookies();
   }
 };
 
@@ -244,10 +321,9 @@ useEffect(() => {
 
   const contextValue = {
     userLoggedIn,
-    onchangecommentlist,
     productlist,
     cartItems,
-    getTotalCartAmount,
+    totalAmount,
     addToCart,
     removeFromCart,
     updateCartItemAmount,
