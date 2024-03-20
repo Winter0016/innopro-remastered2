@@ -83,13 +83,16 @@ export const ShopContextProvider = ({ children }) => {
   }, []);
   // console.log(JSON.stringify(productlist));
 
-  const getDefaultCart = () => {
+  const getDefaultCart = async () => {
     console.log(`get default baby`)
+    console.log(`productlist : ${JSON.stringify(productlist)}`);
+    console.log(`productlist.length : ${productlist.length}`);
     let cart = {};
     for (let i = 0; i < productlist.length; i++) {
       cart[productlist[i].id] = 0;
     }
-    return cart;
+    console.log(`cart in default : ${JSON.stringify(cart)}`);
+    setCartItems(cart);
   };
     const clearAllCookies = () => {
       const cookies = document.cookie.split('; ');
@@ -98,14 +101,22 @@ export const ShopContextProvider = ({ children }) => {
           const cookieName = cookieParts[0];
           document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
       }
+      console.log(`cleared cookies : ${document.cookie} here`);
     };
-  clearAllCookies();
+  // clearAllCookies();
 
   useEffect(() => {
     const checkdocumentcookie = async () => {
       if(!document.cookie.includes('cartItems=')){
-        // console.log(`hello`)
-        setCartItems(getDefaultCart());
+        try{
+          console.log(`hello`)
+          await clearAllCookies();
+          console.log(`waiting 1`)
+          await getDefaultCart();
+          console.log(`waiting 2`);
+        }catch(error){
+          console.log(error);
+        }
         let cart = {};
         for (let i = 0; i < productlist.length; i++) {
           cart[productlist[i].id] = 0;
@@ -117,7 +128,7 @@ export const ShopContextProvider = ({ children }) => {
         document.cookie = `cartItems=${cartString}; expires=${expires}`;
         // console.log(`document.cookie : ${document.cookie}`);
       }else{
-        // console.log(`bye`);
+        console.log(`bye`);
         const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
         const cartItemsString = cookieValue ? cookieValue.substring(cookieValue.indexOf('=') + 1) : null;
         setCartItems(cartItemsString ? JSON.parse(cartItemsString) : {});
@@ -308,7 +319,7 @@ const submitorder = async () => {
     await product_total(currentdate);
     setpaymentdone(true);
     clearAllCookies();
-    setCartItems(getDefaultCart());
+    getDefaultCart();
   }
 };
 
