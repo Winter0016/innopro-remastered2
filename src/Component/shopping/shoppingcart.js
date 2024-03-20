@@ -15,7 +15,7 @@ export const Cart = () => {
     const { cartItems} = useAuth();
     const {totalAmount} = useAuth();
     // console.log(`total at shop : ${totalAmount}`);
-    console.log(`cart items : ${JSON.stringify(cartItems)}`);
+    // console.log(`cart items at shop : ${JSON.stringify(cartItems)}`);
     const navigate = useNavigate();
 
   return (

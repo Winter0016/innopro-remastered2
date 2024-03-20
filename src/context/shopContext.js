@@ -84,14 +84,14 @@ export const ShopContextProvider = ({ children }) => {
   // console.log(JSON.stringify(productlist));
 
   const getDefaultCart = async () => {
-    console.log(`get default baby`)
-    console.log(`productlist : ${JSON.stringify(productlist)}`);
-    console.log(`productlist.length : ${productlist.length}`);
+    // console.log(`get default baby`)
+    // console.log(`productlist : ${JSON.stringify(productlist)}`);
+    // console.log(`productlist.length : ${productlist.length}`);
     let cart = {};
     for (let i = 0; i < productlist.length; i++) {
       cart[productlist[i].id] = 0;
     }
-    console.log(`cart in default : ${JSON.stringify(cart)}`);
+    // console.log(`cart in default : ${JSON.stringify(cart)}`);
     setCartItems(cart);
   };
     const clearAllCookies = () => {
@@ -101,7 +101,7 @@ export const ShopContextProvider = ({ children }) => {
           const cookieName = cookieParts[0];
           document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
       }
-      console.log(`cleared cookies : ${document.cookie} here`);
+      // console.log(`cleared cookies : ${document.cookie} here`);
     };
   // clearAllCookies();
 
@@ -109,11 +109,11 @@ export const ShopContextProvider = ({ children }) => {
     const checkdocumentcookie = async () => {
       if(!document.cookie.includes('cartItems=')){
         try{
-          console.log(`hello`)
+          // console.log(`hello`)
           await clearAllCookies();
-          console.log(`waiting 1`)
+          // console.log(`waiting 1`)
           await getDefaultCart();
-          console.log(`waiting 2`);
+          // console.log(`waiting 2`);
         }catch(error){
           console.log(error);
         }
@@ -128,7 +128,7 @@ export const ShopContextProvider = ({ children }) => {
         document.cookie = `cartItems=${cartString}; expires=${expires}`;
         // console.log(`document.cookie : ${document.cookie}`);
       }else{
-        console.log(`bye`);
+        // console.log(`bye`);
         const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
         const cartItemsString = cookieValue ? cookieValue.substring(cookieValue.indexOf('=') + 1) : null;
         setCartItems(cartItemsString ? JSON.parse(cartItemsString) : {});
@@ -181,7 +181,7 @@ export const ShopContextProvider = ({ children }) => {
       if (cookieValue) {
           const cartItemsString = cookieValue.split('=')[1];
           cartItems = JSON.parse(cartItemsString);
-          console.log(`cartitemsjsondata : ${JSON.stringify(cartItems)}`);
+          // console.log(`cartitemsjsondata : ${JSON.stringify(cartItems)}`);
         }
       cartItems[itemId] = (cartItems[itemId] || 0) + 1;
       const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
@@ -231,8 +231,8 @@ export const ShopContextProvider = ({ children }) => {
     // console.log(`cart1 after add : ${JSON.stringify(cartItems)}`);
   };
 
-  console.log(`cart1 : ${JSON.stringify(cartItems)}`);
-  console.log(document.cookie);
+  // console.log(`cart1 : ${JSON.stringify(cartItems)}`);
+  // console.log(document.cookie);
 
   //submit order function
   const getCurrentDate = () => {
