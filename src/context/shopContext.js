@@ -24,7 +24,7 @@ export const ShopContextProvider = ({ children }) => {
   const [useraddress,setuseraddress] = useState("");
   const [username,setusername] = useState("");
   const [commentlist,setcommentlist] = useState([]);
-  const [loadingpage,setloadingpage] = useState(false);
+  const [loadingpage,setloadingpage] = useState(true);
   const [totalAmount,settotalAmount] = useState();
 
 
@@ -53,7 +53,6 @@ export const ShopContextProvider = ({ children }) => {
           ...doc.data()
         }));
         setcommentlist(filtereddata2);
-        setloadingpage(false);
       } catch (error) {
         console.log(error);
       }
@@ -69,7 +68,6 @@ export const ShopContextProvider = ({ children }) => {
         ...doc.data()
       }));
       setcommentlist(filtereddata2);
-      setloadingpage(false);
     } catch (error) {
       console.log(error);
     }
@@ -86,6 +84,7 @@ export const ShopContextProvider = ({ children }) => {
           id: parseInt(doc.id),
         }));
         setProductlist(filteredData);
+        setloadingpage(false);
       } catch (error) {
         console.error(error);
       }
@@ -336,6 +335,7 @@ useEffect(() => {
   const contextValue = {
     userLoggedIn,
     productlist,
+    loadingpage,
     cartItems,
     totalAmount,
     addToCart,
