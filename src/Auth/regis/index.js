@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/shopContext';
+import images from '../../images/images';
 import { doCreateUserWithEmailAndPassword } from '../../myfirebase/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -34,19 +35,19 @@ export const Register = () => {
     };
 
     return (
-        <>
+        <div className='login-container'>
             {userLoggedIn && <navigate to="/" replace={true} />}
 
-            <main className="w-full h-screen flex self-center place-content-center place-items-center bg-gray-900">
-                <div className="w-96 text-gray-600 space-y-5 p-4 shadow-xl border rounded-xl bg-gray-300">
+            <main id='login-container-custom' className="flex items-center h-screen flex-wrap">
+                <div id='login-form-custom' className="w-full max-w-md p-8 rounded shadow-xl">
                     <div className="text-center mb-6">
                         <div className="mt-2">
-                            <h3 className="text-gray-800 text-xl font-semibold sm:text-2xl">Create a New Account</h3>
+                            <h3 id='login-text-custom' className="text-xl font-semibold sm:text-2xl">Create a New Account</h3>
                         </div>
                     </div>
                     <form onSubmit={onSubmit} className="space-y-4">
                         <div>
-                            <label className="text-sm text-gray-600 font-bold">Email</label>
+                            <label id='login-text-custom' className="text-sm font-bold">Email</label>
                             <input
                                 type="email"
                                 autoComplete="email"
@@ -57,7 +58,7 @@ export const Register = () => {
                             />
                         </div>
                         <div>
-                            <label className="text-sm text-gray-600 font-bold">Password</label>
+                            <label id='login-text-custom' className="text-sm font-bold">Password</label>
                             <input
                                 type="password"
                                 autoComplete="new-password"
@@ -68,7 +69,7 @@ export const Register = () => {
                             />
                         </div>
                         <div>
-                            <label className="text-sm text-gray-600 font-bold">Confirm Password</label>
+                            <label id='login-text-custom' className="text-sm  font-bold">Confirm Password</label>
                             <input
                                 type="password"
                                 autoComplete="off"
@@ -88,16 +89,17 @@ export const Register = () => {
                         >
                             {isRegistering ? 'Signing Up...' : 'Sign Up'}
                         </button>
-                        <div className="text-sm text-center">
+                        <div id='login-text-custom' className="text-sm text-center">
                             Already have an account? {'   '}
-                            <Link to="/login" className="text-center text-sm hover:underline font-bold">
+                            <Link to="/login" id='login-text-custom' className="text-center text-sm hover:underline font-bold">
                                 Continue
                             </Link>
                         </div>
                     </form>
                 </div>
+                <img id='login-img-custom' src={images.city} alt="" />
             </main>
-        </>
+        </div>
     );
 };
 

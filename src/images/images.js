@@ -5,6 +5,7 @@ import chabong from "../assets/cha bong.jpg"
 import chachien from "../assets/Chả chiên.png";
 import ronaldoquote from "../assets/ronaldo quote.jpg";
 import commentbackground from "../assets/comment-background.jpg";
+import city from "../assets/city.jpg";
 
 export default {
     spring_rolls: spring_rolls,
@@ -14,4 +15,5 @@ export default {
     chachien:chachien,
     ronaldoquote : ronaldoquote,
     commentbackground: commentbackground,
+    city: city,
 }

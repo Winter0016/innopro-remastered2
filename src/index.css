@@ -5,6 +5,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/*login */
+.login-container{
+    background-image: url('./assets/binary.jpg');
+    background-size: cover;
+    animation: backgroundMoveUp 20s linear infinite;
+}
+@keyframes backgroundMoveUp {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 0% -100%; }
+  }
+
+#login-container-custom{
+    max-width: 1300px;
+    margin:auto;
+    justify-content: center;
+    gap:3rem;
+}
+#login-img-custom{
+    border-radius:51% 49% 45% 55% / 26% 64% 36% 74%;
+    overflow: hidden;
+    width:35rem;
+    box-shadow: 4px 4px 20px 3px rgb(42, 115, 137);
+}
+#login-form-custom{
+    /* border:solid;
+    border-color: rgb(193, 219, 193); */
+    background-color: rgba(21, 21, 21, 0.864);
+}
+#login-text-custom{
+    color:rgb(202, 248, 202);
+    text-shadow: 2px 2px 20px red;
+}
+
+/* login */
+
 /* head */
 
 
