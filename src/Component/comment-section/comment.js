@@ -16,32 +16,50 @@ export const Comment = () => {
     commentsArray.sort((a, b) => new Date(a[0]) - new Date(b[0]));
 
     // Convert the sorted array back to an object
-    const sortedCommentlist = Object.fromEntries(commentsArray);
+    const sortedCommentlist = Object.fromEntries(commentsArray); // use for method2
+    // console.log(`sortedCommentlist: ${JSON.stringify(sortedCommentlist)}`);
+    const sortedcommentlist2 = Object.entries(sortedCommentlist); // use for method 1
+    // console.log(`sortedcommentlist2 : ${JSON.stringify(sortedcommentlist2)}`);
 
-    let newcommentlist = [];
 
-    for( var i in sortedCommentlist){
-        for(var j in sortedCommentlist[i]){
-            newcommentlist.push(sortedCommentlist[i][j]);
+    //Method 1:
+        let newcommentlist2 = [];
+        for(const [key,value] of sortedcommentlist2){
+            let entries2 = Object.entries(value);
+            for( const [key,value] of entries2){
+                newcommentlist2.push(value);
+            }
         }
-    }
+        newcommentlist2.sort((a,b) => new Date(a.time) - new Date(b.time));
+        // console.log(`newcommentlist2: ${JSON.stringify(newcommentlist2)}`);
 
-    newcommentlist.sort((a, b) => {
-        return new Date(a.time) - new Date(b.time);
-    });
+    //
+    //Method 2:
+        let newcommentlist = [];
 
-    // console.log(`newcommentlist: ${JSON.stringify(newcommentlist)}`);
-    
+        for( var i in sortedCommentlist){
+            for(var j in sortedCommentlist[i]){
+                newcommentlist.push(sortedCommentlist[i][j]);
+            }
+        }
+
+        newcommentlist.sort((a, b) => {
+            return new Date(a.time) - new Date(b.time);
+        });
+        // console.log(`newcommentlist: ${JSON.stringify(newcommentlist)}`);
+    //
 
     return (
         <div className='' style={{ backgroundImage: `url(${images.commentbackground})`, backgroundSize: 'cover'}}>
             <div className='comment-container pt-4 pl-5'>
                 <div id='mycomment' className="mt-5 gap-1">
-                    {
-                        newcommentlist.map((mycomment) => (
-                            <Com data={mycomment} />
-                        ))
-                    }
+
+                {
+                    newcommentlist2.map((mycomment) => (
+                        <Com data={mycomment} />
+                    ))
+                }
+
                 </div>
                 <img id='mycomment-img' className='mt-5' src={images.ronaldoquote} alt="" />
             </div>

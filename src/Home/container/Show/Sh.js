@@ -5,7 +5,7 @@ import { useAuth } from "../../../context/shopContext";
 
 export const Show = () => {
   const {productlist} = useAuth();
-  // console.log(productlist);
+  console.log(JSON.stringify(productlist));
 
     
   return (
@@ -13,7 +13,7 @@ export const Show = () => {
       <div className="product-show">
         {
             productlist.map((product) => (
-                <Product data={product} />
+                <Product key={product.id} data={product} />
             ))
         }
       </div>

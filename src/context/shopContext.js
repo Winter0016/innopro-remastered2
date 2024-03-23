@@ -28,6 +28,17 @@ export const ShopContextProvider = ({ children }) => {
   const [totalAmount,settotalAmount] = useState();
 
 
+  const initializeUser = (user) => {
+    if (user) {
+      setCurrentUser({ ...user });
+      setUserLoggedIn(true);
+    } else {
+      setCurrentUser(null);
+      setUserLoggedIn(false);
+    }
+    setLoading(false);
+  };
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
@@ -158,18 +169,6 @@ export const ShopContextProvider = ({ children }) => {
     return totalAmount;
   };
   
-
-
-  const initializeUser = (user) => {
-    if (user) {
-      setCurrentUser({ ...user });
-      setUserLoggedIn(true);
-    } else {
-      setCurrentUser(null);
-      setUserLoggedIn(false);
-    }
-    setLoading(false);
-  };
 
 
 
