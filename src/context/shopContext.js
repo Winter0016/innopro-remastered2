@@ -191,7 +191,7 @@ export const ShopContextProvider = ({ children }) => {
       // console.log(`cart1 after add : ${JSON.stringify(cartItems)}`);
     }
     else{
-      alert('please login to purchase');
+      alert('please login or sign up to purchase.');
     }
   };
 
