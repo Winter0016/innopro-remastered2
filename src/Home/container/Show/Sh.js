@@ -10,7 +10,7 @@ export const Show = () => {
 
     
   return (
-    <section className="container-product-show">
+    <section className="container-product">
       {
         loadingpage ? (
           <>
@@ -22,12 +22,21 @@ export const Show = () => {
             </div>
           </>
         ):(
-          <div className="product-show">
-            { 
-              productlist.map((product) => (
-                  <Product key={product.id} data={product} />
-              ))
-            }
+          <div className="product-container2">
+            <div className="product-show-container">
+              <div className="product-show-hero">
+                <div>hello Nguyen,</div>
+                <div>WELCOME BACK</div>
+                <div>Let's go shopping!</div>
+              </div>
+              <div className="product-show">
+                { 
+                  productlist.map((product) => (
+                      <Product key={product.id} data={product} />
+                  ))
+                }
+              </div>   
+            </div>     
           </div>
         )
       }
