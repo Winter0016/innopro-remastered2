@@ -292,7 +292,7 @@
     transition: ease-in-out 0.4s;
     overflow: hidden;
     display:block;
-    z-index: 2;
+    z-index: 200;
     background-image: linear-gradient(to bottom, pink , rgb(143, 101, 25));
 }
 .sidebar2{
@@ -305,7 +305,7 @@
     background-color: white;
     transition: ease-in-out 0.1s;
     overflow: hidden;
-    z-index: 2 ;
+    z-index: 200 ;
     background-image: linear-gradient(to bottom, pink , rgb(143, 101, 25));
 }
 .x-container{
@@ -474,11 +474,10 @@ hr{
     margin:auto;
     display:flex;
     flex-wrap: wrap;
+    gap:1rem;
 }
 .product-show-container{
-    border:solid;
-    border-color:blue;
-    width: fit-content;
+    flex:2.5;
     height: fit-content;
 }
 .product-show-hero{
@@ -495,9 +494,33 @@ hr{
     color:white;
     font-family: 'Madimi One';
 }
+@keyframes shake {
+    from{ transform: skewX(20deg)}
+    to { transform: skewX(-20deg)};
+}
 
+#word-fire:hover{
+    animation-name: shake;
+    animation-timing-function: linear;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    cursor:default;
+}
+.top-sell-container{
+    border:solid;
+    border-color:yellow;
+    flex:1;
+}
+.top-sell-hero{
+    height:20rem;
+    border:solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .product-show{
-    max-width: 900px;
+    width:100%;
     padding: 2rem 2rem;
     display:grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -517,7 +540,6 @@ hr{
     height:13rem;
 }
 .productx span{
-    color:#4B5563;
     font-family: "Montserrat";
     margin-left:0.5rem;
 }

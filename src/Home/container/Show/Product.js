@@ -15,8 +15,8 @@ export const Product = (props) => {
             <div className="productx">
                 <img src={images[imageName]} alt={name} />
                 <div className="pt-3 pb-3">
-                    <span class="font-bold text-3xl">{name}</span> <br/>
-                    <span className="text-xl">Price : {price.toLocaleString("en-US")} VND</span> <br/>
+                    <span class="font-bold text-3xl text-gray-700">{name}</span> <br/>
+                    <span className="text-xl text-red-800">Price : {price.toLocaleString("en-US")} VND</span> <br/>
                     <span>
                     <div onClick={() => addToCart(id)} class="inline-flex items-center justify-center px-5 py-3 mt-3 text-base font-medium text-center text-yellow-600	 border-2 rounded-lg  focus:ring-4 focus:ring-primary-300 hover:cursor-pointer hover:bg-green-100">
                         Add to cart
