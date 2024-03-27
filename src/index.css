@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&display=swap');
 
 
 @tailwind base;
@@ -481,7 +482,6 @@ hr{
     height: fit-content;
 }
 .product-show-hero{
-    border:solid;
     width:100%;
     display: flex;
     flex-direction: column;
@@ -489,6 +489,11 @@ hr{
     height:12rem;
     padding-left:2rem;
     gap:0.5rem;
+    background-image: url('./assets/unique.jpg');
+    background-size: cover;
+    border-radius:10px;
+    color:white;
+    font-family: 'Madimi One';
 }
 
 .product-show{
