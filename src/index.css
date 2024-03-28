@@ -472,8 +472,8 @@ hr{
     }
 }
 .product-container2{
-    border:solid;
-    border-color:red;
+    /* border:solid; */
+    /* border-color:red; */
     max-width: 1250px;
     margin:auto;
     display:flex;
@@ -545,7 +545,7 @@ hr{
     animation-direction: alternate;
 }
 .sell-show-container{
-    border:solid;
+    /* border:solid; */
     display: flex;
     flex-direction: column;
     row-gap: 2rem;

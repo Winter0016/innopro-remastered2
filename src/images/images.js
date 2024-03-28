@@ -10,12 +10,12 @@ import chaque from "../assets/cha que.jpg"
 
 export default {
     spring_rolls: spring_rolls,
-    chalua : chalua,
-    chahoa : chahoa,
-    chabong: chabong,
-    chachien:chachien,
+    ChảLụa : chalua,
+    ChảHoa : chahoa,
+    ChàBông: chabong,
+    ChảChiên:chachien,
     ronaldoquote : ronaldoquote,
     commentbackground: commentbackground,
     city: city,
-    chaque: chaque,
+    ChảQuế: chaque,
 }
