@@ -637,6 +637,7 @@ hr{
     }
     .si-container{
         opacity:1;
+        height:27rem;
     }
     .si-item-text {
         opacity: 1;
@@ -657,7 +658,7 @@ hr{
     }
     .smallbut-container{
         display:flex;
-        border:solid;
+        /* border:solid; */
         /* border-color:blue; */
         gap:4rem;
     }
@@ -666,7 +667,7 @@ hr{
         flex-direction:column;
         align-items: center;
         gap:0.4rem;
-        border:solid;
+        /* border:solid; */
         /* border-color:green; */
         overflow: hidden;
     }
