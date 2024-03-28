@@ -12,7 +12,7 @@ export const Header = () => {
     const { userLoggedIn } = useAuth();
     const [close,setclose] =useState(true);
   return (
-    <section class="fixed h-full">
+    <section class="fixed h-full z-50">
       <div className="sidebar">
         <div className="item">
           <svg className="icon"data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

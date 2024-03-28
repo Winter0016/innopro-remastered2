@@ -1,5 +1,6 @@
 import React from "react";
 import { Product } from "./Product";
+import { Salelist } from "./Salelist";
 
 
 import { useAuth } from "../../../context/shopContext";
@@ -7,6 +8,7 @@ import { auth } from "../../../myfirebase/firebase-config";
 
 export const Show = () => {
   const {productlist} = useAuth();
+  const {salelist} = useAuth();
   const {loadingpage} = useAuth();
   // console.log(JSON.stringify(productlist));
 
@@ -43,9 +45,17 @@ export const Show = () => {
               </div>   
             </div>
             <div className="top-sell-container">
-                <div className="top-sell-hero">
-                  <div>HOT SALE 30%</div>
-                </div>
+              <div id="top-sell-hero">
+                <div id="hot-sale">HOT SALE 30%</div>
+                <svg id="arrow-down" width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3V21M12 21L5 14M12 21L19 14" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </div>
+              <div className="sell-show-container">
+                { 
+                  salelist.map((product) => (
+                      <Salelist key={product.id} data={product} />
+                  ))
+                }
+              </div>
             </div>     
           </div>
         )

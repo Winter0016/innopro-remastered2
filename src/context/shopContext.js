@@ -16,6 +16,7 @@ export const ShopContextProvider = ({ children }) => {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [productlist, setProductlist] = useState([]);
+  const [salelist,setsalelist] = useState([]);
   const [cartItems, setCartItems] = useState({});
   let [paymentdone , setpaymentdone] = useState(false);
   const [useremail,setuseremail] = useState("");
@@ -83,6 +84,12 @@ export const ShopContextProvider = ({ children }) => {
           ...doc.data(),
           id: parseInt(doc.id),
         }));
+        const data2 = await getDocs(collection(db, "hot-sales"));
+        const filteredData2 = data2.docs.map((doc) => ({
+          ...doc.data(),
+          id: parseInt(doc.id),
+        }));
+        setsalelist(filteredData2);
         setProductlist(filteredData);
         setloadingpage(false);
       } catch (error) {
@@ -92,6 +99,7 @@ export const ShopContextProvider = ({ children }) => {
     getProductlist();
   }, []);
   // console.log(JSON.stringify(productlist));
+    console.log(JSON.stringify(salelist));
 
   const getDefaultCart = async () => {
     // console.log(`get default baby`)
@@ -333,6 +341,7 @@ useEffect(() => {
 
 
   const contextValue = {
+    salelist,
     userLoggedIn,
     productlist,
     loadingpage,
