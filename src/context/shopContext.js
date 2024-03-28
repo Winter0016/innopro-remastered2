@@ -99,15 +99,24 @@ export const ShopContextProvider = ({ children }) => {
     getProductlist();
   }, []);
   // console.log(JSON.stringify(productlist));
-    console.log(JSON.stringify(salelist));
+    // console.log(JSON.stringify(salelist));
 
   const getDefaultCart = async () => {
     // console.log(`get default baby`)
     // console.log(`productlist : ${JSON.stringify(productlist)}`);
     // console.log(`productlist.length : ${productlist.length}`);
     let cart = {};
-    for (let i = 0; i < productlist.length; i++) {
-      cart[productlist[i].id] = 0;
+    for (let i = 0; i < productlist.length + salelist.length; i++) {
+      if(i < productlist.length){
+        cart[productlist[i].id] = 0;
+          // console.log(`cart in default : ${JSON.stringify(cart)}`);
+      }
+      else{
+        for( let y = 0 ; y < salelist.length ; y++ ){
+          cart[salelist[y].id] = 0;
+          // console.log(`cart in default : ${JSON.stringify(cart)}`);
+        }
+      }
     }
     // console.log(`cart in default : ${JSON.stringify(cart)}`);
     setCartItems(cart);
@@ -136,8 +145,17 @@ export const ShopContextProvider = ({ children }) => {
           console.log(error);
         }
         let cart = {};
-        for (let i = 0; i < productlist.length; i++) {
-          cart[productlist[i].id] = 0;
+        for (let i = 0; i < productlist.length + salelist.length; i++) {
+          if(i < productlist.length){
+            cart[productlist[i].id] = 0;
+            // console.log(`cart in default : ${JSON.stringify(cart)}`);
+          }
+          else{
+            for( let y = 0 ; y < salelist.length ; y++ ){
+              cart[salelist[y].id] = 0;
+              // console.log(`cart in default : ${JSON.stringify(cart)}`);
+            }
+          }
         }
         const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
         // console.log(`cart : ${cart}`)
@@ -165,7 +183,7 @@ export const ShopContextProvider = ({ children }) => {
     if (productlist && productlist.length > 0) {
       for (const item in cartItems) {
         if (cartItems[item] > 0) {
-          const itemInfo = productlist.find((product) => product.id === Number(item));
+          const itemInfo = productlist.find((product) => product.id === Number(item)) || salelist.find((sale) => sale.id === Number(item));
           if (itemInfo && itemInfo.price) {
             totalAmount += cartItems[item] * itemInfo.price;
           }
