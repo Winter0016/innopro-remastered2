@@ -357,7 +357,6 @@ useEffect(() => {
   return () => clearTimeout(timer);
 }, [paymentdone]);
 
-
   const contextValue = {
     salelist,
     userLoggedIn,

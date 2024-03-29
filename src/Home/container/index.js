@@ -2,12 +2,12 @@
 import { Advertisement }  from "./Advertisement"
 // import { Contact } from "./Contact/contact";
 // import { Order } from "./Order/order";
-// import { Title } from "./Title/title";
+import { Title } from "./Title/index.js";
 import { Show } from "./Show/Sh.js";
 
 export {
     Advertisement,
-    // Title,
+    Title,
     Show,
     // About,
     // Order,
