@@ -340,6 +340,11 @@ const submitorder = async () => {
           onsubmitproduct(product, currentdate);
       }
     });
+    salelist.forEach((product2) => {
+      if (cartItems[product2.id] !== 0) {
+          onsubmitproduct(product2, currentdate);
+      }
+    });
     await product_total(currentdate);
     setpaymentdone(true);
     clearAllCookies();
