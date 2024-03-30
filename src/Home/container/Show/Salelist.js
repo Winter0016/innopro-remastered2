@@ -8,8 +8,16 @@ export const Salelist = (props) => {
   return (
     <>
         <div className="productx">
-            <img src={images[imageName]} alt={name} />
-            <div className="pt-3 pb-3 w-full">
+            <div className='productx-container1'>
+                <div className="productx-details">
+                    <div>Nguyên Liệu: </div>
+                    <div>Hạn sử dụng: 30 ngày</div>
+                    <div>Số lượng trong kho: </div>
+                    <div>Hot Sale: Thứ 3-7-Chủ Nhật</div>
+                </div>
+                <img className='productx-imga' src={images[imageName]} alt={name} />
+            </div>
+            <div className="productx-info">
                 <span className="font-bold text-3xl text-gray-700">{name}</span> <br/>
                 <span className="lg:text-2xl sm:text-2xl md:text-lg text-red-800">Giá : {price.toLocaleString("en-US")} VND</span> <br/>
                 <span className="text-xl text-black lg:pl-14 sm:pl-14 md:pl-10 line-through ..."> ({original.toLocaleString("en-US")}VND)</span>

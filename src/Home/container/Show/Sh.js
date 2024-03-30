@@ -29,7 +29,7 @@ export const Show = () => {
           <div className="product-container2">
             <div className="product-show-container">
               <div className="product-show-hero">
-                <div className="md:text-2xl lg:text-2xl text-1xl">Hello { auth?.currentUser?.displayName ? auth.currentUser.displayName : ``},</div>
+                <div className="md:text-2xl lg:text-2xl text-1xl">Hello { auth?.currentUser?.email ? auth.currentUser.displayName || auth.currentUser.email : ``},</div>
                 <div className=" md:text-6xl lg:text-6xl text-3xl">WELCOME BACK!</div>
                 <div id="word-fire" className="text-3xl flex gap-1 w-fit rounded-lg p-2 bg-yellow-300">
                   Let's go shopping
