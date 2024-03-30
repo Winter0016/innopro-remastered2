@@ -10,7 +10,13 @@ export const Checkout = () => {
   return (
     <>
         <div className='checkout-show'>
-          <h1 className='w-full text-center mb-2 text-4xl'>Please fill this form to submit your order.</h1>
+          {
+            paymentdone ? (
+              <h1 className='w-full text-center mt-4 text-2xl text-green-400'>Cảm ơn quý khách! Chúng tôi đã nhận được đơn hàng.</h1>     
+            ):(
+              <h1 className='w-full text-center mb-2 text-4xl'>Please fill this form to submit your order.</h1>
+            )
+          }
           <form className=' max-w-3xl bg-yellow-100 m-auto rounded-lg overflow-auto border-4 pb-3 pt-3 pl-2' action="#" onSubmit={(e) => {
             e.preventDefault();
             submitorder();
@@ -72,13 +78,6 @@ export const Checkout = () => {
               </div>
             </div>            
           </form>
-          {
-            paymentdone ? (
-              <h1 className='w-full text-center mt-4 text-2xl text-green-400'>Cảm ơn quý khách! Chúng tôi đã nhận được đơn hàng.</h1>     
-            ):(
-              <></>
-            )
-          }
         </div>
     </>
   )
