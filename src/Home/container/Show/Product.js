@@ -2,7 +2,7 @@ import React from 'react';
 import images from '../../../images/images';
 import { useAuth } from '../../../context/shopContext';
 export const Product = (props) => {
-    const { name, price, id } = props.data;
+    const { name, price, id,hotsales} = props.data;
     const {addToCart} = useAuth();
 
     // Replace spaces with underscores to match the image keys
@@ -18,7 +18,7 @@ export const Product = (props) => {
                         <div>Nguyên Liệu: </div>
                         <div>Hạn sử dụng: 30 ngày</div>
                         <div>Số lượng trong kho: </div>
-                        <div>Hot Sale: Thứ 3-7-Chủ Nhật</div>
+                        <div>Hot Sale: Thứ {hotsales} </div>
                     </div>
                     <img className='productx-imga' src={images[imageName]} alt={name} />
                 </div>

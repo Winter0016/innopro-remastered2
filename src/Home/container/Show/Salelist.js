@@ -13,7 +13,6 @@ export const Salelist = (props) => {
                     <div>Nguyên Liệu: </div>
                     <div>Hạn sử dụng: 30 ngày</div>
                     <div>Số lượng trong kho: </div>
-                    <div>Hot Sale: Thứ 3-7-Chủ Nhật</div>
                 </div>
                 <img className='productx-imga' src={images[imageName]} alt={name} />
             </div>
