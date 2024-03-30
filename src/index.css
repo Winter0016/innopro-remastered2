@@ -156,6 +156,11 @@
     z-index:-1;
     overflow: hidden;
 }
+.checkout-show button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .checkout-submit{
     z-index:-1;
     overflow: hidden;

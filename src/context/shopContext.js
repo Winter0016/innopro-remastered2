@@ -19,6 +19,7 @@ export const ShopContextProvider = ({ children }) => {
   const [salelist,setsalelist] = useState([]);
   const [cartItems, setCartItems] = useState({});
   let [paymentdone , setpaymentdone] = useState(false);
+  const [payingstatus,setpayingstatus] = useState(false);
   const [useremail,setuseremail] = useState("");
   const [usercomment,setusercomment] = useState("");
   const [userphone,setuserphone] = useState("");
@@ -323,6 +324,7 @@ const product_total = async (currentdate) => {
 };
 
 const submitorder = async () => {
+  setpayingstatus(true);
   // console.log('submit order');
   const currentdate = getCurrentDateTime();
   let checking = false;
@@ -336,17 +338,18 @@ const submitorder = async () => {
   }
   else{
     productlist.forEach((product) => {
-      if (cartItems[product.id] !== 0) {
+      if (cartItems[product.id] > 0) {
           onsubmitproduct(product, currentdate);
       }
     });
     salelist.forEach((product2) => {
-      if (cartItems[product2.id] !== 0) {
+      if (cartItems[product2.id] > 0) {
           onsubmitproduct(product2, currentdate);
       }
     });
     await product_total(currentdate);
     setpaymentdone(true);
+    setpayingstatus(false);
     clearAllCookies();
     getDefaultCart();
   }
@@ -363,6 +366,7 @@ useEffect(() => {
 }, [paymentdone]);
 
   const contextValue = {
+    payingstatus,
     salelist,
     userLoggedIn,
     productlist,

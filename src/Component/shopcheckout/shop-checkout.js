@@ -4,6 +4,7 @@ import { useAuth } from '../../context/shopContext'
 export const Checkout = () => {
   const {submitorder} = useAuth();
   const {paymentdone} = useAuth();
+  const{payingstatus} = useAuth();
   const {useremail,userphone,username,useraddress,usercomment} = useAuth()
   const {setuseremail,setuseraddress,setuserphone,setusercomment,setusername} = useAuth();
   return (
@@ -62,7 +63,7 @@ export const Checkout = () => {
               </div>           
             </div>
             <div className='flex flex-wrap pt-3 pl-2  overflow-hidden checkout-submit'>
-              <button type="submit" className="text-white bg-blue-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center hover:cursor-pointer">Submit my order</button>        
+              <button type="submit" className="text-white bg-blue-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center hover:cursor-pointer" disabled={payingstatus} > {payingstatus ? "Đang xử lý...." : "Đặt hàng"}</button>        
               <div className="flex justify-center items-center ml-9 sm:mb-1">
                 <div className="flex items-center">
                   <input id="remember" type="checkbox" value="" className="w-6 h-6 border border-gray-300 rounded bg-gray-50" required />
@@ -73,7 +74,7 @@ export const Checkout = () => {
           </form>
           {
             paymentdone ? (
-              <h1 className='w-full text-center mt-4 text-3xl text-green-400'>Thank you for shopping with us! Your purchase is complete.</h1>     
+              <h1 className='w-full text-center mt-4 text-2xl text-green-400'>Cảm ơn quý khách! Chúng tôi đã nhận được đơn hàng.</h1>     
             ):(
               <></>
             )
