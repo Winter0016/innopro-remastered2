@@ -87,7 +87,7 @@ export const Cart = () => {
                     totalAmount > 0 ? (
                       <div className=' finish-container'>
                         <div className='bg-green-500 rounded-lg mb-2 si-info-name'> Total: {totalAmount.toLocaleString("en-US")}</div>
-                        <div onClick={() => navigate("/checkout")} className=" bg-red-500 rounded-2xl w-64 m-auto goto-checkout hover:cursor-pointer hover:bg-yellow-400 hover:scale-125 si-info-name"> Checkout </div>
+                        <div onClick={() => {navigate("/checkout") ; setclosecart(true)}} className=" bg-red-500 rounded-2xl w-64 m-auto goto-checkout hover:cursor-pointer hover:bg-yellow-400 hover:scale-125 si-info-name"> Checkout </div>
                       </div>
                     ):(
                       <>
