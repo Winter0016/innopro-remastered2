@@ -284,7 +284,6 @@
     padding: 1.5rem;
     background-color: white;
     transition: ease-in-out 0.5s;
-    overflow: auto;
     background-image: linear-gradient(to bottom, pink,rgb(239, 239, 183));
     /* border: solid; */
     /* border-color:pink; */
@@ -709,9 +708,10 @@ hr{
 
 /* comment */
 .comment-container{
-    max-width: 1200px;
+    border:solid;
+    max-width: 1210px;
     height:100vh;
-    margin: auto;
+    margin-left: 16.7rem;
     display:flex;
     flex-wrap: wrap;
     gap:8rem;

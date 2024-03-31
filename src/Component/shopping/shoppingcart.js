@@ -22,8 +22,6 @@ export const Cart = () => {
   return (
     
     <>
-      {
-        userLoggedIn ? (
           <section className="fixed right-0 h-full z-50">
             <div className="sidecart2">
               <div className='si-item'>
@@ -98,12 +96,7 @@ export const Cart = () => {
                 </div>
               )
             }
-          </section>
-        ):(
-          <></>
-        )
-      }
-    
+          </section>    
     </>
   )
 }

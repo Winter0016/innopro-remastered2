@@ -200,26 +200,21 @@ export const ShopContextProvider = ({ children }) => {
 
 
   const addToCart = (itemId) => {
-    if(userLoggedIn) {
-      const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
-      let cartItems = {};
-      if (cookieValue) {
-          const cartItemsString = cookieValue.split('=')[1];
-          cartItems = JSON.parse(cartItemsString);
-          // console.log(`cartitemsjsondata : ${JSON.stringify(cartItems)}`);
-        }
-      cartItems[itemId] = (cartItems[itemId] || 0) + 1;
-      const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
-      document.cookie = `cartItems=${JSON.stringify(cartItems)}; expires=${expires}; path=/`;
-      // console.log(`document.cookie after add : ${document.cookie}`);
-      const cookieValue2 = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
-      const cartItemsString = cookieValue2 ? cookieValue2.substring(cookieValue2.indexOf('=') + 1) : null;
-      setCartItems(cartItemsString ? JSON.parse(cartItemsString) : {});    
-      // console.log(`cart1 after add : ${JSON.stringify(cartItems)}`);
-    }
-    else{
-      alert('please login or sign up to purchase !');
-    }
+    const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
+    let cartItems = {};
+    if (cookieValue) {
+        const cartItemsString = cookieValue.split('=')[1];
+        cartItems = JSON.parse(cartItemsString);
+        // console.log(`cartitemsjsondata : ${JSON.stringify(cartItems)}`);
+      }
+    cartItems[itemId] = (cartItems[itemId] || 0) + 1;
+    const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `cartItems=${JSON.stringify(cartItems)}; expires=${expires}; path=/`;
+    // console.log(`document.cookie after add : ${document.cookie}`);
+    const cookieValue2 = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
+    const cartItemsString = cookieValue2 ? cookieValue2.substring(cookieValue2.indexOf('=') + 1) : null;
+    setCartItems(cartItemsString ? JSON.parse(cartItemsString) : {});    
+    // console.log(`cart1 after add : ${JSON.stringify(cartItems)}`);
   };
 
   const removeFromCart = (itemId) => {
@@ -281,7 +276,7 @@ export const ShopContextProvider = ({ children }) => {
 
 const onsubmitproduct = async (product, currentdate) => {
   try {
-      const documentPath = `${currentdate}_${auth.currentUser.email}`;
+      const documentPath = auth?.currentUser?.email ?  `${currentdate}_${auth.currentUser.email}` : `${currentdate}_${useremail}`;
       const productDoc = doc(db, "orders", documentPath);
       const cartItemValue = cartItems[product.id] || 0;
       const dataToUpdate = {
@@ -303,9 +298,9 @@ const currentdateonly = getCurrentDate();
 
 const product_total = async (currentdate) => {
   try {
-      const documentPath = `${currentdate}_${auth.currentUser.email}`;
-      const productDoc = doc(db, "orders", documentPath);
-      await updateDoc(productDoc, { total: productstotalprice, username: username , useremail:useremail, usercomment:usercomment , useraddress: useraddress,userphone:userphone });
+    const documentPath = auth?.currentUser?.email ?  `${currentdate}_${auth.currentUser.email}` : `${currentdate}_${useremail}`;
+    const productDoc = doc(db, "orders", documentPath);
+      await updateDoc(productDoc, { total: productstotalprice, username: username , useremail: auth?.currentUser?.email ? auth.currentUser.email : useremail, usercomment:usercomment , useraddress: useraddress,userphone:userphone });
       const productDoc2 = doc(db, "comments",currentdateonly)
       const dataupdate2 = {
         [currentdate]:{

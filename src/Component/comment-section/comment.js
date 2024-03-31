@@ -53,13 +53,11 @@ export const Comment = () => {
         <div className='' style={{ backgroundImage: `url(${images.commentbackground})`, backgroundSize: 'cover'}}>
             <div className='comment-container pt-4 pl-5'>
                 <div id='mycomment' className="mt-5 gap-1">
-
-                {
-                    newcommentlist2.map((mycomment) => (
-                        <Com data={mycomment} />
-                    ))
-                }
-
+                    {
+                        newcommentlist2.map((mycomment) => (
+                            <Com data={mycomment} />
+                        ))
+                    }
                 </div>
                 <img id='mycomment-img' className='mt-5' src={images.ronaldoquote} alt="" />
             </div>
