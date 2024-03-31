@@ -8,6 +8,7 @@
 @tailwind utilities;
 /*login */
 .login-container{
+    height:100%;
     background-image: url('./assets/binary.jpg');
     background-size: cover;
     animation: backgroundMoveUp 20s linear infinite;
@@ -758,6 +759,9 @@ hr{
 
 
 @media (max-width:767px){
+    #login-img-custom{
+        display:none;
+    }
     .checkout-submit{
         gap:1rem;
     }
@@ -889,6 +893,9 @@ hr{
     .sidecart{
         display:block;
         width:19rem;
+    }
+    #login-img-custom{
+        display:none;
     }
 }
   
