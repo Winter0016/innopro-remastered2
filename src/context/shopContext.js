@@ -64,7 +64,7 @@ export const ShopContextProvider = ({ children }) => {
 
   const onchangecommentlist = async () => {
     try {
-      // console.log(`changing comment`)
+      console.log(`changing comment`)
       const data2 = await getDocs(collection(db, "comments"));
       const filtereddata2 = data2.docs.map((doc) => ({
         ...doc.data()
@@ -304,14 +304,14 @@ const product_total = async (currentdate) => {
       const productDoc2 = doc(db, "comments",currentdateonly)
       const dataupdate2 = {
         [currentdate]:{
-          comment_username : auth.currentUser.displayName ? auth.currentUser.displayName : username,
+          comment_username : auth?.currentUser?.displayName ? auth.currentUser.displayName : username,
           comment: usercomment,
-          photo: auth.currentUser.photoURL? auth.currentUser.photoURL : null,
+          photo: auth?.currentUser?.photoURL? auth.currentUser.photoURL : null,
           time : currentdate,
         }
       };
       await setDoc(productDoc2,dataupdate2,{merge:true});
-      // console.log('updated comment successfully')
+      console.log('updated comment successfully')
       onchangecommentlist();
   } catch (err) {
       console.log(err);
