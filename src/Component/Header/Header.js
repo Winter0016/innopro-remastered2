@@ -4,16 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { doSignOut } from '../../myfirebase/auth';
 import { useAuth } from '../../context/shopContext';
 import { auth } from '../../myfirebase/firebase-config';
+import images from '../../images/images';
 
 
 export const Header = () => {
     const navigate = useNavigate();
-    const [isReloaded, setIsReloaded] = useState(false);
     const { userLoggedIn } = useAuth();
     const [close,setclose] =useState(true);
   return (
     <section className="fixed h-full z-50">
       <div className="sidebar">
+        <div className='logo'>
+          <img src={images.logo} alt="" />
+        </div>
         <div className="item">
           <svg className="icon"data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
@@ -89,6 +92,9 @@ export const Header = () => {
           </div>
         ):(
           <div className="sidebar2">
+            <div className='logo'>
+              <img src={images.logo} alt="" />
+            </div>
             <div className="x-container" onClick={() => setclose(true)}>
                 <svg className="icon"data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"></path>

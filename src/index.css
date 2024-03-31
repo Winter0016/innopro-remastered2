@@ -419,6 +419,17 @@ hr{
     height:1px;
     color: #919191;
 }
+.logo{
+    display: flex;
+    justify-content: center;
+    /* border:solid; */
+}
+.logo img{
+    width:3rem;
+    /* border:solid; */
+    margin-left: -0.5rem;
+}
+
 .item{
     display:flex;
     align-items: center;

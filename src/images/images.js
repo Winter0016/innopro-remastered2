@@ -7,8 +7,10 @@ import ronaldoquote from "../assets/ronaldo quote.jpg";
 import commentbackground from "../assets/comment-background.jpg";
 import city from "../assets/city.jpg";
 import chaque from "../assets/cha que.jpg"
+import logo from "../assets/logo.png";
 
 export default {
+    logo :logo,
     spring_rolls: spring_rolls,
     ChảLụa : chalua,
     ChảHoa : chahoa,
