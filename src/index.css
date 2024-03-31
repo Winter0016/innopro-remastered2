@@ -709,7 +709,7 @@ hr{
 
 /* comment */
 .comment-container{
-    border:solid;
+    /* border:solid; */
     max-width: 1210px;
     height:100vh;
     margin-left: auto;
