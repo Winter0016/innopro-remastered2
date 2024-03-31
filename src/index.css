@@ -711,7 +711,7 @@ hr{
     border:solid;
     max-width: 1210px;
     height:100vh;
-    margin-left: 16.7rem;
+    margin-left: auto;
     display:flex;
     flex-wrap: wrap;
     gap:8rem;
