@@ -675,6 +675,9 @@ hr{
     column-gap: 3rem;
     row-gap: 3rem;
 }
+#productx-fontfamily{
+    font-family:"Madimi One" ;
+}
 
 .productx {
     position: relative;
