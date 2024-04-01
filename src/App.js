@@ -6,7 +6,6 @@ import { Register } from './Auth/regis/index';
 import { Home } from './Home/Home';
 import { Cart } from './Component/shopping/shoppingcart';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { useAuth } from './context/shopContext';
 import { Checkout } from './Component/shopcheckout/shop-checkout';
 import { Comment } from './Component/comment-section/comment';
 function App() {

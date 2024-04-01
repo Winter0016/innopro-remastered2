@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../myfirebase/auth';
+import { doPasswordReset } from '../../myfirebase/auth';
+
 import { useAuth } from '../../context/shopContext';
 import images from '../../images/images';
 export const Login = () => {
     const { userLoggedIn } = useAuth();
-
+    const [sendemailreset ,setsendemailreset] = useState('');
+    const [sendedemail,setsendedemail] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isSigningIn, setIsSigningIn] = useState(false);
+    const [forgotpass,setforgotpass] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
     const onSubmit = async (e) => {
@@ -36,6 +41,15 @@ export const Login = () => {
             }
         }
     };
+    useEffect(() => {
+        let timer;
+        if (sendedemail) {
+          timer = setTimeout(() => {
+            setsendedemail(false);
+          }, 5000);
+        }
+        return () => clearTimeout(timer);
+      }, [sendedemail]);
 
     return (
         <div className='login-container'>
@@ -84,6 +98,45 @@ export const Login = () => {
                         </button>
                     </form>
                     <p id='login-text-custom' className="text-center text-sm mt-4">Don't have an account? <Link to={'/register'} className="text-indigo-600 font-semibold hover:underline">Sign up</Link></p>
+                    {
+                        forgotpass ? (                                
+                            <form className='mt-2' onSubmit={(e) => {doPasswordReset(sendemailreset); e.preventDefault(); setforgotpass(false); setsendedemail(true) }}>
+                                <label id='login-text-custom' htmlFor="resetpassword" className="block text-sm font-medium text-gray-700 mb-2">
+                                    Enter your gmail
+                                </label>
+                                <input
+                                    id="email"
+                                    type="email"
+                                    autoComplete="email"
+                                    required
+                                    value={sendemailreset}
+                                    onChange={(e) => setsendemailreset(e.target.value)}
+                                    className="mt-1 block w-full px-3 py-2 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none sm:text-sm"
+                                />
+                                <button
+                                    type="submit"
+                                    // disabled={isSigningIn}
+                                    className={`w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md ${isSigningIn ? 'opacity-50 cursor-not-allowed' : 'hover:bg-indigo-700'}`}
+                                >
+                                    Send Email.
+                                    {/* {isSigningIn ? 'Signing In...' : 'Sign In'} */}
+                                </button>
+                            </form>
+                        ):(
+                            <>
+                                <p id='login-text-custom' className="text-center text-sm mt-3">Forgot password? <span className="text-indigo-600 font-semibold hover: cursor-pointer" onClick={()=> setforgotpass(true)}>Reset Password</span></p>
+                                {
+                                    sendedemail ? (
+                                        <p id='reset-text-custom' className="text-center text-sm mt-3">Đã gửi resetpassword qua email.</p>
+                                    ):(
+                                        <>
+
+                                        </>
+                                    )
+                                }
+                            </>
+                        )
+                    }
                     <div className="flex items-center mt-6">
                         <div className="w-full border-t border-gray-300"></div>
                         <p className="mx-3 text-sm">OR</p>

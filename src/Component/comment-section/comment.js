@@ -5,6 +5,7 @@ import images from '../../images/images';
 
 export const Comment = () => {
     const { commentlist } = useAuth();
+    const {loadingpage} = useAuth();
 
     // for (const key in commentlist) {
     //     console.log(commentlist[key]);
@@ -54,9 +55,22 @@ export const Comment = () => {
             <div className='comment-container pt-4 pl-5'>
                 <div id='mycomment' className="mt-5 gap-1">
                     {
-                        newcommentlist2.map((mycomment) => (
-                            <Com data={mycomment} />
-                        ))
+                        loadingpage ? (
+                            <div className="product-loading">
+                                <div className="tiktok-spinner">
+                                    <div className="ball red"></div>
+                                    <div className="ball blue"></div>
+                                </div>
+                            </div>
+                        ):(
+                            <>
+                                {
+                                    newcommentlist2.map((mycomment) => (
+                                        <Com data={mycomment} />
+                                    ))
+                                }                          
+                            </>
+                        )
                     }
                 </div>
                 <img id='mycomment-img' className='mt-5' src={images.ronaldoquote} alt="" />

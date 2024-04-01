@@ -8,7 +8,7 @@
 @tailwind utilities;
 /*login */
 .login-container{
-    height:100%;
+    height:100vh;
     background-image: url('./assets/binary.jpg');
     background-size: cover;
     animation: backgroundMoveUp 20s linear infinite;
@@ -42,10 +42,32 @@
 
 /* login */
 
-/* head */
+/* reset */
+#reset-text-custom{
+    color:rgb(255, 30, 30);
+    text-shadow: 2px 2px 20px red;
+}
+.reset-form{
+    border:solid;
+    max-width: 800px;
+    margin:auto;
+    border-color:red;
+    color:rgb(202, 248, 202);
+    display: flex;
+    justify-content: center;
+}
+
+.reset-container{
+    display:flex;
+    align-items: center;
+    height:100vh;
+    background-image: url('./assets/binary.jpg');
+    background-size: cover;
+    animation: backgroundMoveUp 20s linear infinite;
+}
 
 
-/* head */
+/* reset */
 
 
 /* ad */
