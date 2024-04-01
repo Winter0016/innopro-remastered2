@@ -28,6 +28,7 @@ export const ShopContextProvider = ({ children }) => {
   const [commentlist,setcommentlist] = useState([]);
   const [loadingpage,setloadingpage] = useState(true);
   const [totalAmount,settotalAmount] = useState();
+  const [totalproductnumber,settotalproductnumer]= useState();
 
 
   const initializeUser = (user) => {
@@ -176,7 +177,17 @@ export const ShopContextProvider = ({ children }) => {
 
   useEffect(() =>{
     settotalAmount(getTotalCartAmount());
+    settotalproductnumer(gettotalproductnumber());
   },[cartItems])
+
+  const gettotalproductnumber = () => {
+    let totalAmount = 0;
+    for( var key in cartItems){
+      totalAmount = totalAmount + cartItems[key];
+    }
+    return totalAmount;
+  }
+  // console.log(`totalproductnumber : ${totalproductnumber}`);
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
@@ -361,6 +372,7 @@ useEffect(() => {
 }, [paymentdone]);
 
   const contextValue = {
+    totalproductnumber,
     payingstatus,
     salelist,
     userLoggedIn,
