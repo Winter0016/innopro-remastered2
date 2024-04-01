@@ -93,7 +93,7 @@ export const Cart = () => {
                     })}
                     {salelist.map((product)=>{
                       if(cartItems[product.id]!==0 && cartItems[product.id] !== undefined){
-                        return <CartItem data={product} />
+                        return <CartItem2 data={product} />
                       }
                     })}                  
                   </div>

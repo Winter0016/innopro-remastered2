@@ -266,6 +266,7 @@
     opacity:0;
     transition: ease-in-out 0.5s;
     overflow-y: auto;
+    padding-bottom: 2rem;
 }
 
 .si-container img{
@@ -868,6 +869,7 @@ hr{
         display:none;
     }
     .sidecart{
+        /* border:solid; */
         display:block;
         width:19rem;
     }
@@ -936,8 +938,7 @@ hr{
     }
     .smallbut-container{
         display:flex;
-        /* border:solid; */
-        /* border-color:blue; */
+        border:solid;
         gap:4rem;
     }
     .but-container{
