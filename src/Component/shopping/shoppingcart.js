@@ -55,7 +55,7 @@ export const Cart = () => {
                     <div onClick={() => navigate("/checkout")} className=" bg-red-500 rounded-2xl w-64 m-auto goto-checkout hover:cursor-pointer hover:bg-yellow-400 hover:scale-125 si-info-name"> Checkout </div>
                   </div>
                 ):(
-                  <h1 className='text-white absolute text-center w-full text-6xl top-32 pr-14'> Your Cart is empty </h1>
+                  <h1 className='text-black absolute text-center w-full text-6xl top-32 pr-14'> Your Cart is empty </h1>
                 )
               }
             </div>
@@ -105,7 +105,7 @@ export const Cart = () => {
                       </div>
                     ):(
                       <>
-                        <h1 className=' text-white absolute text-center w-full text-5xl pr-14 top-32'>Your Cart is empty</h1>
+                        <h1 className=' text-black absolute text-center w-full text-5xl pr-14 top-32'>Your Cart is empty</h1>
                       </>
                     )
                   } 

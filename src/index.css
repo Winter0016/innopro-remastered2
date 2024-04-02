@@ -6,6 +6,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.Home-container{
+
+}
+.Home-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/white-paper-texture_1194-2301.avif');
+  background-size: contain;
+  background-position: center;
+  filter: blur(4px);
+  z-index: -1; /* Ensure it stays behind other content */
+}
 /*login */
 .login-container{
     height:100vh;
@@ -86,7 +102,7 @@
 }
 
 .ad-custombg{
-    background-image: linear-gradient(to right,pink,rgb(250, 250, 173));
+    /* background-image: linear-gradient(to right,pink,rgb(250, 250, 173)); */
     /* background-color: #121212; */
 }
 
@@ -94,7 +110,7 @@
 
 /* slideshow */
 .myslideshow-container{
-    background-image: linear-gradient(to right,pink,rgb(250, 250, 173));
+    /* background-image: linear-gradient(to right,pink,rgb(250, 250, 173)); */
     /* background-color: #121212; */
 }
 .slideshow-container{
@@ -125,7 +141,7 @@
     border-image-slice: 1;
 }
 @keyframes fading{
-    from{ opacity: 0.4;}
+    from{ opacity: 0.2;}
     to { opacity: 1}
 }
 @keyframes dotcolor{
@@ -278,7 +294,8 @@
 }
 .si-info-name {
     font-size: 2rem;
-    color: white;
+    color: black;
+    font-family: 'Madimi One';
     font-weight: 600;
     letter-spacing: -0.025rem;
     text-align: center;
@@ -308,9 +325,11 @@
     height: 100%;
     box-sizing: border-box;
     padding: 1.5rem;
-    background-color: white;
     transition: ease-in-out 0.5s;
-    background-image: linear-gradient(to bottom, pink,rgb(239, 239, 183));
+    /* background-image: linear-gradient(to bottom, pink,rgb(239, 239, 183)); */
+    background-image: url('./assets/white-paper-texture_1194-2301.avif');
+    background-size: cover;
+    background-position: center;
     /* border: solid; */
     /* border-color:pink; */
 }
@@ -409,9 +428,9 @@
     transition-delay: 0.2s;
     white-space: nowrap;
     margin-left : 1rem;
-    font-family:sans-serif;
+    font-family:'Madimi One';
     font-size:2rem;
-    color:white;
+    color:black;
 }
 
 .sidecart2:hover > .si-item .si-item-text {
@@ -438,7 +457,10 @@
     overflow: hidden;
     display:block;
     z-index: 200;
-    background-image: linear-gradient(to bottom, pink,rgb(239, 239, 183));
+    /* background-image: linear-gradient(to bottom, pink,rgb(239, 239, 183)); */
+    background-image: url('./assets/white-paper-texture_1194-2301.avif');
+    background-size: cover;
+    background-position: center;
 }
 .sidebar2{
     position: relative;
@@ -452,7 +474,10 @@
     transition: ease-in-out 0.1s;
     overflow: hidden;
     z-index: 200 ;
-    background-image: linear-gradient(to bottom, pink,rgb(239, 239, 183));
+    /* background-image: linear-gradient(to bottom, pink,rgb(239, 239, 183)); */
+    background-image: url('./assets/white-paper-texture_1194-2301.avif');
+    background-size: cover;
+    background-position: center;
 }
 .x-container{
     position:absolute;
@@ -563,7 +588,7 @@ hr{
 /* product show */
 
 .container-product{
-   background-image: linear-gradient(to right,pink,rgb(250, 250, 173));
+   /* background-image: linear-gradient(to right,pink,rgb(250, 250, 173)); */
    width:100%;
 }
 .product-loading{
@@ -696,7 +721,7 @@ hr{
     background-image: linear-gradient(to left,rgb(239, 239, 139),rgb(244, 128, 145));
     border-radius:2rem;
 }
-#hot-sale{
+#hot-sale{  
     font-size:2rem;
     font-family: 'Madimi One';
     background-image: linear-gradient(to left,pink,rgb(254, 254, 165));
