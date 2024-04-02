@@ -7,9 +7,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.Home-container{
 
-}
 .Home-background {
   position: fixed;
   top: 0;
@@ -23,6 +21,7 @@
   z-index: -1; /* Ensure it stays behind other content */
 }
 /*login */
+
 .login-container{
     height:100vh;
     background-image: url('./assets/binary.jpg');
@@ -45,6 +44,7 @@
     overflow: hidden;
     width:35rem;
     box-shadow: 4px 4px 20px 3px rgb(42, 115, 137);
+    filter: blur(5px);
 }
 #login-form-custom{
     /* border:solid;
@@ -319,6 +319,11 @@
 .sidecart2:hover > .finish-container{
     opacity:1;
 }
+.sidecart.alternate-background,.sidecart2.alternate-background{
+    background-image: linear-gradient(to bottom,rgb(69, 69, 255),rgb(10, 10, 79));
+}
+
+
 .sidecart ,.sidecart2 {
     position: relative;
     width: 6rem;
@@ -446,6 +451,10 @@
 /* cart */
 
 /* side bar */
+.sidebar.alternate-background {
+    background-image: linear-gradient(to bottom,rgb(69, 69, 255),rgb(10, 10, 79));
+    /* Add any other styles for the alternate background */
+}
 .sidebar{
     position: relative;
     width: 6rem;
@@ -461,6 +470,10 @@
     background-image: url('./assets/white-paper-texture_1194-2301.avif');
     background-size: cover;
     background-position: center;
+}
+.sidebar2.alternate-background {
+    background-image: linear-gradient(to bottom,rgb(69, 69, 255),rgb(10, 10, 79));
+    /* Add any other styles for the alternate background */
 }
 .sidebar2{
     position: relative;

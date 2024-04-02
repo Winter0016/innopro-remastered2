@@ -28,6 +28,7 @@ export const ShopContextProvider = ({ children }) => {
   const [commentlist,setcommentlist] = useState([]);
   const [loadingpage,setloadingpage] = useState(true);
   const [totalAmount,settotalAmount] = useState();
+  const [changebackground,setchangebackground] = useState(false);
   const [totalproductnumber,settotalproductnumer]= useState();
 
 
@@ -372,6 +373,8 @@ useEffect(() => {
 }, [paymentdone]);
 
   const contextValue = {
+    changebackground,
+    setchangebackground,
     totalproductnumber,
     payingstatus,
     salelist,

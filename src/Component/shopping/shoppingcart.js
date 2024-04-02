@@ -2,20 +2,19 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/shopContext.js';
-import { auth } from '../../myfirebase/firebase-config.js';
-import images from "../../images/images.js";
 import { CartItem } from './cart-item.js';
 import { CartItem2 } from './cart-item2.js';
 
 
 export const Cart = () => {
-    const { userLoggedIn } = useAuth();
     const[closecart,setclosecart] =useState(true);
     const {productlist} = useAuth();
     const {salelist} = useAuth();
     const { cartItems} = useAuth();
     const {totalAmount} = useAuth();
     const {totalproductnumber} = useAuth();
+    const {changebackground}= useAuth();
+    const{setchangebackground} = useAuth();
     // console.log(`total at shop : ${totalAmount}`);
     // console.log(`cart items at shop : ${JSON.stringify(cartItems)}`);
     const navigate = useNavigate();
@@ -24,7 +23,7 @@ export const Cart = () => {
     
     <>
           <section className="fixed right-0 h-full z-50">
-            <div className="sidecart2">
+          <div className={changebackground ? 'sidecart2 alternate-background' : 'sidecart2'}>
               <div className='si-item'>
                 <div className="si-icon-container">
                   <div className="productnumber">
@@ -70,8 +69,8 @@ export const Cart = () => {
                   </svg>
                 </div>
               ):(
-                <div className="sidecart">
-                  <svg onClick={() => setclosecart (true)} className="si-xclose absolute top-0 left-0 " data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <div className={changebackground ? 'sidecart alternate-background' : 'sidecart'}>
+                <svg onClick={() => setclosecart (true)} className="si-xclose absolute top-0 left-0 " data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
                   </svg>
                   <div className='si-item'>

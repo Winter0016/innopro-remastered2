@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/shopContext';
 import images from '../../images/images';
@@ -8,7 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export const Register = () => {
     const navigate = useNavigate();
     const { userLoggedIn } = useAuth();
-
+    const {changebackground}= useAuth();
+    const{setchangebackground} = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -33,11 +35,15 @@ export const Register = () => {
             }
         }
     };
+    useEffect(() => {
+        if (userLoggedIn) {
+            setchangebackground(false); // Update background upon user login
+            navigate('/'); // Navigate to home page upon user login
+        }
+    }, [userLoggedIn, setchangebackground, navigate]);
 
     return (
         <div className='login-container'>
-            {userLoggedIn && <navigate to="/" replace={true} />}
-
             <main id='login-container-custom' className="flex items-center h-screen flex-wrap">
                 <div id='login-form-custom' className="w-full max-w-md p-8 rounded shadow-xl">
                     <div className="text-center mb-6">

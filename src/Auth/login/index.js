@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { Navigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate instead of useHistory
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../myfirebase/auth';
 import { doPasswordReset } from '../../myfirebase/auth';
 
@@ -8,6 +8,8 @@ import { useAuth } from '../../context/shopContext';
 import images from '../../images/images';
 export const Login = () => {
     const { userLoggedIn } = useAuth();
+    const {changebackground}= useAuth();
+    const{setchangebackground} = useAuth();
     const [sendemailreset ,setsendemailreset] = useState('');
     const [sendedemail,setsendedemail] = useState(false);
     const [email, setEmail] = useState('');
@@ -15,6 +17,7 @@ export const Login = () => {
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [forgotpass,setforgotpass] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate(); // Use useNavigate hook instead of useHistory
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -51,9 +54,15 @@ export const Login = () => {
         return () => clearTimeout(timer);
       }, [sendedemail]);
 
+      useEffect(() => {
+        if (userLoggedIn) {
+            setchangebackground(false); // Update background upon user login
+            navigate('/'); // Navigate to home page upon user login
+        }
+    }, [userLoggedIn, setchangebackground, navigate]);
+
     return (
         <div className='login-container'>
-            {userLoggedIn && (<Navigate to={'/'} />)}
             <main id='login-container-custom' className="flex items-center h-screen flex-wrap">
                 <div id='login-form-custom' className="w-full max-w-md p-8 rounded shadow-xl">
                     <h2 id='login-text-custom' className="text-center text-2xl font-semibold mb-4">Welcome Back</h2>
@@ -97,7 +106,7 @@ export const Login = () => {
                             {isSigningIn ? 'Signing In...' : 'Sign In'}
                         </button>
                     </form>
-                    <p id='login-text-custom' className="text-center text-sm mt-4">Don't have an account? <Link to={'/register'} className="text-indigo-600 font-semibold hover:underline">Sign up</Link></p>
+                    <p id='login-text-custom' className="text-center text-sm mt-4">Don't have an account? <Link to={'/register'} className="text-indigo-600 font-semibold hover:underline" onClick={() => setchangebackground(true)}>Sign up</Link></p>
                     {
                         forgotpass ? (                                
                             <form className='mt-2' onSubmit={(e) => {doPasswordReset(sendemailreset); e.preventDefault(); setforgotpass(false); setsendedemail(true) }}>
