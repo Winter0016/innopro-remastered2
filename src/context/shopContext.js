@@ -2,8 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { auth, db } from "../myfirebase/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, collection,addDoc,setDoc,updateDoc,doc } from "firebase/firestore";
-import { query, where } from 'firebase/firestore';
-// import { Toast } from "bootstrap";
+
 
 export const ShopContext = createContext(null);
 
@@ -30,6 +29,7 @@ export const ShopContextProvider = ({ children }) => {
   const [totalAmount,settotalAmount] = useState();
   const [changebackground,setchangebackground] = useState(false);
   const [totalproductnumber,settotalproductnumer]= useState();
+  const [speaktosale,setspeaktosale] = useState(false);
 
 
   const initializeUser = (user) => {
@@ -373,6 +373,8 @@ useEffect(() => {
 }, [paymentdone]);
 
   const contextValue = {
+    speaktosale,
+    setspeaktosale,
     changebackground,
     setchangebackground,
     totalproductnumber,

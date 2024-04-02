@@ -1,5 +1,6 @@
 import React from 'react'
 import images from '../../../images/images'
+import { useAuth } from '../../../context/shopContext';
 export const Advertisement = () => {
     const handleClick = () => {
         // Scroll to a specific Y position on the page
@@ -12,6 +13,9 @@ export const Advertisement = () => {
         // const element = document.getElementById('targetElementId');
         // element.scrollIntoView({ behavior: 'smooth' });
       };
+    
+    const {setspeaktosale} = useAuth();
+
   return (
     <>
         <section className="ad-custombg">
@@ -22,7 +26,7 @@ export const Advertisement = () => {
                         Get started
                         <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"></path></svg>
                     </a>
-                    <a id='ad-a-custom' href="#" className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                    <a id='ad-a-custom' className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white border border-gray-300 rounded-lg bg-gray-700 hover:bg-gray-500 hover:cursor-pointer" onClick={() => setspeaktosale(true)}>
                         Speak to Sales
                     </a> 
                 </div>

@@ -7,6 +7,35 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes upandown {
+    
+}
+#x-speaktosale{
+    position: absolute;
+    top:1rem;
+    left:1rem;
+}
+#x-speaktosale:hover{
+    cursor: pointer;
+}
+
+.speaktosale{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border:solid;
+    border-color:red;
+    z-index: 10;
+    background-color: white;
+    /* display: none; */
+  }
+
+.Home-container{
+    position: relative;
+    border:solid;
+}
 
 .Home-background {
   position: fixed;
@@ -14,11 +43,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('./assets/white-paper-texture_1194-2301.avif');
+  background-image: linear-gradient(to bottom, rgb(249, 245, 245),rgb(234, 248, 234));
   background-size: contain;
   background-position: center;
-  filter: blur(4px);
-  z-index: -1; /* Ensure it stays behind other content */
+  z-index: -1;
 }
 /*login */
 
@@ -88,7 +116,7 @@
 
 /* ad */
 #ad-a-custom{
-    box-shadow: 4px 4px 20px 3px rgb(38, 33, 2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #ad-img-custom{
@@ -731,13 +759,13 @@ hr{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: linear-gradient(to left,rgb(239, 239, 139),rgb(244, 128, 145));
+    background-image: linear-gradient(to right,rgb(255, 193, 193),rgb(233, 233, 233));
     border-radius:2rem;
 }
 #hot-sale{  
     font-size:2rem;
     font-family: 'Madimi One';
-    background-image: linear-gradient(to left,pink,rgb(254, 254, 165));
+    background-image: linear-gradient(to left,rgb(255, 220, 220),rgb(254, 254, 165));
     padding:0.5rem;
     border-radius: 1rem;
 }
@@ -771,7 +799,7 @@ hr{
     position: relative;
     border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 4px 8px 7px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-image: linear-gradient(to top, rgb(132, 211, 254), green);
 }
 
