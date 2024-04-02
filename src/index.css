@@ -18,6 +18,10 @@
     100% {opacity: 0;}
 }
 
+#callcenter{
+    height:30rem;
+}
+
 #x-speaktosale{
     position: absolute;
     top:1rem;
@@ -924,10 +928,13 @@ hr{
 
 
 @media (max-width:767px){
+    #callcenter{
+        display:none;
+    }
     #x-speaktosale{
         position: absolute;
         top:-10rem;
-        left:10rem;
+        left:9rem;
     }
     .speaktosale{
         padding-top:10rem;
@@ -1009,6 +1016,14 @@ hr{
 /* for medium */
 
 @media (min-width: 768px) and (max-width: 1024px) {
+    #callcenter{
+        display:none;
+    }
+    #x-speaktosale{
+        position: absolute;
+        top:0rem;
+        left:23rem;
+    }
     .comment-container{
         height:fit-content;
         gap:1rem;

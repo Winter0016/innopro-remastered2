@@ -8,6 +8,7 @@ import commentbackground from "../assets/comment-background.jpg";
 import city from "../assets/city.jpg";
 import chaque from "../assets/cha que.jpg"
 import logo from "../assets/logo.png";
+import callcenter from "../assets/call center.png"
 
 export default {
     logo :logo,
@@ -20,4 +21,5 @@ export default {
     commentbackground: commentbackground,
     city: city,
     ChảQuế: chaque,
+    callcenter:callcenter,
 }
