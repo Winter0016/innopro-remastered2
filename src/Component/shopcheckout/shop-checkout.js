@@ -19,7 +19,7 @@ export const Checkout = () => {
               <h1 className='w-full text-center mb-2 text-4xl'>Please fill this form to submit your order.</h1>
             )
           }
-          <form className=' max-w-3xl bg-yellow-100 m-auto rounded-lg overflow-auto border-4 pb-3 pt-3 pl-2' action="#" onSubmit={(e) => {
+          <form id='form-checkout' className=' max-w-3xl bg-yellow-100 m-auto rounded-lg overflow-auto border-4 pb-3 pt-3' action="#" onSubmit={(e) => {
             e.preventDefault();
             submitorder();
             }}>
@@ -48,7 +48,7 @@ export const Checkout = () => {
               </div>          
             </div>
             <div className='flex flex-wrap overflow-hidden pl-4 mt-2  checkout-submit'>
-              <div className='flex w-auto border overflow-hidden'>
+              <div className='flex w-auto overflow-hidden'>
                 <div id='icon-container' className='pt-1'>
                   <svg className='icon' data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>

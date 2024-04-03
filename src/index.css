@@ -956,6 +956,10 @@ hr{
 
 
 @media (max-width:767px){
+    #form-checkout{
+        padding-right:1rem;
+    }
+
     #callcenter{
         display:none;
     }
