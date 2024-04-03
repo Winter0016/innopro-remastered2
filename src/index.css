@@ -371,6 +371,7 @@
 
 
 .sidecart ,.sidecart2 {
+    background-color: white;
     position: relative;
     width: 6rem;
     height: 100%;
