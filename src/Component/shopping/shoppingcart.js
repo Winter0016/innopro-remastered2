@@ -1,23 +1,29 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useContext } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/shopContext.js';
 import { CartItem } from './cart-item.js';
 import { CartItem2 } from './cart-item2.js';
 
+export function useAuth2() {
+  return useContext(Cart);
+}
 
 export const Cart = () => {
     const[closecart,setclosecart] =useState(true);
     const {productlist} = useAuth();
     const {salelist} = useAuth();
-    const { cartItems} = useAuth();
+    const {cartItems} = useAuth();
     const {totalAmount} = useAuth();
     const {totalproductnumber} = useAuth();
     const {changebackground}= useAuth();
-    const{setchangebackground} = useAuth();
+    const {setcartposition}= useAuth();
     // console.log(`total at shop : ${totalAmount}`);
     // console.log(`cart items at shop : ${JSON.stringify(cartItems)}`);
     const navigate = useNavigate();
+
+    setcartposition(document.getElementById(`cartposition`));
+  
 
   return (
     

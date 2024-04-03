@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { auth, db } from "../myfirebase/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, collection,addDoc,setDoc,updateDoc,doc } from "firebase/firestore";
-
+import { useLocation } from 'react-router-dom';
 
 export const ShopContext = createContext(null);
 
@@ -30,8 +30,7 @@ export const ShopContextProvider = ({ children }) => {
   const [changebackground,setchangebackground] = useState(false);
   const [totalproductnumber,settotalproductnumer]= useState();
   const [speaktosale,setspeaktosale] = useState(false);
-
-  let cartposition = document.getElementById('cartposition');
+  const [cartposition,setcartposition] = useState();
 
 
   const initializeUser = (user) => {
@@ -375,6 +374,7 @@ useEffect(() => {
 }, [paymentdone]);
 
   const contextValue = {
+    setcartposition,
     cartposition,
     speaktosale,
     setspeaktosale,

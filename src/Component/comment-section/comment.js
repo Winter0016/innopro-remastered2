@@ -14,21 +14,21 @@ export const Comment = () => {
     const commentsArray = Object.entries(commentlist);
 
     // Sort the array based on timestamps
-    commentsArray.sort((a, b) => new Date(a[0]) - new Date(b[0]));
+    // commentsArray.sort((a, b) => new Date(a[0]) - new Date(b[0]));
 
     // Convert the sorted array back to an object
-    const sortedCommentlist = Object.fromEntries(commentsArray); // use for method2
+    // const sortedCommentlist = Object.fromEntries(commentsArray); // use for method2
     // console.log(`sortedCommentlist: ${JSON.stringify(sortedCommentlist)}`);
-    const sortedcommentlist2 = Object.entries(sortedCommentlist); // use for method 1
+    // const sortedcommentlist2 = Object.entries(sortedCommentlist); // use for method 1
     // console.log(`sortedcommentlist2 : ${JSON.stringify(sortedcommentlist2)}`);
 
 
     //Method 1:
         let newcommentlist2 = [];
-        for(const [key,value] of sortedcommentlist2){
+        for(const [key,value] of commentsArray){
             let entries2 = Object.entries(value);
             for( const [key,value] of entries2){
-                newcommentlist2.push(value);
+                newcommentlist2.unshift(value);
             }
         }
         newcommentlist2.sort((a,b) => new Date(a.time) - new Date(b.time));
@@ -36,17 +36,17 @@ export const Comment = () => {
 
     //
     //Method 2:
-        let newcommentlist = [];
+        // let newcommentlist = [];
 
-        for( var i in sortedCommentlist){
-            for(var j in sortedCommentlist[i]){
-                newcommentlist.push(sortedCommentlist[i][j]);
-            }
-        }
+        // for( var i in sortedCommentlist){
+        //     for(var j in sortedCommentlist[i]){
+        //         newcommentlist.push(sortedCommentlist[i][j]);
+        //     }
+        // }
 
-        newcommentlist.sort((a, b) => {
-            return new Date(a.time) - new Date(b.time);
-        });
+        // newcommentlist.sort((a, b) => {
+        //     return new Date(a.time) - new Date(b.time);
+        // });
         // console.log(`newcommentlist: ${JSON.stringify(newcommentlist)}`);
     //
 
@@ -66,7 +66,7 @@ export const Comment = () => {
                             <>
                                 {
                                     newcommentlist2.map((mycomment) => (
-                                        <Com data={mycomment} />
+                                        <Com key={mycomment.time} data={mycomment} />
                                     ))
                                 }                          
                             </>

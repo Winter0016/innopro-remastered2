@@ -7,6 +7,8 @@ export const Product = (props) => {
     const {addToCart} = useAuth();
     const {cartItems} = useAuth();
     const {cartposition} = useAuth();
+
+
     const productimgposRef = useRef(null);
 
 
