@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useRef} from 'react'
 import {Advertisement} from './container'
 import { Show } from './container'
 import { Title } from './container'
@@ -7,16 +7,30 @@ import { useState } from 'react'
 import images from '../images/images'
 export const Home = () => {
 
+  const [closing,setclosing] = useState();
   const {speaktosale,setspeaktosale} = useAuth();
+  const myspeak = useRef(null);
+
+
+  const closecontact = () =>{
+    console.log(`myspeak : ${myspeak}`);
+    myspeak.current.style.transition = "transform 1.5s ease";
+    myspeak.current.style.transform = "translate(0,-100%)";
+
+    myspeak.current.addEventListener('transitionend', () => {
+      setspeaktosale(false);
+    })
+  }
+
   return (
       <div className='Home-container'>
         <div className='Home-background'></div>
         {
           speaktosale ? (
             <>
-                <div className={speaktosale ? "speaktosale" : "speaktosale inactive"}>
+                <div className="speaktosale" ref={myspeak} >
                     <div class="mx-auto w-full h-full max-w-screen-xl flex flex-col md:justify-center relative">
-                        <div id='x-speaktosale' onClick={() => setspeaktosale(false)}>
+                        <div id='x-speaktosale' onClick={() => closecontact()}>
                             <svg width="38" height="38" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 5L19 19M5 19L19 5" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                         </div>
                         <div class="flex flex-wrap gap-40 items-center">
