@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import images from '../../../images/images';
 import { useAuth } from '../../../context/shopContext';
 import { useEffect } from 'react';
@@ -6,8 +6,13 @@ export const Product = (props) => {
     const { name, price, id,hotsales} = props.data;
     const {addToCart} = useAuth();
     const {cartItems} = useAuth();
+    const {cartposition} = useAuth();
+    const productimgposRef = useRef(null);
+
 
     let productnumber;
+
+    let productimgpos = document.getElementsByClassName("productx-imga2");
     // Replace spaces with underscores to match the image keys
     const imageName = name.replace(/\s+/g,'');
 
@@ -68,6 +73,31 @@ for(var key in cartItems){
 checking = checkdate();
 // console.log(`checking : ${checking}`);
 // console.log(JSON.stringify(cartItems));
+// console.log(`cartpositon :${cartposition}`);
+// console.log(`productimgpos : ${productimgpos}`);
+
+
+
+let isAnimationApplied = false;
+
+    const addanimation = () => {
+        const rect2 = cartposition.getBoundingClientRect();
+        const rect1 = productimgposRef.current.getBoundingClientRect();
+        const deltaX = rect2.left - rect1.left;
+        const deltaY = rect2.top - rect1.top;
+        productimgposRef.current.style.zIndex = "300"; 
+        productimgposRef.current.style.transition = "transform 0.5s ease";
+        productimgposRef.current.style.transform = `translate(${deltaX-180}px, ${deltaY}px)`;
+        productimgposRef.current.style.opacity = "1";
+        productimgposRef.current.classList.add("product-animated")
+        // Add event listener to reset animation after transition ends
+        productimgposRef.current.addEventListener('transitionend', () => {
+            productimgposRef.current.style.transition = "none";
+            productimgposRef.current.style.transform = "translate(0, 0)";
+            productimgposRef.current.style.opacity = "0";
+            productimgposRef.current.classList.remove("product-animated")
+        });
+    };
 
     
     return (
@@ -86,7 +116,10 @@ checking = checkdate();
                                 <div>Số lượng trong kho: </div>
                                 <div>Hot Sale: Thứ {hotsales} </div>
                             </div>
-                            <img className='productx-imga' src={images[imageName]} alt={name} />
+                            <div className='relative'>
+                                <img className='productx-imga' src={images[imageName]} alt={name} />
+                                <img className='productx-imga2' src={images[imageName]} alt={name} ref={productimgposRef} />
+                            </div>
                         </div>
                         <div className="productx-info">
                             <span id='productx-fontfamily' className=" font-semibold text-3xl text-gray-700">{name}</span>
@@ -96,7 +129,7 @@ checking = checkdate();
                             <span className=" font-bold text-xl text-red-800">Khối lượng: 1kg</span><br/>
                             <span className="lg:text-2xl sm:text-2xl md:text-lg text-red-800 font-semibold">Giá : {price.toLocaleString("en-US")} VND</span> <br/>
                             <div className=' flex justify-center w-full mt-2'>
-                                <div onClick={() => addToCart(id)} className="flex items-center justify-center p-3 text-base font-extrabold text-center text-yellow-600 border-2 rounded-lg  focus:ring-4 focus:ring-primary-300 hover:cursor-pointer hover:bg-green-100">
+                                <div onClick={() => {addToCart(id);addanimation()}} className="flex items-center justify-center p-3 text-base font-extrabold text-center text-yellow-600 border-2 rounded-lg  focus:ring-4 focus:ring-primary-300 hover:cursor-pointer hover:bg-green-100">
                                     Thêm vào giỏ
                                     <svg className="w-5 h-5 ml-2 -mr-1" data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"></path>

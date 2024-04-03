@@ -31,6 +31,8 @@ export const ShopContextProvider = ({ children }) => {
   const [totalproductnumber,settotalproductnumer]= useState();
   const [speaktosale,setspeaktosale] = useState(false);
 
+  let cartposition = document.getElementById('cartposition');
+
 
   const initializeUser = (user) => {
     if (user) {
@@ -373,6 +375,7 @@ useEffect(() => {
 }, [paymentdone]);
 
   const contextValue = {
+    cartposition,
     speaktosale,
     setspeaktosale,
     changebackground,
