@@ -75,23 +75,19 @@ checking = checkdate();
 // console.log(JSON.stringify(cartItems));
 // console.log(`cartpositon :${cartposition}`);
 // console.log(`productimgpos : ${productimgpos}`);
-
-
-
-let isAnimationApplied = false;
-
     const addanimation = () => {
         const rect2 = cartposition.getBoundingClientRect();
         const rect1 = productimgposRef.current.getBoundingClientRect();
         const deltaX = rect2.left - rect1.left;
         const deltaY = rect2.top - rect1.top;
         productimgposRef.current.style.zIndex = "300"; 
-        productimgposRef.current.style.transition = "transform 0.5s ease";
-        productimgposRef.current.style.transform = `translate(${deltaX-180}px, ${deltaY}px)`;
-        productimgposRef.current.style.opacity = "1";
+        productimgposRef.current.style.transition = "transform 1.5s ease";
+        productimgposRef.current.style.transform = `translate(${deltaX + 150}px, ${deltaY}px)`;
+        // productimgposRef.current.style.opacity = "1";
         productimgposRef.current.classList.add("product-animated")
         // Add event listener to reset animation after transition ends
         productimgposRef.current.addEventListener('transitionend', () => {
+            productimgposRef.current.style.zIndex = "-1"; 
             productimgposRef.current.style.transition = "none";
             productimgposRef.current.style.transform = "translate(0, 0)";
             productimgposRef.current.style.opacity = "0";

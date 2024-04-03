@@ -819,13 +819,17 @@ hr{
     background-image: linear-gradient(to top, rgb(132, 211, 254), green);
 }
 @keyframes gettingfaded {
-    from {opacity: 1;}
-    to {opacity: 0.1;}
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.1;
+    }
 }
 
 .product-animated{
     animation-name: gettingfaded;
-    animation-duration: 0.5s;
+    animation-duration: 1.5s;
     animation-timing-function: ease;
 }
 
@@ -870,7 +874,6 @@ hr{
 
 
 .productx-imga2{
-    z-index: -100;
     position: absolute;
     top:0;
     object-fit: cover;
