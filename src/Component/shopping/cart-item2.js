@@ -15,7 +15,7 @@ export const CartItem2 = (props) => {
             <img src={images[imageName]} alt="" />
             <div className='si-info-name'>
                 <div>{name}</div>
-                <div>{price.toLocaleString("en-US")}</div>
+                <div>{price.toLocaleString("en-US")} VND</div>
             </div>
             <div className='but-container'>
                 <input type="number" value={cartItems[id]} onChange={(e) => updateCartItemAmount(Number(e.target.value), id)} />

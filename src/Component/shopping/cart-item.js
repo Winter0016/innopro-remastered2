@@ -15,7 +15,7 @@ export const CartItem = (props) => {
             <img src={images[imageName]} alt="" />
             <div className='si-info-name'>
                 <div>{name}</div>
-                <div>{price.toLocaleString("en-US")}</div>
+                <div>{price.toLocaleString("en-US")} VND</div>
             </div>
             <div className='but-container'>
                 <svg onClick={() => addToCart(id)} className='but' data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

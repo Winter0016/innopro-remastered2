@@ -51,6 +51,7 @@
   }
 
 .Home-container{
+    overflow: hidden;
     position: relative;
 }
 
@@ -1067,7 +1068,7 @@ hr{
     }
     .smallbut-container{
         display:flex;
-        border:solid;
+        /* border:solid; */
         gap:4rem;
     }
     .but-container{
