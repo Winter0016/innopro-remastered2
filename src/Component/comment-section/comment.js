@@ -31,7 +31,7 @@ export const Comment = () => {
                 newcommentlist2.unshift(value);
             }
         }
-        newcommentlist2.sort((a,b) => new Date(a.time) - new Date(b.time));
+        newcommentlist2.sort((a,b) => new Date(b.time) - new Date(a.time));
         // console.log(`newcommentlist2: ${JSON.stringify(newcommentlist2)}`);
 
     //
