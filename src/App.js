@@ -15,21 +15,12 @@ function App() {
   const iscartvisible = !excludedpath.includes(location.pathname);
   return (
     <ShopContextProvider className="relative">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+        <head>
+          <script src="https://cdn.tailwindcss.com"></script>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+        </head>
         <Header />
         <Cart/>
-        {/* <>
-          {
-            iscartvisible ? (
-              <Cart/>
-            ) :(
-              <>
-
-              </>
-            )
-          }
-        </> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

@@ -52,7 +52,7 @@ export const Comment = () => {
 
     return (
         <div className='' style={{ backgroundImage: `url(${images.commentbackground})`, backgroundSize: 'cover'}}>
-            <div className='comment-container pt-4 pl-5'>
+            <div className='comment-container pt-4'>
                 <div id='mycomment' className="mt-5 gap-1">
                     {
                         loadingpage ? (
