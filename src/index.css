@@ -90,7 +90,7 @@
     overflow: hidden;
     width:35rem;
     box-shadow: 4px 4px 20px 3px rgb(42, 115, 137);
-    filter: blur(5px);
+    /* filter: blur(5px); */
 }
 #login-form-custom{
     /* border:solid;
@@ -366,7 +366,7 @@
     opacity:1;
 }
 .sidecart.alternate-background,.sidecart2.alternate-background{
-    background-image: linear-gradient(to bottom,rgb(69, 69, 255),rgb(10, 10, 79));
+    background-image: linear-gradient(to bottom,rgb(193, 193, 243),rgb(250, 250, 255));
 }
 
 
@@ -499,7 +499,7 @@
 
 /* side bar */
 .sidebar.alternate-background {
-    background-image: linear-gradient(to bottom,rgb(69, 69, 255),rgb(10, 10, 79));
+    background-image: linear-gradient(to bottom,rgb(193, 193, 243),rgb(250, 250, 255));
     /* Add any other styles for the alternate background */
 }
 .sidebar{
@@ -519,7 +519,7 @@
     background-position: center;
 }
 .sidebar2.alternate-background {
-    background-image: linear-gradient(to bottom,rgb(69, 69, 255),rgb(10, 10, 79));
+    background-image: linear-gradient(to bottom,rgb(193, 193, 243),rgb(250, 250, 255));
     /* Add any other styles for the alternate background */
 }
 .sidebar2{
@@ -907,14 +907,13 @@ hr{
 
 /* comment */
 .comment-container{
-    /* border:solid; */
-    max-width: 1210px;
     height:100vh;
+    overflow:auto;
+    max-width: 1210px;
     margin-left: auto;
     display:flex;
     flex-wrap: wrap;
     gap:8rem;
-    background-size:cover;
 }
 #mycomment{
     max-width:30rem;
@@ -1041,6 +1040,7 @@ hr{
     }
     .comment-container{
         height:fit-content;
+        width: fit-content;
         gap:1rem;
         background-size: contain;
     }
@@ -1058,7 +1058,7 @@ hr{
         left:23rem;
     }
     .comment-container{
-        height:fit-content;
+        height:100vh;
         gap:1rem;
         justify-content: center;
     }

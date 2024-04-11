@@ -14,7 +14,7 @@ export const Header = () => {
     const {changebackground}= useAuth();
     const{setchangebackground} = useAuth();
     const {setspeaktosale} = useAuth();
-    console.log(`changebackground : ${changebackground}`);
+    // console.log(`changebackground : ${changebackground}`);
   return (
     <section className="fixed h-full z-50">
       <div className={changebackground ? 'sidebar alternate-background' : 'sidebar'}>

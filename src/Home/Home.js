@@ -7,7 +7,6 @@ import { useState } from 'react'
 import images from '../images/images'
 export const Home = () => {
 
-  const [closing,setclosing] = useState();
   const {speaktosale,setspeaktosale} = useAuth();
   const myspeak = useRef(null);
 

@@ -264,7 +264,7 @@ export const ShopContextProvider = ({ children }) => {
     // console.log(`cart1 after add : ${JSON.stringify(cartItems)}`);
   };
 
-  // console.log(`cart1 : ${JSON.stringify(cartItems)}`);
+  console.log(`cart1 : ${JSON.stringify(cartItems)}`);
   // console.log(document.cookie);
 
   //submit order function
