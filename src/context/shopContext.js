@@ -31,6 +31,7 @@ export const ShopContextProvider = ({ children }) => {
   const [totalproductnumber,settotalproductnumer]= useState();
   const [speaktosale,setspeaktosale] = useState(false);
   const [cartposition,setcartposition] = useState();
+  
 
 
   const initializeUser = (user) => {
@@ -264,7 +265,7 @@ export const ShopContextProvider = ({ children }) => {
     // console.log(`cart1 after add : ${JSON.stringify(cartItems)}`);
   };
 
-  console.log(`cart1 : ${JSON.stringify(cartItems)}`);
+  // console.log(`cart1 : ${JSON.stringify(cartItems)}`);
   // console.log(document.cookie);
 
   //submit order function

@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useAuth } from '../../context/shopContext';
 
 export const CartItem2 = (props) => {
-    const[closecart,setclosecart] =useState(true);
     const { name,price,id } = props.data;
     const { cartItems, addToCart, removeFromCart, updateCartItemAmount } = useAuth();
     const imageName = name.replace(/\s+/g,''); 

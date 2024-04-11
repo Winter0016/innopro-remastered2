@@ -5,9 +5,6 @@ import { useAuth } from '../../context/shopContext.js';
 import { CartItem } from './cart-item.js';
 import { CartItem2 } from './cart-item2.js';
 
-export function useAuth2() {
-  return useContext(Cart);
-}
 
 export const Cart = () => {
     const[closecart,setclosecart] =useState(true);
@@ -18,13 +15,14 @@ export const Cart = () => {
     const {totalproductnumber} = useAuth();
     const {changebackground}= useAuth();
     const {setcartposition}= useAuth();
+    const{loading} = useAuth();
     // console.log(`total at shop : ${totalAmount}`);
     // console.log(`cart items at shop : ${JSON.stringify(cartItems)}`);
     const navigate = useNavigate();
 
-    setcartposition(document.getElementById(`cartposition`));
-  
-
+    useEffect( () =>{
+      setcartposition(document.getElementById(`cartposition`));
+    },[])
   return (
     
     <>
@@ -44,12 +42,12 @@ export const Cart = () => {
               <div className="si-container">
                 {productlist.map((product)=>{
                   if(cartItems[product.id]!==0 && cartItems[product.id] !== undefined){
-                    return <CartItem data={product} />
+                    return <CartItem key={product.id} data={product} />
                   }
                 })}
                 {salelist.map((product)=>{
                   if(cartItems[product.id]!==0 && cartItems[product.id] !== undefined){
-                    return <CartItem data={product} />
+                    return <CartItem key={product.id} data={product} />
                   }
                 })}
               </div>
@@ -93,12 +91,12 @@ export const Cart = () => {
                   <div className="si-container">
                     {productlist.map((product)=>{
                       if(cartItems[product.id]!==0 && cartItems[product.id] !== undefined){
-                        return <CartItem2 data={product} />
+                        return <CartItem2 key={product.id} data={product} />
                       }
                     })}
                     {salelist.map((product)=>{
                       if(cartItems[product.id]!==0 && cartItems[product.id] !== undefined){
-                        return <CartItem2 data={product} />
+                        return <CartItem2 key={product.id} data={product} />
                       }
                     })}                  
                   </div>
