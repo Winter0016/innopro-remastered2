@@ -15,11 +15,14 @@ export const Testing_api = () => {
     const [password, setPassword] = useState('');
     const [newfirstname,setnewfirstname]=useState('');
     const [newlastname,setnewlastname]=useState('');
+    const [getid,setgetid]=useState('');
     const [error, setError] = useState('');
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [isfunnctioning,setisfunctioning] = useState(false);
-
-  
+    const [getuser,setgetuser]=useState();
+    const [errofetch,seterrorfetch]=useState("");
+    const defaultID = "6616a47bfc3c5498e78c3485";
+    // console.log(`defaultid.length: ${defaultID.length}`)
     // const handleSubmit = async (e) => {
     //   e.preventDefault();
     //   try {
@@ -54,7 +57,7 @@ export const Testing_api = () => {
             setaccesstoken(data.accessToken);
             setcurrentrole(data.roles);
             setIsSigningIn(false);
-            console.log(data); // Handle successful login response
+            // console.log(data); // Handle successful login response
         } catch (error) {
             setError(error.message);
         }
@@ -73,16 +76,117 @@ export const Testing_api = () => {
             });
         
             if (!response.ok) {
-                setisfunctioning(false);
                 throw new Error("Unauthoritized");
             }
         
-            const data = await response.json();
-            console.log(data); // Handle successful post
-            setisfunctioning(false);
+            // const data = await response.json();
+            // console.log(data); // Handle successful post
+            seterrorfetch("");
+
         } catch (error) {
-            console.log(error);
+            seterrorfetch(error.message);
         }
+        setisfunctioning(false);
+    };
+    const handleDelete = async (e) => {
+        setisfunctioning(true);
+        e.preventDefault();
+        try {
+            if(getid){
+                if(getid.length < defaultID.length || getid.length > defaultID.length){
+                    throw new Error("Invalid ID")
+                }
+            }
+            const response = await fetch('http://localhost:3500/employees', {
+                method: 'DELETE',
+                headers: {
+                'Authorization': `Bearer ${accesstoken ? accesstoken : ''}`,
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: getid })
+            });
+        
+            if (!response.ok) {
+                throw new Error("Unauthoritized");
+            }
+            if(response.status === 204){
+                throw new Error("No employee matches the ID!")
+            }
+            // const data = await response.json();
+            // console.log(data); // Handle successful post
+            seterrorfetch("");
+
+        } catch (error) {
+            seterrorfetch(error.message);
+        }
+        setisfunctioning(false);
+
+    };
+    const handleUpdate = async (e) => {
+        setisfunctioning(true);
+        e.preventDefault();
+        try {
+            if(getid){
+                if(getid.length < defaultID.length || getid.length > defaultID.length){
+                    throw new Error("Invalid ID")
+                }
+            }
+            const response = await fetch('http://localhost:3500/employees', {
+                method: 'PUT',
+                headers: {
+                'Authorization': `Bearer ${accesstoken ? accesstoken : ''}`,
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: getid ,firstname: newfirstname, lastname: newlastname })
+            });
+        
+            if (!response.ok) {
+                throw new Error("Unauthoritized");
+            }
+            if(response.status === 204){
+                throw new Error("No employee matches the ID!")
+            }
+            // const data = await response.json();
+            // console.log(data); // Handle successful post
+            seterrorfetch("");
+
+        } catch (error) {
+            seterrorfetch(error.message);
+        }
+        setisfunctioning(false);
+    };
+    const handleGet = async (e) => {
+        setisfunctioning(true);
+        e.preventDefault();
+        try {
+            if(getid){
+                if(getid.length < defaultID.length || getid.length > defaultID.length){
+                    throw new Error("Invalid ID")
+                }
+            }
+            const response = await fetch(`http://localhost:3500/employees/${getid}`, {
+                method: 'GET',
+                headers: {
+                'Authorization': `Bearer ${accesstoken ? accesstoken : ''}`,
+                'Content-Type': 'application/json'
+                },
+            });
+            if (!response.ok) {
+                setisfunctioning(false);
+                throw new Error("Unauthoritized");
+            }  
+            if(response.status === 204){
+                throw new Error("No employee matches the ID!")
+            }
+            const data = await response.json();      
+            setgetuser(data);
+            // console.log(data); // Handle successful post
+            seterrorfetch("");
+        } catch (error) {
+            seterrorfetch(error.message);
+        }
+        setisfunctioning(false);
+
     };
     useEffect(() => {
         const fetchItems = async () => {
@@ -104,7 +208,13 @@ export const Testing_api = () => {
         }
         return print;
     }
-
+    // if(employees)
+    //     console.log(`employees: ${JSON.stringify(employees)}`)
+    let arrayuser = []
+    if(getuser){
+        // console.log(`getuser : ${JSON.stringify(getuser)}`)
+        arrayuser.push(getuser);
+    }
     return (
         <div className='employees-container'>
             <div id='login-form-custom' className="w-full max-w-md p-8 rounded shadow-xl">
@@ -171,74 +281,92 @@ export const Testing_api = () => {
             <table className="">
                 <thead className='w-full'>
                     <tr className='text-center w-full'>
-                        <th className='border-4 p-3 hover:cursor-pointer hover:bg-gray-400' onClick={() => setmytab(0)}>POST</th>
-                        <th className='border-4 p-3 hover:cursor-pointer hover:bg-gray-400' onClick={()=> setmytab(1)}>UPDATE</th>
-                        <th className='border-4 p-3 hover:cursor-pointer hover:bg-gray-400'onClick={() => setmytab(2)}>DELETE</th>
-                        <th className='border-4 p-3 hover:cursor-pointer hover:bg-gray-400'onClick={()=> setmytab(3)}>GET EMPLOYEE BY ID</th>
+                        <th className='border-2 bg-red-300 p-3 hover:cursor-pointer hover:bg-gray-400' onClick={() => setmytab(0)}>POST</th>
+                        <th className='border-2 bg-red-300 p-3 hover:cursor-pointer hover:bg-gray-400' onClick={()=> setmytab(1)}>UPDATE</th>
+                        <th className='border-2 bg-red-300 p-3 hover:cursor-pointer hover:bg-gray-400'onClick={() => setmytab(2)}>DELETE</th>
+                        <th className='border-2 bg-red-300 p-3 hover:cursor-pointer hover:bg-gray-400'onClick={()=> setmytab(3)}>GET EMPLOYEE BY ID</th>
                     </tr>
                 </thead>
             </table>
             {
                 mytab === 0 && (
-                    <form onSubmit={handlePost} className='w-full border-4 border-red-500 mb-40 p-4 flex flex-col items-center gap-4'>
+                    <form onSubmit={handlePost} className='min-w-96 bg-gray-300 rounded-lg mb-40 p-4 flex flex-col items-center gap-4'>
                         <div className='w-full text-center'>POST FUNCTION</div>
+                        <div className='w-full text-center text-red-600'>REQUIRED ROLES : 5150 or 1984</div>
                         <div>
                             <label>FIRSTNAME:</label><br/>
-                            <input type="text" value={newfirstname} onChange={(e) => setnewfirstname(e.target.value)}/>
+                            <input type="text" value={newfirstname} onChange={(e) => setnewfirstname(e.target.value)} required/>
                         </div>
                         <div>
                             <label>LASTNAME:</label><br/>
-                            <input type="text"value={newlastname} onChange={(e) => setnewlastname(e.target.value)}/>
+                            <input type="text"value={newlastname} onChange={(e) => setnewlastname(e.target.value)} required/>
                         </div>
+                        {errofetch ? (<h2 className='text-red-600'>{errofetch}</h2>): ""}
                         <button className='border-4 rounded-lg w-36 h-9 hover:bg-gray-400 text-center' type='submit'>{isfunnctioning? "Submitting.." : "Submit"}</button>
                     </form> 
                 )
             }          
             {
                 mytab === 1 && (
-                    <form className='w-full border-4 border-red-500 mb-40 p-4 flex flex-col items-center gap-4'>
+                    <form onSubmit={handleUpdate} className='min-w-96 bg-gray-300 rounded-lg mb-40 p-4 flex flex-col items-center gap-4'>
                         <div className='w-full text-center'>UPDATE FUNCTION</div>
+                        <div className='w-full text-center text-red-600'>REQUIRED ROLES : 5150 or 1984</div>
                         <div>
-                            <label htmlFor="username">FIRSTNAME:</label><br/>
-                            <input type="text" id="username" className='w-fit whitespace-nowrap' name="username"/>
+                            <label>ID:</label><br/>
+                            <input value={getid} onChange={(e)=> setgetid(e.target.value)} type="text" required/>
                         </div>
                         <div>
-                            <label htmlFor="username">NEW FIRSTNAME:</label><br/>
-                            <input type="text" id="username" name="username"/>
+                            <label>NEW FIRSTNAME:</label><br/>
+                            <input value={newfirstname} onChange={(e)=> setnewfirstname(e.target.value)} type="text"/>
                         </div>
                         <div>
-                            <label htmlFor="username">LASTNAME:</label><br/>
-                            <input type="text" id="username" className='w-fit whitespace-nowrap' name="username"/>
+                            <label>NEW LASTNAME:</label><br/>
+                            <input value={newlastname} onChange={(e)=> setnewlastname(e.target.value)} type="text"/>
                         </div>
-                        <div>
-                            <label htmlFor="username">NEW LASTNAME:</label><br/>
-                            <input type="text" id="username" name="username"/>
-                        </div>
+                        {errofetch ? (<h2 className='text-red-600'>{errofetch}</h2>): ""}
+                        <button className='border-4 rounded-lg w-36 h-9 hover:bg-gray-400 text-center' type='submit'>{isfunnctioning? "Submitting.." : "Submit"}</button>
                     </form> 
                 )
             }          
             {
                 mytab === 2 && (
-                    <form className='w-full border-4 border-red-500 mb-40 p-4 flex flex-col items-center gap-4'>
+                    <form onSubmit={handleDelete} className='min-w-96 bg-gray-300 rounded-lg mb-40 p-4 flex flex-col items-center gap-4'>
                         <div className='w-full text-center'>DELETE FUNCTION</div>
+                        <div className='w-full text-center text-red-600'>REQUIRED ROLES : 5150</div>
                         <div>
-                            <label htmlFor="username">ID:</label><br/>
-                            <input type="text" id="username" className='w-fit whitespace-nowrap' name="username"/>
+                            <label>ID:</label><br/>
+                            <input type="text" value={getid} onChange={(e)=> setgetid(e.target.value)}/>
                         </div>
+                        {errofetch ? (<h2 className='text-red-600'>{errofetch}</h2>): ""}
+                        <button className='border-4 rounded-lg w-36 h-9 hover:bg-gray-400 text-center' type='submit'>{isfunnctioning? "Submitting.." : "Submit"}</button>
                     </form> 
                 )
             }          
             {
                 mytab === 3 && (
-                    <form className='w-full border-4 border-red-500 mb-40 p-4 flex flex-col items-center gap-4'>
+                    <form onSubmit={handleGet} className='min-w-96 bg-gray-300 rounded-lg mb-40 p-4 flex flex-col items-center gap-4'>
                         <div className='w-full text-center'>GET FUNCTION</div>
+                        <div className='w-full text-center text-red-600'>NO ROLE REQUIRED</div>
                         <div>
-                            <label htmlFor="username">ID:</label><br/>
-                            <input type="text" id="username" className='w-fit whitespace-nowrap' name="username"/>
+                            <label>ID:</label><br/>
+                            <input type="text" value={getid} onChange={(e) => setgetid(e.target.value)}/>
                         </div>
+                        {getuser && (
+                            <div>
+                                {arrayuser.map(user => (
+                                    <div key={user._id}>
+                                        <div>ID: {user._id}</div>
+                                        <div>FIRSTNAME: {user.firstname}</div>
+                                        <div>LASTNAME: {user.lastname}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                        {errofetch ? (<h2 className='text-red-600'>{errofetch}</h2>): ""}
+                        <button className='border-4 rounded-lg w-36 h-9 hover:bg-gray-400 text-center' type='submit'>{isfunnctioning? "Submitting.." : "Submit"}</button>
                     </form> 
                 )
-            }          
+            }
         </div>
     );
 }
