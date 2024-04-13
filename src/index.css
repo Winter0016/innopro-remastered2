@@ -12,7 +12,7 @@
     opacity: 0;
     filter: blur(5px);
     transform:translateX(-100%);
-    transition: all 3s;
+    transition: all 2s;
 }
 .showslide{
     opacity:1;
@@ -23,7 +23,7 @@
     opacity: 0;
     filter: blur(5px);
     transform:translateX(100%);
-    transition: all 3s;
+    transition: all 2s;
 }
 .showslide2{
     opacity:1;

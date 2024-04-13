@@ -73,24 +73,59 @@ export const Title = () => {
         setclearintervalid(true);
         slidefunction2(parseInt(e.target.innerText));
     }
+    useEffect(() => {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("showslide");
+            } else {
+              entry.target.classList.remove("showslide");
+            }
+          });
+        });
+    
+        const hiddenElements = document.querySelectorAll(".hiddenslide");
+        hiddenElements.forEach(el => observer.observe(el));
+    
+        const observer2 = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("showslide2");
+            } else {
+              entry.target.classList.remove("showslide2");
+            }
+          });
+        });
+    
+        const hiddenElements2 = document.querySelectorAll(".hiddenslide2");
+        hiddenElements2.forEach(el => observer2.observe(el));
+    
+        // Clean up IntersectionObserver instances
+        return () => {
+          hiddenElements.forEach(el => observer.unobserve(el));
+          hiddenElements2.forEach(el => observer2.unobserve(el));
+        };
+      }, []);
     return (
         <div className="myslideshow-container">
-            <div className="slideshow-container">
-                <img id='damnslide2' className='slideshow-img' src={images.ChàBông} alt="chabong" />
-                <img id='damnslide2' className='slideshow-img' src={images.ChảLụa} alt="" />
-                <img id='damnslide2' className='slideshow-img' src={images.ChảChiên} alt="" />
-                <div className="flex justify-center">
-                    <span id='dot2' className="dot">
-                        <p onClick={(e) => onclickdot(e)}>0</p>
-                    </span>
-                    <span id='dot2' className="dot">
-                        <p onClick={(e) => onclickdot(e)}>1</p>
-                    </span>
-                    <span id='dot2' className="dot">
-                        <p onClick={(e) => onclickdot(e)}>2</p>
-                    </span>
+            <section className='hiddenslide'>
+                <div className="slideshow-container">
+                    <img id='damnslide2' className='slideshow-img' src={images.ChàBông} alt="chabong" />
+                    <img id='damnslide2' className='slideshow-img' src={images.ChảLụa} alt="" />
+                    <img id='damnslide2' className='slideshow-img' src={images.ChảChiên} alt="" />
+                    <div className="flex justify-center">
+                        <span id='dot2' className="dot">
+                            <p onClick={(e) => onclickdot(e)}>0</p>
+                        </span>
+                        <span id='dot2' className="dot">
+                            <p onClick={(e) => onclickdot(e)}>1</p>
+                        </span>
+                        <span id='dot2' className="dot">
+                            <p onClick={(e) => onclickdot(e)}>2</p>
+                        </span>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     );
 };
