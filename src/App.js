@@ -17,6 +17,7 @@ function App() {
   return (
     <ShopContextProvider className="relative">
         <head>
+          <meta name="google-site-verification" content="RAOrR6udlfpJ2cZdeJFUk5-_AqWQI7bdrWg6vC6tSdM" />  
           <script src="https://cdn.tailwindcss.com"></script>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
         </head>
