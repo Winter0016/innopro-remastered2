@@ -3,7 +3,6 @@ import {Advertisement} from './container'
 import { Show } from './container'
 import { Title } from './container'
 import { useAuth } from '../context/shopContext'
-import { useState } from 'react'
 import images from '../images/images'
 export const Home = () => {
 
@@ -41,7 +40,7 @@ export const Home = () => {
                                         <a className="hover:underline flex w-10">HOTLINE: 0906970475</a>
                                     </li>
                                     <li className="mb-4">
-                                        <a className="hover:underline flex w-10">FACEBOOK: https://www.facebook.com/profile.php?id=100008188838371</a>
+                                        <a className="hover:underline flex w-10">FACEBOOK: Phuc Chau</a>
                                     </li>
                                 </ul>
                             </div>
