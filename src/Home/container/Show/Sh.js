@@ -1,8 +1,7 @@
 import React from "react";
 import { Product } from "./Product";
 import { Salelist } from "./Salelist";
-
-
+import { useEffect } from "react";
 import { useAuth } from "../../../context/shopContext";
 import { auth } from "../../../myfirebase/firebase-config";
 
@@ -12,31 +11,39 @@ export const Show = () => {
   const {loadingpage} = useAuth();
   // console.log(JSON.stringify(productlist));
 
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry => {
-      // console.log(entry)
-      if(entry.isIntersecting){
-        entry.target.classList.add('showslide');
-      }else{
-        entry.target.classList.remove("showslide");
-      }
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("showslide");
+        } else {
+          entry.target.classList.remove("showslide");
+        }
+      });
     });
-  });
-  const hiddenElements = document.querySelectorAll(".hiddenslide");
-  hiddenElements.forEach((el)=> observer.observe(el))
 
-  const observer2 = new IntersectionObserver((entries)=>{
-    entries.forEach(entry => {
-      // console.log(entry)
-      if(entry.isIntersecting){
-        entry.target.classList.add('showslide2');
-      }else{
-        entry.target.classList.remove("showslide2");
-      }
+    const hiddenElements = document.querySelectorAll(".hiddenslide");
+    hiddenElements.forEach(el => observer.observe(el));
+
+    const observer2 = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("showslide2");
+        } else {
+          entry.target.classList.remove("showslide2");
+        }
+      });
     });
-  });
-  const hiddenElements2 = document.querySelectorAll(".hiddenslide2");
-  hiddenElements2.forEach((el)=> observer2.observe(el))
+
+    const hiddenElements2 = document.querySelectorAll(".hiddenslide2");
+    hiddenElements2.forEach(el => observer2.observe(el));
+
+    // Clean up IntersectionObserver instances
+    return () => {
+      hiddenElements.forEach(el => observer.unobserve(el));
+      hiddenElements2.forEach(el => observer2.unobserve(el));
+    };
+  }, []);
 
     
   return (
