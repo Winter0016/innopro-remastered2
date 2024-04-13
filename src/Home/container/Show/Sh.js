@@ -43,7 +43,7 @@ export const Show = () => {
       hiddenElements.forEach(el => observer.unobserve(el));
       hiddenElements2.forEach(el => observer2.unobserve(el));
     };
-  }, []);
+  }, [loadingpage]);
 
     
   return (
