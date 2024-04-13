@@ -1018,8 +1018,9 @@ hr{
         justify-content: center;
     }
     .si-container{
+        /* border:solid; */
         opacity:1;
-        height:27rem;
+        height:24rem;
     }
     .si-item-text {
         opacity: 1;
