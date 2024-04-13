@@ -7,6 +7,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* observer */
+.hiddenslide{
+    opacity: 0;
+    filter: blur(5px);
+    transform:translateX(-100%);
+    transition: all 3s;
+}
+.showslide{
+    opacity:1;
+    filter:blur(0);
+    transform:translateX(0);
+}
+.hiddenslide2{
+    opacity: 0;
+    filter: blur(5px);
+    transform:translateX(100%);
+    transition: all 3s;
+}
+.showslide2{
+    opacity:1;
+    filter:blur(0);
+    transform:translateX(0);
+}
+
+/* observer */
 @keyframes upandown {
     from { transform: translatey(-100%); }
     to { transform: translatey(0%); }
@@ -635,10 +660,6 @@ hr{
 
 
 
-  
-
-
-
 
 /* hero section */
 
@@ -647,6 +668,7 @@ hr{
 .container-product{
    /* background-image: linear-gradient(to right,pink,rgb(250, 250, 173)); */
    width:100%;
+   margin-top:6rem;
 }
 .product-loading{
     max-width: 1270px;
@@ -707,6 +729,26 @@ hr{
         left:0;
     }
 }
+.employees-container {
+    max-width: 1250px;
+    margin: auto;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap:wrap;
+    padding-top:4rem;
+    gap:2rem;
+}
+#myfuckingtable{
+    overflow-wrap:break-word;
+}
+#mytr{
+    overflow-wrap: break-word;
+    height:4rem;
+    text-align: center;
+}
+
 .product-container2{
     /* border:solid; */
     /* border-color:red; */
@@ -738,8 +780,6 @@ hr{
     flex-direction: column;
     justify-content: center;
     height:12rem;
-    padding-left:2rem;
-    gap:0.5rem;
     background-image: url('./assets/unique.jpg');
     background-size: cover;
     border-radius:10px;
