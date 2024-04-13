@@ -13,8 +13,11 @@ export const Testing_api = () => {
     const [currentrole,setcurrentrole] = useState();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [newfirstname,setnewfirstname]=useState('');
+    const [newlastname,setnewlastname]=useState('');
     const [error, setError] = useState('');
     const [isSigningIn, setIsSigningIn] = useState(false);
+    const [isfunnctioning,setisfunctioning] = useState(false);
 
   
     // const handleSubmit = async (e) => {
@@ -56,6 +59,31 @@ export const Testing_api = () => {
             setError(error.message);
         }
     };
+    const handlePost = async (e) => {
+        setisfunctioning(true);
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:3500/employees', {
+                method: 'POST',
+                headers: {
+                'Authorization': `Bearer ${accesstoken ? accesstoken : ''}`,
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ firstname: newfirstname, lastname: newlastname })
+            });
+        
+            if (!response.ok) {
+                setisfunctioning(false);
+                throw new Error("Unauthoritized");
+            }
+        
+            const data = await response.json();
+            console.log(data); // Handle successful post
+            setisfunctioning(false);
+        } catch (error) {
+            console.log(error);
+        }
+    };
     useEffect(() => {
         const fetchItems = async () => {
             try {
@@ -68,7 +96,7 @@ export const Testing_api = () => {
             }
         }
         fetchItems();
-    }, []);
+    }, [isfunnctioning]);
     const printroles = (array) =>{
         let print = array[0];
         for(let i = 1 ; i < array.length ; i++){
@@ -80,7 +108,7 @@ export const Testing_api = () => {
     return (
         <div className='employees-container'>
             <div id='login-form-custom' className="w-full max-w-md p-8 rounded shadow-xl">
-                <h2 id='login-text-custom' className="text-center text-2xl font-semibold mb-4">Welcome Back</h2>
+                <h2 id='login-text-custom' className="text-center text-2xl font-semibold mb-4">ADMIN</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label id='login-text-custom' htmlFor="username" className="block text-sm font-medium">
@@ -127,6 +155,7 @@ export const Testing_api = () => {
             <h1>ROLES: {currentrole ? printroles(currentrole) : ""} </h1>
             <table id='myfuckingtable' className="w-full border-collapse border-blue-400">
                 <thead id='myfuckingtable'>
+                    <h1 className='mb-3'>EMPLOYESS TABLE: </h1>
                     <tr id='myfuckingtable' className='text-2xl text-center'>
                         <th id='myfuckingtable' className="border-4 p-3">Firstname</th>
                         <th id='myfuckingtable' className="border-4 p-3">Lastname</th>
@@ -151,16 +180,17 @@ export const Testing_api = () => {
             </table>
             {
                 mytab === 0 && (
-                    <form className='w-full border-4 border-red-500 mb-40 p-4 flex flex-col items-center gap-4'>
+                    <form onSubmit={handlePost} className='w-full border-4 border-red-500 mb-40 p-4 flex flex-col items-center gap-4'>
                         <div className='w-full text-center'>POST FUNCTION</div>
                         <div>
-                            <label htmlFor="username">FIRSTNAME:</label><br/>
-                            <input type="text" id="username" className='w-fit whitespace-nowrap' name="username"/>
+                            <label>FIRSTNAME:</label><br/>
+                            <input type="text" value={newfirstname} onChange={(e) => setnewfirstname(e.target.value)}/>
                         </div>
                         <div>
-                            <label htmlFor="username">LASTNAME:</label><br/>
-                            <input type="text" id="username" name="username"/>
+                            <label>LASTNAME:</label><br/>
+                            <input type="text"value={newlastname} onChange={(e) => setnewlastname(e.target.value)}/>
                         </div>
+                        <button className='border-4 rounded-lg w-36 h-9 hover:bg-gray-400 text-center' type='submit'>{isfunnctioning? "Submitting.." : "Submit"}</button>
                     </form> 
                 )
             }          
