@@ -20,8 +20,8 @@ export const Testing_api = () => {
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [isfunnctioning,setisfunctioning] = useState(false);
     const [getuser,setgetuser]=useState();
-    const [errofetch,seterrorfetch]=useState("");
-    const defaultID = "6616a47bfc3c5498e78c3485";
+    const [errofetch,seterrorfetch]=useState("");   
+    const defaultID = "666666666666666666666666";
     // console.log(`defaultid.length: ${defaultID.length}`)
     // const handleSubmit = async (e) => {
     //   e.preventDefault();
@@ -35,6 +35,35 @@ export const Testing_api = () => {
     //     setError('Invalid username or password');
     //   }
     // };
+    useEffect(() => {
+        const getrefreshtoken = async () => {
+            const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('jwt:'));
+            const cartItemsString = cookieValue ? cookieValue.substring(cookieValue.indexOf(':') + 1) : null;
+            
+            try {
+                const response = await fetch(`http://localhost:3500/refresh/${cartItemsString}`, {
+                    credentials: "include",
+                });
+                
+                if (response.status === 401) {
+                    throw new Error('NO JWT Token received.');
+                } else if (response.status === 403) {
+                    if(!cookieValue){
+                        throw new Error('NO user found at database');
+                    }
+                }
+    
+                const data = await response.json();
+                setcurrentusername(data.USERNAME);
+                setaccesstoken(data.accessToken);
+                setcurrentrole(data.roles);
+            } catch (error) {
+                setError(error.message);
+            }
+        }
+        getrefreshtoken();
+    }, [])
+    
     const handleSubmit = async (e) => {
         setIsSigningIn(true);
         e.preventDefault();
@@ -48,7 +77,6 @@ export const Testing_api = () => {
             });
         
             if (!response.ok) {
-                setIsSigningIn(false);
                 throw new Error('Invalid username or password');
             }
         
@@ -56,11 +84,16 @@ export const Testing_api = () => {
             setcurrentusername(data.USERNAME);
             setaccesstoken(data.accessToken);
             setcurrentrole(data.roles);
-            setIsSigningIn(false);
+            document.cookie= `jwt:${data.refreshToken}`
+            // const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('jwt:'));
+            // const cartItemsString = cookieValue ? cookieValue.substring(cookieValue.indexOf(':') + 1) : null;
+            // console.log(`cookie : ${cartItemsString}`);
+            setError("");
             // console.log(data); // Handle successful login response
         } catch (error) {
             setError(error.message);
         }
+        setIsSigningIn(false);
     };
     const handlePost = async (e) => {
         setisfunctioning(true);
