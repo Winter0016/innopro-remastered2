@@ -810,6 +810,7 @@ hr{
 }
 
 #top-sell-hero{
+    position: relative;
     padding-top: 4rem;
     height:15rem;
     display: flex;
@@ -819,6 +820,7 @@ hr{
     border-radius:2rem;
 }
 #hot-sale{  
+    position: relative;
     font-size:2rem;
     font-family: 'Madimi One';
     background-image: linear-gradient(to left,rgb(255, 220, 220),rgb(254, 254, 165));
@@ -838,8 +840,10 @@ hr{
     flex-direction: column;
     row-gap: 2rem;
     padding:1.5rem;
+    position: relative;
 }
 .product-show{
+    position: relative;
     width:100%;
     padding: 2rem 2rem;
     display:grid;

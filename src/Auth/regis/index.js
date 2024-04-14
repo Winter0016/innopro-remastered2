@@ -3,13 +3,12 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/shopContext';
 import images from '../../images/images';
-import { doCreateUserWithEmailAndPassword } from '../../myfirebase/auth';
+import { doCreateUserWithEmailAndPassword, doSendEmailVerification } from '../../myfirebase/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const Register = () => {
     const navigate = useNavigate();
     const { userLoggedIn } = useAuth();
-    const {changebackground}= useAuth();
     const{setchangebackground} = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -28,6 +27,7 @@ export const Register = () => {
             }
             try {
                 await doCreateUserWithEmailAndPassword(email, password);
+                await doSendEmailVerification();
                 navigate('/login'); // Redirect to login after successful registration
             } catch (error) {
                 setIsRegistering(false);
@@ -40,7 +40,7 @@ export const Register = () => {
             setchangebackground(false); // Update background upon user login
             navigate('/'); // Navigate to home page upon user login
         }
-    }, [userLoggedIn, setchangebackground, navigate]);
+    }, [userLoggedIn,setchangebackground,navigate]);
 
     return (
         <div className='login-container'>

@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import images from '../../../images/images';
 import { useAuth } from '../../../context/shopContext';
-import { useEffect } from 'react';
 export const Product = (props) => {
     const { name, price, id,hotsales} = props.data;
     const {addToCart} = useAuth();
@@ -14,7 +13,6 @@ export const Product = (props) => {
 
     let productnumber;
 
-    let productimgpos = document.getElementsByClassName("productx-imga2");
     // Replace spaces with underscores to match the image keys
     const imageName = name.replace(/\s+/g,'');
 
@@ -66,7 +64,7 @@ const checkdate = () =>{
 }
 
 for(var key in cartItems){
-    if(id == key){
+    if(id === key){
         productnumber= cartItems[key];
     }
 }
@@ -82,7 +80,7 @@ checking = checkdate();
         const rect1 = productimgposRef.current.getBoundingClientRect();
         const deltaX = rect2.left - rect1.left;
         const deltaY = rect2.top - rect1.top;
-        productimgposRef.current.style.zIndex = "300"; 
+        productimgposRef.current.style.zIndex = "9000"; 
         productimgposRef.current.style.transition = "transform 1.5s ease";
         productimgposRef.current.style.transform = `translate(${deltaX + 150}px, ${deltaY}px)`;
         // productimgposRef.current.style.opacity = "1";
