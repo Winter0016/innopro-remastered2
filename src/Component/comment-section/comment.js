@@ -27,14 +27,16 @@ export const Comment = () => {
 
 
     //Method 1:
-        let newcommentlist2 = [];
+        let newcommentlist2 = [];   
         for(const [key,value] of commentsArray){
             let entries2 = Object.entries(value);
             for( const [key,value] of entries2){
                 newcommentlist2.unshift(value);
             }
         }
-        newcommentlist2.sort((a,b) => new Date(a.time) - new Date(b.time));
+        if(newcommentlist2){
+            newcommentlist2.sort((a,b) => new Date(a.time) - new Date(b.time));
+        }
         // console.log(`newcommentlist2: ${JSON.stringify(newcommentlist2)}`);
 
     //
