@@ -70,7 +70,7 @@ export const Comment = () => {
         }catch(err){
             setsendserror(err.message);
         }
-        clearAllCookies1();
+        await clearAllCookies1();
         setissending(false);
     }
 

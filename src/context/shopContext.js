@@ -133,7 +133,7 @@ export const ShopContextProvider = ({ children }) => {
           const cookieParts = cookies[i].split(':');
           const cookieName = cookieParts[0];
           if (cookieName === 'accesscomment') {
-            document.cookie = `${cookieName}:; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+            document.cookie = `${cookieName}:; expires=, 01 Jan 1970 00:00:00 GMT; path=/`;
           }      
       }
       // console.log(`cleared cookies : ${document.cookie} here`);
@@ -144,12 +144,13 @@ export const ShopContextProvider = ({ children }) => {
           const cookieParts = cookies[i].split('=');
           const cookieName = cookieParts[0];
           if (cookieName === 'cartItems') {
-              document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+              document.cookie = `${cookieName}=; expires=, 01 Jan 1970 00:00:00 GMT; path=/`;
           }
       }
   };
   
   // clearAllCookies1();
+  // clearAllCookies();
 
   useEffect(() => {
     const checkdocumentcookie = async () => {
