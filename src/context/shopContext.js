@@ -68,7 +68,7 @@ export const ShopContextProvider = ({ children }) => {
 
   const onchangecommentlist = async () => {
     try {
-      console.log(`changing comment`)
+      // console.log(`changing comment`)
       const data2 = await getDocs(collection(db, "comments"));
       const filtereddata2 = data2.docs.map((doc) => ({
         ...doc.data()
@@ -126,16 +126,30 @@ export const ShopContextProvider = ({ children }) => {
     // console.log(`cart in default : ${JSON.stringify(cart)}`);
     setCartItems(cart);
   };
+    const clearAllCookies1 = () => {
+      // console.log(`clearing all cookies`)
+      const cookies = document.cookie.split('; ');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookieParts = cookies[i].split(':');
+          const cookieName = cookieParts[0];
+          if (cookieName === 'accesscomment') {
+            document.cookie = `${cookieName}:; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+          }      
+      }
+      // console.log(`cleared cookies : ${document.cookie} here`);
+    };
     const clearAllCookies = () => {
       const cookies = document.cookie.split('; ');
       for (let i = 0; i < cookies.length; i++) {
           const cookieParts = cookies[i].split('=');
           const cookieName = cookieParts[0];
-          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+          if (cookieName === 'cartItems') {
+              document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+          }
       }
-      // console.log(`cleared cookies : ${document.cookie} here`);
-    };
-  // clearAllCookies();
+  };
+  
+  // clearAllCookies1();
 
   useEffect(() => {
     const checkdocumentcookie = async () => {
@@ -310,23 +324,39 @@ const onsubmitproduct = async (product, currentdate) => {
 const productstotalprice = getTotalCartAmount();
 const currentdateonly = getCurrentDate();
 
+const submitcomment = async () => {
+  const currentdate = getCurrentDateTime();
+  const productDoc2 = doc(db, "comments",currentdateonly) 
+  const dataupdate2 = {
+    [currentdate]:{
+      comment_username : auth?.currentUser?.displayName ? auth.currentUser.displayName : username,
+      comment: usercomment,
+      photo: auth?.currentUser?.photoURL? auth.currentUser.photoURL : null,
+      time : currentdate,
+    }
+  };
+  await setDoc(productDoc2,dataupdate2,{merge:true});
+  // console.log('updated comment successfully')
+  onchangecommentlist();
+}
+
 const product_total = async (currentdate) => {
   try {
     const documentPath = auth?.currentUser?.email ?  `${currentdate}_${auth.currentUser.email}` : `${currentdate}_${useremail}`;
     const productDoc = doc(db, "orders", documentPath);
       await updateDoc(productDoc, { total: productstotalprice, username: username , useremail: auth?.currentUser?.email ? auth.currentUser.email : useremail, usercomment:usercomment , useraddress: useraddress,userphone:userphone });
-      const productDoc2 = doc(db, "comments",currentdateonly)
-      const dataupdate2 = {
-        [currentdate]:{
-          comment_username : auth?.currentUser?.displayName ? auth.currentUser.displayName : username,
-          comment: usercomment,
-          photo: auth?.currentUser?.photoURL? auth.currentUser.photoURL : null,
-          time : currentdate,
-        }
-      };
-      await setDoc(productDoc2,dataupdate2,{merge:true});
-      console.log('updated comment successfully')
-      onchangecommentlist();
+      document.cookie= `accesscomment:${auth?.currentUser?.displayName? auth.currentUser.displayName : username}`
+      // const dataupdate2 = {
+      //   [currentdate]:{
+      //     comment_username : auth?.currentUser?.displayName ? auth.currentUser.displayName : username,
+      //     comment: usercomment,
+      //     photo: auth?.currentUser?.photoURL? auth.currentUser.photoURL : null,
+      //     time : currentdate,
+      //   }
+      // };
+      // await setDoc(productDoc2,dataupdate2,{merge:true});
+      // console.log('updated comment successfully')
+      // onchangecommentlist();
   } catch (err) {
       console.log(err);
   }
@@ -375,6 +405,8 @@ useEffect(() => {
 }, [paymentdone]);
 
   const contextValue = {
+    clearAllCookies1,
+    submitcomment,
     setcartposition,
     cartposition,
     speaktosale,

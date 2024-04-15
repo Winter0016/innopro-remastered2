@@ -223,11 +223,12 @@
 
 /* checkout */
 .checkout-show{
+    height:100vh;
     max-width: 1270px;
     margin: auto;
     padding-top:6rem;
     z-index:-1;
-    overflow: hidden;
+    overflow: auto;
 }
 .checkout-show button:disabled {
     opacity: 0.5;
@@ -239,6 +240,11 @@
     overflow: hidden;
     width:100%;
     gap: 2rem;
+}
+#form-checkout{
+    height:15rem;
+    display: flex;
+    align-items: center;
 }
 #form-input {
     border-radius: 0.5rem; 
@@ -913,40 +919,49 @@ hr{
 /* comment */
 .comment-container{
     height:100vh;
-    overflow:auto;
-    max-width: 1210px;
-    margin-left: auto;
-    display:flex;
-    flex-wrap: wrap;
-    gap:8rem;
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+    gap:2rem;
+    /* border:solid;
+    border-color:red; */
+    overflow: auto;
+    background-color: beige;
 }
 #mycomment{
-    max-width:30rem;
+    width:37rem;
     max-height:33rem ;
     overflow: auto;
     display:flex;
     flex-direction: column;
+    padding-top:1rem;
     border-radius:0.5rem;
     padding-right:1rem;
     padding-left:1rem;
+    padding-bottom:1rem;
     background-color: rgb(200, 200, 231);
     box-shadow: 20px 20px 5px rgb(1, 28, 37);
+    margin:auto;
 }
-#mycomment-img{
-    width:auto;
-    height:33rem;
-    border-radius:0.5rem;
-    overflow: hidden;
-    border-color:black;
-    border-width: 1rem;
-    box-shadow: 20px 20px 5px rgb(1, 28, 37);
+#enter-comment{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding-top:0.5rem;
+    width: 34rem;
+    margin:auto;
 }
+#enter-comment textarea{
+    width:100%;
+}
+
 
 
 /* comment */
 /* media  */
 
 /* for small */
+
 .smallbut-container{
     display:none;
 }
@@ -961,6 +976,15 @@ hr{
 
 
 @media (max-width:767px){
+    #form-checkout{
+        height:auto;
+    }
+    #mycomment{
+        width:fit-content;
+    }
+    #enter-comment{
+        width: fit-content;
+    }
     #form-checkout{
         padding-right:1rem;
     }
