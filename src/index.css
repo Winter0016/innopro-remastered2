@@ -181,80 +181,44 @@
     /* background-image: linear-gradient(to right,pink,rgb(250, 250, 173)); */
     /* background-color: #121212; */
 }
-.slideshow-container{
-    max-width: 1190px;
+.slideshow-container {
+    max-width: 1150px;
     margin: auto;
+    border: 5px solid;
+    border-radius:20px;
+    border-color: antiquewhite;
+    position: relative;
+    background-color: antiquewhite;
 }
-.slideshow-img{
-    object-fit: cover;
-    height:20rem;
-    width:100%;
-    display:none;
+
+.slideshow-img {
+    position: relative;
+    object-fit:cover;
+    height:18rem;
+    width:18rem;
+    padding:1rem;
+    border-radius: 20px;
     overflow: hidden;
+    /* border:solid; */
 }
-.slideshow-img-active{
-    object-fit: cover;
-    height:20rem;
-    width:100%;
-    display:block;
-    animation-name: fading;
-    animation-duration: 3s;
-    animation-timing-function: linear;
-    overflow: hidden;
-    border:20px solid;
-    border-color:antiquewhite;
-    border-radius:2rem;
-    padding:0px;
-    border-image-repeat: stretch;  
-    border-image-slice: 1;
+.myslideshow-container .slick-prev:before,
+.myslideshow-container .slick-next:before {
+    font-family: 'slick';
+    font-size: 30px;
+    line-height: 1;
+    opacity: .75;
+    color: black; /* Change arrow color to black */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -moz-osx-font-smoothing: grayscale;
 }
-@keyframes fading{
-    from{ opacity: 0.2;}
-    to { opacity: 1}
+.myslideshow-container .slick-prev{
+    left: -36px;
 }
-@keyframes dotcolor{
-    from{ background-color: #bbb ;}
-    to { background-color: black;}
-    
+.myslideshow-container .slick-dots li button:before {
+    font-size: 20px;
+    top:10px;
 }
-.active{
-    animation-name: dotcolor;
-    animation-duration: 3s;
-    animation-timing-function: linear;
-}
-
-
-.dot {
-    height: 2.5rem;
-    width: 2.5rem;
-    margin: 1rem;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.dot2{
-    height: 2.5rem;
-    width: 2.5rem;
-    margin: 1rem;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.dot p{
-    border:solid;
-    width: 100%;
-    text-align: center;
-    opacity: 0;
-}
-.dot p:hover{
-    cursor: pointer;
-}
-
 /* slideshow */
 
 /* checkout */
