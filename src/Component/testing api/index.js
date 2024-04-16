@@ -251,50 +251,77 @@ export const Testing_api = () => {
         // console.log(`getuser : ${JSON.stringify(getuser)}`)
         arrayuser.push(getuser);
     }
+
+    const clearAllCookies = () => {
+        const cookies = document.cookie.split('; ');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookieParts = cookies[i].split('=') || cookies[i].split('=') ;
+            const cookieName = cookieParts[0];
+            document.cookie = `${cookieName}; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+        }
+        console.log(`document.cookie: ${document.cookie}`)
+    };
+    
+    // clearAllCookies();
     return (
         <div className='employees-container'>
             <div id='login-form-custom' className="w-full max-w-md p-8 rounded shadow-xl">
-                <h2 id='login-text-custom' className="text-center text-2xl font-semibold mb-4">ADMIN</h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label id='login-text-custom' htmlFor="username" className="block text-sm font-medium">
-                            Username
-                        </label>
-                        <input
-                            id="username"
-                            type="text"
-                            autoComplete="username"
-                            required
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="mt-1 block w-full px-3 py-2 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none sm:text-sm"
-                        />
-                    </div>
-                    <div>
-                        <label id='login-text-custom' htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            Password
-                        </label>
-                        <input
-                            id="password"
-                            type="password"
-                            autoComplete="current-password"
-                            required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="mt-1 block w-full px-3 py-2 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none sm:text-sm"
-                        />
-                    </div>
-                    {error && (
-                        <p className="text-red-600">{error}</p>
-                    )}
-                    <button
-                        type="submit"
-                        disabled={isSigningIn}
-                        className={`w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md ${isSigningIn ? 'opacity-50 cursor-not-allowed' : 'hover:bg-indigo-700'}`}
-                    >
-                        {isSigningIn ? 'Signing In...' : 'Sign In'}
-                    </button>
-                </form>
+                <h2 id='login-text-custom' className="text-center text-2xl font-semibold mb-4">ADMIN: {currentusername ? currentusername : ""}</h2>
+                {
+                    currentusername ? (
+                        <>  
+                            <form onSubmit={() => clearAllCookies()}>
+                                <button
+                                    type="submit"
+                                    className={`w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700`}
+                                >
+                                    LOGOUT
+                                </button>
+                            </form>
+                        </>
+                    ):(
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div>
+                                <label id='login-text-custom' htmlFor="username" className="block text-sm font-medium">
+                                    Username
+                                </label>
+                                <input
+                                    id="username"
+                                    type="text"
+                                    autoComplete="username"
+                                    required
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    className="mt-1 block w-full px-3 py-2 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none sm:text-sm"
+                                />
+                            </div>
+                            <div>
+                                <label id='login-text-custom' htmlFor="password" className="block text-sm font-medium text-gray-700">
+                                    Password
+                                </label>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    autoComplete="current-password"
+                                    required
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="mt-1 block w-full px-3 py-2 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none sm:text-sm"
+                                />
+                            </div>
+                            {error && (
+                                <p className="text-red-600">{error}</p>
+                            )}
+                            <button
+                                type="submit"
+                                disabled={isSigningIn}
+                                className={`w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md ${isSigningIn ? 'opacity-50 cursor-not-allowed' : 'hover:bg-indigo-700'}`}
+                            >
+                                {isSigningIn ? 'Signing In...' : 'Sign In'}
+                            </button>
+                        </form>
+                    )
+                }
             </div>
             <h1>USER: {currentusername ? currentusername : ""}</h1>
             <h1>ACCESSTOKEN: {accesstoken ? "VALID" : "NONE"}</h1>
