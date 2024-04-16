@@ -48,8 +48,11 @@ export const Testing_api = () => {
                 if (response.status === 401) {
                     throw new Error('NO JWT Token received.');
                 } else if (response.status === 403) {
-                    if(!cookieValue){
+                    if(cookieValue){
                         throw new Error('NO user found at database');
+                    }
+                    else{
+                        throw new Error("Currently unauthoritized")
                     }
                 }
     
