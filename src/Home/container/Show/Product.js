@@ -64,10 +64,13 @@ const checkdate = () =>{
 }
 
 for(var key in cartItems){
-    if(id === key){
+    // console.log(`type of key: ${typeof(key)}`)
+    // console.log(`type of id : ${typeof(id)}`)
+    if(id == key){
         productnumber= cartItems[key];
     }
 }
+// console.log(`cartItems: ${JSON.stringify(cartItems)}`)
 // console.log(`productnumber : ${productnumber}`);
 
 checking = checkdate();

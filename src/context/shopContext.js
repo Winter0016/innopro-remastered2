@@ -1,8 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { auth, db } from "../myfirebase/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
-import { getDocs, collection,addDoc,setDoc,updateDoc,doc } from "firebase/firestore";
-import { useLocation } from 'react-router-dom';
+import { getDocs, collection,setDoc,updateDoc,doc } from "firebase/firestore";
 
 export const ShopContext = createContext(null);
 
@@ -107,36 +106,27 @@ export const ShopContextProvider = ({ children }) => {
     // console.log(JSON.stringify(salelist));
 
   const getDefaultCart = async () => {
-    // console.log(`get default baby`)
-    // console.log(`productlist : ${JSON.stringify(productlist)}`);
-    // console.log(`productlist.length : ${productlist.length}`);
-    let cart = {};
-    for (let i = 0; i < productlist.length + salelist.length; i++) {
-      if(i < productlist.length){
-        cart[productlist[i].id] = 0;
-          // console.log(`cart in default : ${JSON.stringify(cart)}`);
-      }
-      else{
-        for( let y = 0 ; y < salelist.length ; y++ ){
-          cart[salelist[y].id] = 0;
+      let cart = {};
+      for (let i = 0; i < productlist.length + salelist.length; i++) {
+        if(i < productlist.length){
+          cart[productlist[i].id] = 0;
           // console.log(`cart in default : ${JSON.stringify(cart)}`);
         }
+        else{
+          for( let y = 0 ; y < salelist.length ; y++ ){
+            cart[salelist[y].id] = 0;
+            // console.log(`cart in default : ${JSON.stringify(cart)}`);
+          }
+        }
       }
-    }
-    // console.log(`cart in default : ${JSON.stringify(cart)}`);
-    setCartItems(cart);
-  };
-    const clearAllCookies1 = () => {
-      // console.log(`clearing all cookies`)
-      const cookies = document.cookie.split('; ');
-      for (let i = 0; i < cookies.length; i++) {
-          const cookieParts = cookies[i].split(':');
-          const cookieName = cookieParts[0];
-          if (cookieName === 'accesscomment') {
-            document.cookie = `${cookieName}:; expires=, 01 Jan 1970 00:00:00 GMT; path=/`;
-          }      
-      }
-      // console.log(`cleared cookies : ${document.cookie} here`);
+      const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
+      // console.log(`cart : ${cart}`)
+      const cartString = JSON.stringify(cart);
+      // console.log(`cartstring: ${(cartString)}`);
+      document.cookie = `cartItems=${cartString}; expires=${expires}`;
+      const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
+      const cartItemsString = cookieValue ? cookieValue.substring(cookieValue.indexOf('=') + 1) : null;
+      setCartItems(cartItemsString ? JSON.parse(cartItemsString) : {});
     };
     const clearAllCookies = () => {
       const cookies = document.cookie.split('; ');
@@ -147,7 +137,7 @@ export const ShopContextProvider = ({ children }) => {
               document.cookie = `${cookieName}=; expires=, 01 Jan 1970 00:00:00 GMT; path=/`;
           }
       }
-  };
+    };
   
   // clearAllCookies1();
   // clearAllCookies();
@@ -159,7 +149,6 @@ export const ShopContextProvider = ({ children }) => {
           // console.log(`hello`)
           await clearAllCookies();
           // console.log(`waiting 1`)
-          await getDefaultCart();
           // console.log(`waiting 2`);
         }catch(error){
           console.log(error);
@@ -191,12 +180,7 @@ export const ShopContextProvider = ({ children }) => {
       }
     }
     checkdocumentcookie();
-  }, [productlist]);
-
-  useEffect(() =>{
-    settotalAmount(getTotalCartAmount());
-    settotalproductnumer(gettotalproductnumber());
-  },[cartItems])
+  }, [productlist,salelist]);
 
   const gettotalproductnumber = () => {
     let totalAmount = 0;
@@ -205,8 +189,6 @@ export const ShopContextProvider = ({ children }) => {
     }
     return totalAmount;
   }
-  // console.log(`totalproductnumber : ${totalproductnumber}`);
-
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     // console.log(`cart in total : ${JSON.stringify(cartItems)}`);
@@ -223,10 +205,13 @@ export const ShopContextProvider = ({ children }) => {
     // console.log(`totalamount : ${totalAmount}`);
     return totalAmount;
   };
-  
 
+  useEffect(() =>{
+    settotalAmount(getTotalCartAmount());
+    settotalproductnumer(gettotalproductnumber());
+  },[cartItems,gettotalproductnumber,getTotalCartAmount])
 
-
+  // console.log(`totalproductnumber : ${totalproductnumber}`);
 
   const addToCart = (itemId) => {
     const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('cartItems='));
@@ -281,7 +266,7 @@ export const ShopContextProvider = ({ children }) => {
   };
 
   // console.log(`cart1 : ${JSON.stringify(cartItems)}`);
-  // console.log(document.cookie);
+  // console.log(`document.cookie: ${document.cookie}`);
 
   //submit order function
   const getCurrentDate = () => {
@@ -345,8 +330,10 @@ const product_total = async (currentdate) => {
   try {
     const documentPath = auth?.currentUser?.email ?  `${currentdate}_${auth.currentUser.email}` : `${currentdate}_${useremail}`;
     const productDoc = doc(db, "orders", documentPath);
-      await updateDoc(productDoc, { total: productstotalprice, username: username , useremail: auth?.currentUser?.email ? auth.currentUser.email : useremail, usercomment:usercomment , useraddress: useraddress,userphone:userphone });
-      document.cookie= `accesscomment:${auth?.currentUser?.displayName? auth.currentUser.displayName : username}`
+      await updateDoc(productDoc, { total: productstotalprice, username: username , useremail: auth?.currentUser?.email ? auth.currentUser.email : useremail,useraddress: useraddress,userphone:userphone });
+      document.cookie= `accesscomment: ${auth?.currentUser?.displayName? `${auth.currentUser.displayName}` : `${username}`}`
+      // console.log(`type of authusername : ${typeof(auth.currentUser.displayName)}`);
+      // console.log(`type of username : ${typeof(username)}`);
       // const dataupdate2 = {
       //   [currentdate]:{
       //     comment_username : auth?.currentUser?.displayName ? auth.currentUser.displayName : username,
@@ -388,10 +375,10 @@ const submitorder = async () => {
       }
     });
     await product_total(currentdate);
-    setpaymentdone(true);
-    setpayingstatus(false);
-    clearAllCookies();
-    getDefaultCart();
+    await setpaymentdone(true);
+    await setpayingstatus(false);
+    await clearAllCookies();
+    await getDefaultCart();
   }
 };
 
@@ -406,7 +393,7 @@ useEffect(() => {
 }, [paymentdone]);
 
   const contextValue = {
-    clearAllCookies1,
+    usercomment,
     submitcomment,
     setcartposition,
     cartposition,
