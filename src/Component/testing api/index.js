@@ -8,9 +8,8 @@ import {
   MessageList,
   Message,
   MessageInput,
+  TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
-
-// hey
 export const Testing_api = () => {
     const API_URL = 'http://localhost:3500/employees';
     const [employees, setEmployees] = useState([]);
@@ -268,8 +267,49 @@ export const Testing_api = () => {
         }
         console.log(`document.cookie: ${document.cookie}`)
     };
-    
     // clearAllCookies();
+
+    const [messages,setmessages] = useState([
+        {
+            message: "Hello from chatbot",
+            direction:"incoming",
+        },
+    ])
+    const [isTyping, setIsTyping] = useState(false);
+
+    const handlesend = async (message) => {
+        // console.log(`message: ${message}`);
+        const newmessage = {
+            message,
+            direction: "outgoing",
+        }
+
+
+        setIsTyping(true);
+        try{
+            setmessages([...messages,newmessage]);
+            // console.log("setnewmessage: ", JSON.stringify(messages));
+            const response = await fetch("http://localhost:3500/messend",{
+                method:'POST',
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body:JSON.stringify({"mess":newmessage.message})
+            });
+            const data = await response.json();
+            const chatbotmessage = {
+                message: data,
+                direction:"incoming",
+            }
+            setTimeout( () => {
+                setmessages([...messages,newmessage,chatbotmessage]);
+                setIsTyping(false);
+            },3000)
+        }catch(err){
+            console.log(err);
+        }
+        // console.log(JSON.stringify(messages));
+    }
     return (
         <div className='employees-container'>
             <div id='login-form-custom' className="w-full max-w-md p-8 rounded shadow-xl">
@@ -360,7 +400,7 @@ export const Testing_api = () => {
             </table>
             {
                 mytab === 0 && (
-                    <form onSubmit={handlePost} className='min-w-96 bg-gray-300 rounded-lg mb-40 p-4 flex flex-col items-center gap-4'>
+                    <form onSubmit={handlePost} className='min-w-96 bg-gray-300 rounded-lg p-4 flex flex-col items-center gap-4'>
                         <div className='w-full text-center'>POST FUNCTION</div>
                         <div className='w-full text-center text-red-600'>REQUIRED ROLES : 5150 or 1984</div>
                         <div>
@@ -378,7 +418,7 @@ export const Testing_api = () => {
             }          
             {
                 mytab === 1 && (
-                    <form onSubmit={handleUpdate} className='min-w-96 bg-gray-300 rounded-lg mb-40 p-4 flex flex-col items-center gap-4'>
+                    <form onSubmit={handleUpdate} className='min-w-96 bg-gray-300 rounded-lg  p-4 flex flex-col items-center gap-4'>
                         <div className='w-full text-center'>UPDATE FUNCTION</div>
                         <div className='w-full text-center text-red-600'>REQUIRED ROLES : 5150 or 1984</div>
                         <div>
@@ -400,7 +440,7 @@ export const Testing_api = () => {
             }          
             {
                 mytab === 2 && (
-                    <form onSubmit={handleDelete} className='min-w-96 bg-gray-300 rounded-lg mb-40 p-4 flex flex-col items-center gap-4'>
+                    <form onSubmit={handleDelete} className='min-w-96 bg-gray-300 rounded-lg  p-4 flex flex-col items-center gap-4'>
                         <div className='w-full text-center'>DELETE FUNCTION</div>
                         <div className='w-full text-center text-red-600'>REQUIRED ROLES : 5150</div>
                         <div>
@@ -414,7 +454,7 @@ export const Testing_api = () => {
             }          
             {
                 mytab === 3 && (
-                    <form onSubmit={handleGet} className='min-w-96 bg-gray-300 rounded-lg mb-40 p-4 flex flex-col items-center gap-4'>
+                    <form onSubmit={handleGet} className='min-w-96 bg-gray-300 rounded-lg  p-4 flex flex-col items-center gap-4'>
                         <div className='w-full text-center'>GET FUNCTION</div>
                         <div className='w-full text-center text-red-600'>NO ROLE REQUIRED</div>
                         <div>
@@ -437,6 +477,21 @@ export const Testing_api = () => {
                     </form> 
                 )
             }
+            <div style={{ position:"relative", height: "500px", width: "700px", marginBottom :"5rem", overflow :"auto"  }}>
+                <MainContainer>
+                    <ChatContainer>       
+                    <MessageList scrollBehavior="smooth" typingIndicator={isTyping ? <TypingIndicator content="CHATBOT is typing" /> : null}>
+                        {messages.map((message, i) => (
+                            <Message
+                                key={i}
+                                model={message}
+                            />
+                        ))}
+                    </MessageList>
+                    <MessageInput placeholder="Type message here" onSend={handlesend}/>        
+                    </ChatContainer>
+                </MainContainer>
+            </div>
         </div>
     );
 }
