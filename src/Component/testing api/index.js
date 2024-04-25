@@ -1,7 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Employee } from './employee';
-// import axios from 'axios';
+import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import {
+  MainContainer,
+  ChatContainer,
+  MessageList,
+  Message,
+  MessageInput,
+} from "@chatscope/chat-ui-kit-react";
 
 
 export const Testing_api = () => {
