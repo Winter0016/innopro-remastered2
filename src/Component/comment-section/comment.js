@@ -8,6 +8,7 @@ export const Comment = () => {
     const {loadingpage} = useAuth();
     const {setusercomment,usercomment} = useAuth(); 
     const {submitcomment} = useAuth();
+    const {paymentdone} = useAuth();
 
     const clearAllCookies1 = () => {
         // console.log(`clearing all cookies`)
@@ -48,7 +49,7 @@ export const Comment = () => {
         if(newcommentlist2){
             newcommentlist2.sort((a,b) => new Date(a.time) - new Date(b.time));
         }
-        // console.log(`newcommentlist2: ${JSON.stringify(newcommentlist2)}`);
+        console.log(`newcommentlist2: ${JSON.stringify(newcommentlist2)}`);
 
     //
     //Method 2:
@@ -68,7 +69,7 @@ export const Comment = () => {
 
     const [senderror,setsendserror] = useState('');
     const [isending,setissending] = useState(false);
-    const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('accesscomment:'));
+    let cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('accesscomment:'));
     const cartItemsString = cookieValue ? cookieValue.substring(cookieValue.indexOf(':') + 1) : null;
     const sendcomment = async () =>{
         setissending(true);

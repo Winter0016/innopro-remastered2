@@ -360,8 +360,14 @@ const submitorder = async () => {
         checking=true;
     }
   });
+  salelist.forEach((product2) => {
+    if (cartItems[product2.id] !== 0) {
+      checking = true;
+    }
+  });
   if(checking == false){
     alert('Your cart is empty!');
+    return;
   }
   else{
     productlist.forEach((product) => {
@@ -393,6 +399,7 @@ useEffect(() => {
 }, [paymentdone]);
 
   const contextValue = {
+    paymentdone,
     usercomment,
     submitcomment,
     setcartposition,
