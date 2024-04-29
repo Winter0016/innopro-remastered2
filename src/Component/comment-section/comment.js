@@ -8,7 +8,6 @@ export const Comment = () => {
     const {loadingpage} = useAuth();
     const {setusercomment,usercomment} = useAuth(); 
     const {submitcomment} = useAuth();
-    const {paymentdone} = useAuth();
 
     const clearAllCookies1 = () => {
         // console.log(`clearing all cookies`)
@@ -21,12 +20,13 @@ export const Comment = () => {
             }      
         }
         // console.log(`cleared cookies : ${document.cookie} here`);
-      };
+    };
     // for (const key in commentlist) {
     //     console.log(commentlist[key]);
     // }
 
     const commentsArray = Object.entries(commentlist);
+    // console.log(`commentsArray : ${JSON.stringify(commentsArray)}`);
 
     // Sort the array based on timestamps
     // commentsArray.sort((a, b) => new Date(a[0]) - new Date(b[0]));
@@ -49,7 +49,7 @@ export const Comment = () => {
         if(newcommentlist2){
             newcommentlist2.sort((a,b) => new Date(a.time) - new Date(b.time));
         }
-        // console.log(`newcommentlist2: ${JSON.stringify(newcommentlist2)}`);
+        console.log(`newcommentlist2: ${JSON.stringify(newcommentlist2)}`);
 
     //
     //Method 2:
@@ -82,13 +82,13 @@ export const Comment = () => {
         }catch(err){
             setsendserror(err.message);
         }
-        await clearAllCookies1();
+        clearAllCookies1();
         setissending(false);
     }
 
     return (
         <div className='comment-container pt-20 pb-5'>
-            <form onSubmit={(e) => {e.preventDefault();sendcomment()}} id='enter-comment' className='bg-yellow-100' action="#">
+            <form onSubmit={(e) => {e.preventDefault();sendcomment();clearAllCookies1()}} id='enter-comment' className='bg-yellow-100' action="#">
                 <h2 className='mb-2 ml-2'>TÊN: {cartItemsString? cartItemsString : "tên bạn sẽ được tự động điền sau khi mua hàng"} </h2>
                 <div className='flex w-auto'>
                     <div   div id='icon-container' className='pt-1 pl-1'>
@@ -99,7 +99,7 @@ export const Comment = () => {
                     <textarea className='rounded-lg focus:outline-none focus:ring-0' id="form-input" rows="4" placeholder={cartItemsString? "Hãy điền comment của bạn(1 lần gửi)" : "Bạn cần mua hàng để comment(mỗi lần)"} value={usercomment} onChange={(e)=> setusercomment(e.target.value)}></textarea>
                 </div>
                 {setsendserror && <h1 className=' text-red-700 mt-2 mb-2 text-xl'>{senderror}</h1>}
-                <button type="submit" className="text-white bg-blue-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center hover:cursor-pointer" disabled={isending} > {isending ? "Đang gửi" : "Gửi"}</button>        
+                <button type="submit" className = {!isending ? "text-white bg-blue-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center hover:cursor-pointer" : "text-white bg-blue-900 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center hover:cursor-not-allowed"} disabled={isending} > {isending ? "Đang gửi" : "Gửi"}</button>        
             </form>
             <div id='mycomment' className="gap-1">
                 {
@@ -114,7 +114,7 @@ export const Comment = () => {
                         <>
                             {
                                 newcommentlist2.map((mycomment) => (
-                                    <Com key={mycomment.time} data={mycomment} />
+                                    <Com key={mycomment.id} data={mycomment} />
                                 ))
                             }                          
                         </>

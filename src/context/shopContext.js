@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { auth, db } from "../myfirebase/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
-import { getDocs, collection,setDoc,updateDoc,doc } from "firebase/firestore";
+import { getDocs, collection,setDoc,updateDoc,doc,getDoc } from "firebase/firestore";
 
 export const ShopContext = createContext(null);
 
@@ -312,17 +312,28 @@ const currentdateonly = getCurrentDate();
 
 const submitcomment = async () => {
   const currentdate = getCurrentDateTime();
-  const productDoc2 = doc(db, "comments",currentdateonly) 
+
+  // Get the current commentstorage object
+  const productDoc = doc(db, "comments", "commentstorage");
+  const productSnap = await getDoc(productDoc);
+  const commentstorage = productSnap.data();
+
+  // Calculate the new ID
+  const newId = Object.keys(commentstorage).length + 1;
+
+  const productDoc2 = doc(db, "comments", "commentstorage");
   const dataupdate2 = {
-    [currentdate]:{
-      comment_username : auth?.currentUser?.displayName ? auth.currentUser.displayName : username,
+    ...commentstorage, // Keep existing data
+    [newId]: {
+      comment_username: auth?.currentUser?.displayName ? auth.currentUser.displayName : username,
       comment: usercomment,
-      photo: auth?.currentUser?.photoURL? auth.currentUser.photoURL : null,
-      time : currentdate,
-    }
+      photo: auth?.currentUser?.photoURL ? auth.currentUser.photoURL : null,
+      time: currentdate,
+      id: newId,
+    },
   };
-  await setDoc(productDoc2,dataupdate2,{merge:true});
-  // console.log('updated comment successfully')
+
+  await setDoc(productDoc2, dataupdate2, { merge: true });
   onchangecommentlist();
 }
 
@@ -399,7 +410,6 @@ useEffect(() => {
 }, [paymentdone]);
 
   const contextValue = {
-    paymentdone,
     usercomment,
     submitcomment,
     setcartposition,
