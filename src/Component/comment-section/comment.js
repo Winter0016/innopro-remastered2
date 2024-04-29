@@ -49,7 +49,7 @@ export const Comment = () => {
         if(newcommentlist2){
             newcommentlist2.sort((a,b) => new Date(a.time) - new Date(b.time));
         }
-        console.log(`newcommentlist2: ${JSON.stringify(newcommentlist2)}`);
+        // console.log(`newcommentlist2: ${JSON.stringify(newcommentlist2)}`);
 
     //
     //Method 2:
