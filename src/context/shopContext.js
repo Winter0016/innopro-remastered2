@@ -138,20 +138,13 @@ export const ShopContextProvider = ({ children }) => {
           }
       }
     };
-    const clearAllCookies1 = () => {
-      // console.log(`clearing all cookies`)
-      const cookies = document.cookie.split('; ');
-      for (let i = 0; i < cookies.length; i++) {
-          const cookieParts = cookies[i].split(':');
-          const cookieName = cookieParts[0];
-          if (cookieName === 'accesscomment') {
-            document.cookie = `${cookieName}:; expires=, 01 Jan 1970 00:00:00 GMT; path=/`;
-          }      
-      }
-      // console.log(`cleared cookies : ${document.cookie} here`);
-  };
+    const clearLocalStorage = () => {
+      localStorage.removeItem('accesscomment');
+      // Add more lines here to remove other items from localStorage if needed
+      // console.log('localStorage cleared');
+    };
   
-  // clearAllCookies1();
+  // clearLocalStorage();
   // clearAllCookies();
 
   useEffect(() => {
@@ -354,7 +347,7 @@ const product_total = async (currentdate) => {
     const documentPath = auth?.currentUser?.email ?  `${currentdate}_${auth.currentUser.email}` : `${currentdate}_${useremail}`;
     const productDoc = doc(db, "orders", documentPath);
       await updateDoc(productDoc, { total: productstotalprice, username: username , useremail: auth?.currentUser?.email ? auth.currentUser.email : useremail,useraddress: useraddress,userphone:userphone });
-      document.cookie= `accesscomment: ${auth?.currentUser?.displayName? `${auth.currentUser.displayName}` : `${username}`}`
+      localStorage.setItem('accesscomment', auth?.currentUser?.displayName ? `${auth.currentUser.displayName}` : `${username}`);
       // console.log(`type of authusername : ${typeof(auth.currentUser.displayName)}`);
       // console.log(`type of username : ${typeof(username)}`);
       // const dataupdate2 = {
@@ -422,7 +415,7 @@ useEffect(() => {
 }, [paymentdone]);
 
   const contextValue = {
-    clearAllCookies1,
+    clearLocalStorage,
     usercomment,
     submitcomment,
     setcartposition,
