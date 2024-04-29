@@ -8,19 +8,9 @@ export const Comment = () => {
     const {loadingpage} = useAuth();
     const {setusercomment,usercomment} = useAuth(); 
     const {submitcomment} = useAuth();
+    const {clearAllCookies1} = useAuth();
 
-    const clearAllCookies1 = () => {
-        // console.log(`clearing all cookies`)
-        const cookies = document.cookie.split('; ');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookieParts = cookies[i].split(':');
-            const cookieName = cookieParts[0];
-            if (cookieName === 'accesscomment') {
-              document.cookie = `${cookieName}:; expires=, 01 Jan 1970 00:00:00 GMT; path=/`;
-            }      
-        }
-        // console.log(`cleared cookies : ${document.cookie} here`);
-    };
+
     // for (const key in commentlist) {
     //     console.log(commentlist[key]);
     // }

@@ -138,6 +138,18 @@ export const ShopContextProvider = ({ children }) => {
           }
       }
     };
+    const clearAllCookies1 = () => {
+      // console.log(`clearing all cookies`)
+      const cookies = document.cookie.split('; ');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookieParts = cookies[i].split(':');
+          const cookieName = cookieParts[0];
+          if (cookieName === 'accesscomment') {
+            document.cookie = `${cookieName}:; expires=, 01 Jan 1970 00:00:00 GMT; path=/`;
+          }      
+      }
+      // console.log(`cleared cookies : ${document.cookie} here`);
+  };
   
   // clearAllCookies1();
   // clearAllCookies();
@@ -410,6 +422,7 @@ useEffect(() => {
 }, [paymentdone]);
 
   const contextValue = {
+    clearAllCookies1,
     usercomment,
     submitcomment,
     setcartposition,
