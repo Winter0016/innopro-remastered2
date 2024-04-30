@@ -52,24 +52,27 @@ export const Advertisement = () => {
 
   return (
     <>
-        <section className="ad-custombg">
-          <section className='hiddenslide'>
-            <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 pt-5">
-              <div className="mr-auto place-self-center lg:col-span-7">
-                <h1 id='ad-text-custom' className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Chả Lụa<br/> Chà Bông<br/> Chất Lượng</h1>
-                <a onClick={() => handleClick()} id='ad-a-custom' className="inline-flex items-center justify-center px-5 py-3 mr-5 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 hover:cursor-pointer">
-                  Get started
-                  <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"></path></svg>
-                </a>
-                <a id='ad-a-custom' className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white border border-gray-300 rounded-lg bg-gray-700 hover:bg-gray-500 hover:cursor-pointer" onClick={() => setspeaktosale(true)}>
-                  Speak to Sales
-                </a> 
-              </div>
-              <div id='ad-img-custom' className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-                  <img src={images.spring_rolls} alt="mockup"/>
-              </div>  
+        <section className="ad-container">
+          <div className='ad1-container'>
+            <h1> Cửa hàng <br/> Nam Hương </h1>
+            <div className=' flex gap-3 justify-center relative z-0'>
+              <button onClick={() => handleClick()} className="border hover:scale-95 duration-300 relative group cursor-pointer text-sky-50  overflow-hidden h-16 w-52 rounded-md bg-sky-200 p-2 flex justify-center items-center font-extrabold">
+                <div className="absolute right-32 -top-4  group-hover:top-1 group-hover:right-2 z-10 w-40 h-40 rounded-full group-hover:scale-150 duration-500 bg-sky-900"></div>
+                <div className="absolute right-2 -top-4  group-hover:top-1 group-hover:right-2 z-10 w-32 h-32 rounded-full group-hover:scale-150  duration-500 bg-sky-800"></div>
+                <div className="absolute -right-12 top-4 group-hover:top-1 group-hover:right-2 z-10 w-24 h-24 rounded-full group-hover:scale-150  duration-500 bg-sky-700"></div>
+                <div className="absolute right-20 -top-4 group-hover:top-1 group-hover:right-2 z-10 w-16 h-16 rounded-full group-hover:scale-150  duration-500 bg-sky-600"></div>
+                <p className="z-10">Get started</p>
+              </button>
+              <button onClick={() => setspeaktosale(true)} className="cursor-pointer font-semibold overflow-hidden relative z-100 border border-green-500 group px-8 py-2 w-52">
+                <span className="relative z-10 text-green-500 group-hover:text-white text-xl duration-500">HOTLINE</span>
+                <span className="absolute w-full h-full bg-green-500 -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500"></span>
+                <span className="absolute w-full h-full bg-green-500 -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"></span>
+              </button>
             </div>
-          </section>
+          </div>
+          <div className='ad-image'>
+            <img className=" w-96" src={images.spring_rolls} alt="" />
+          </div>
         </section>
     </>
   )

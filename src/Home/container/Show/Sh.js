@@ -60,9 +60,9 @@ export const Show = () => {
             </>
           ):(
             <div className="product-container2">
-              <div className="product-show-container">
-                <section className="hiddenslide">
-                  <div className="product-show-hero overflow-hidden">
+              <div className="product-show-container z-10">
+                <section className="hiddenslide relative">
+                  <div className="product-show-hero overflow-hidden relative">
                     <div className="marquee-content">
                       <div className="md:text-2xl lg:text-2xl text-1xl">Hello { auth?.currentUser?.email ? auth.currentUser.displayName || auth.currentUser.email : ``},</div>
                       <div className="md:text-6xl lg:text-6xl text-3xl">WELCOME BACK!</div>
@@ -73,8 +73,8 @@ export const Show = () => {
                     </div>
                   </div>                
                 </section>
-                <section className="hiddenslide">
-                  <div className="product-show">
+                <section className="hiddenslide relative">
+                  <div className="product-show relative">
                     { 
                       productlist.map((product) => (
                           <Product key={product.id} data={product} />
@@ -84,13 +84,13 @@ export const Show = () => {
                 </section>
               </div>
               <div className="top-sell-container">
-                <section className="hiddenslide2">
+                <section className="hiddenslide2 relative">
                   <div id="top-sell-hero">
                     <div id="hot-sale">HOT SALE 30%</div>
                     <svg id="arrow-down" width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3V21M12 21L5 14M12 21L19 14" stroke="rgba(0,0,0,0.95)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                   </div>
                 </section>
-                <section className="hiddenslide2">
+                <section className="hiddenslide2 relative">
                   <div className="sell-show-container">
                     { 
                       salelist.map((product) => (
