@@ -105,19 +105,19 @@ export const ShopContextProvider = ({ children }) => {
   // console.log(JSON.stringify(productlist));
     // console.log(JSON.stringify(salelist));
 
-  const getDefaultCart = async () => {
-      let cart = {};
-      for (let i = 0; i < productlist.length + salelist.length; i++) {
-        if(i < productlist.length){
-          cart[productlist[i].id] = 0;
-          // console.log(`cart in default : ${JSON.stringify(cart)}`);
-        }
-        else{
-          for( let y = 0 ; y < salelist.length ; y++ ){
-            cart[salelist[y].id] = 0;
+      const getDefaultCart = async () => {
+        let cart = {};
+        for (let i = 0; i < productlist.length + salelist.length; i++) {
+          if(i < productlist.length){
+            cart[productlist[i].id] = 0;
             // console.log(`cart in default : ${JSON.stringify(cart)}`);
           }
-        }
+          else{
+            for( let y = 0 ; y < salelist.length ; y++ ){
+              cart[salelist[y].id] = 0;
+             // console.log(`cart in default : ${JSON.stringify(cart)}`);
+            }
+        } 
       }
       const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
       // console.log(`cart : ${cart}`)
@@ -214,7 +214,7 @@ export const ShopContextProvider = ({ children }) => {
   useEffect(() =>{
     settotalAmount(getTotalCartAmount());
     settotalproductnumer(gettotalproductnumber());
-  },[cartItems,gettotalproductnumber,getTotalCartAmount])
+  },[cartItems])
 
   // console.log(`totalproductnumber : ${totalproductnumber}`);
 
@@ -397,10 +397,10 @@ const submitorder = async () => {
       }
     });
     await product_total(currentdate);
-    await setpaymentdone(true);
-    await setpayingstatus(false);
-    await clearAllCookies();
-    await getDefaultCart();
+    setpaymentdone(true);
+    setpayingstatus(false);
+    clearAllCookies();
+    getDefaultCart();
   }
 };
 
@@ -439,7 +439,6 @@ useEffect(() => {
     paymentdone,
     useremail,
     useraddress,
-    usercomment,
     userphone,
     username,
     setusername,

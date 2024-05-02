@@ -10,10 +10,10 @@ import { Checkout } from './Component/shopcheckout/shop-checkout';
 import { Comment } from './Component/comment-section/comment';
 import { Testing_api } from './Component/testing api';
 function App() {
-  const location = useLocation();
-  const excludedpath = ['/comment'];
+  // const location = useLocation();
+  // const excludedpath = ['/comment'];
 
-  const iscartvisible = !excludedpath.includes(location.pathname);
+  // const iscartvisible = !excludedpath.includes(location.pathname);
   return (
     <ShopContextProvider className="relative">
         <meta name="google-site-verification" content="RAOrR6udlfpJ2cZdeJFUk5-_AqWQI7bdrWg6vC6tSdM" />  

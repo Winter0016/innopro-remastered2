@@ -1,5 +1,5 @@
 import React from 'react'
-import images from '../../images/images';
+// import images from '../../images/images';
 export const Com = (props) => {
     const {comment , comment_username , photo,time} = props.data;
 

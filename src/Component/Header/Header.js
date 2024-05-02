@@ -13,7 +13,7 @@ export const Header = () => {
     const [close,setclose] =useState(true);
     const {changebackground}= useAuth();
     const{setchangebackground} = useAuth();
-    const {setspeaktosale} = useAuth();
+    // const {setspeaktosale} = useAuth();
     // console.log(`changebackground : ${changebackground}`);
   return (
     <section className="fixed h-full z-50">

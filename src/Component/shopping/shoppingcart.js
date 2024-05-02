@@ -1,4 +1,4 @@
-import React, { useEffect,useContext } from 'react'
+import React, { useEffect} from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/shopContext.js';
@@ -15,14 +15,16 @@ export const Cart = () => {
     const {totalproductnumber} = useAuth();
     const {changebackground}= useAuth();
     const {setcartposition}= useAuth();
-    const{loading} = useAuth();
+    // const{loading} = useAuth();
     // console.log(`total at shop : ${totalAmount}`);
     // console.log(`cart items at shop : ${JSON.stringify(cartItems)}`);
     const navigate = useNavigate();
 
     useEffect( () =>{
-      setcartposition(document.getElementById(`cartposition`));
-    },[])
+      return () =>{
+        setcartposition(document.getElementById(`cartposition`));
+      }
+    },[setcartposition])
   return (
     
     <>
