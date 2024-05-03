@@ -167,12 +167,11 @@
 
 
 
-#ad-text-custom{
-    font-style: italic;
-    font-family: 'Madimi One';
-}
 .ad-image{
     display: block;
+    padding:1rem;
+    /* border:solid; */
+    width:auto;
 }
 .ad-container{
     max-width: 1270px;
@@ -186,11 +185,19 @@
 }
 .ad1-container{
     width:auto;
+    padding:1rem;
+    /* border:solid; */
 }
 .ad1-container h1{
+    text-align: center;
+    transform: skewX(-10deg);
+    font-style: italic;
     font-family: 'Madimi One';
     font-size: 4rem;
-    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    color: rgba(120, 255, 120, 0.933);
+    text-shadow: 0 0 3px #FF0000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /*ad */
@@ -203,11 +210,9 @@
 .slideshow-container {
     max-width: 1150px;
     margin: auto;
-    border: 5px solid;
     border-radius:20px;
-    border-color: antiquewhite;
     position: relative;
-    background-color: antiquewhite;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.1);
 }
 
 .slideshow-img {
@@ -642,12 +647,6 @@ hr{
 /* side bar */
 
 /* hero section  */
-.hero{
-    background-color: #F6F6E8;
-}
-
-
-
 
 /* hero section */
 
@@ -806,15 +805,15 @@ hr{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: linear-gradient(to right,rgb(255, 241, 241),rgb(233, 233, 233));
     border-radius:2rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1), 0 -5px 5px rgba(0, 0, 0, 0.1);
 }
 #hot-sale{  
     z-index: 0;
     position: relative;
     font-size:2rem;
     font-family: 'Madimi One';
-    background-image: linear-gradient(to left,rgb(255, 246, 246),rgb(252, 252, 228));
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.1);
     padding:0.5rem;
     border-radius: 1rem;
 }
