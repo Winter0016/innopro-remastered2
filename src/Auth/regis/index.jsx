@@ -3,8 +3,9 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/shopContext';
 import images from '../../images/images';
-import { doCreateUserWithEmailAndPassword, doSendEmailVerification } from '../../myfirebase/auth';
+import { doCreateUserWithEmailAndPassword} from '../../myfirebase/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { auth } from '../../myfirebase/firebase-config';
 
 function Register() {
     const navigate = useNavigate();
@@ -27,7 +28,6 @@ function Register() {
             }
             try {
                 await doCreateUserWithEmailAndPassword(email, password);
-                await doSendEmailVerification();
                 navigate('/login'); // Redirect to login after successful registration
             } catch (error) {
                 setIsRegistering(false);
@@ -35,13 +35,6 @@ function Register() {
             }
         }
     };
-    useEffect(() => {
-        if (userLoggedIn) {
-            setchangebackground(false); // Update background upon user login
-            navigate('/'); // Navigate to home page upon user login
-        }
-    }, [userLoggedIn,setchangebackground,navigate]);
-
     return (
         <div className='login-container'>
             <main id='login-container-custom' className="flex items-center h-screen flex-wrap">

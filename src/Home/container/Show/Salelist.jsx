@@ -103,11 +103,10 @@ const addanimation = () => {
                         <img className='productx-imga2' src={images[imageName]} alt={name} ref={productimgposRef} />
                     </div>
                     <div className="productx-info">
-                        <span id='productx-fontfamily' className=" font-semibold text-3xl text-gray-700">{name}</span>
+                        <span id='productx-fontfamily' className="font-light text-3xl text-gray-700">{name}</span>
                             <span id='productx-fontfamily' className=' font-light text-3xl text-gray-700'>
                                 {productnumber ? `(${productnumber})` : `(0)`}
                             </span><br/>
-                        <span className=" font-bold text-xl text-red-800">Khối lượng: 1kg</span><br/>
                         <span className="lg:text-2xl sm:text-2xl md:text-lg text-red-800 font-semibold">Giá : {price.toLocaleString("en-US")} VND</span> <br/>
                         <span className="text-xl text-black lg:pl-14 sm:pl-14 md:pl-10 line-through ..."> ({original.toLocaleString("en-US")}VND)</span>
                         <div className=' flex justify-center w-full mt-2'>

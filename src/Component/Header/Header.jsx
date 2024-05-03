@@ -15,6 +15,10 @@ export const Header = () => {
     const{setchangebackground} = useAuth();
     // const {setspeaktosale} = useAuth();
     // console.log(`changebackground : ${changebackground}`);
+
+    if(auth?.currentUser?.photoURL){
+      console.log(`photo : ${auth.currentUser.photoURL}`);
+    }
   return (
     <section className="fixed h-full z-50">
       <div className={changebackground ? 'sidebar alternate-background' : 'sidebar'}>
@@ -33,8 +37,9 @@ export const Header = () => {
             <>
               <div className="item">
                 {
-                  auth?.currentUser?.photoURL? (
-                    <img className="icon-user"src={auth.currentUser.photoURL} alt="" />
+                  auth?.currentUser?.photoURL? 
+                  (
+                    <img className="icon-user"src={auth.currentUser.photoURL} alt="photo" />
                   ):(
                     <svg className="icon"data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"></path>

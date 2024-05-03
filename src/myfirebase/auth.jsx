@@ -11,8 +11,22 @@ import {
 } from "firebase/auth";
 
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    
+    if (user && user.emailVerified) {
+      console.log(`Email is verified`);
+      console.log(`Email verified: ${user.emailVerified}`);
+    } else {
+      console.log(`Email is not verified!`);
+      await doSendEmailVerification();
+    }
+  } catch (err) {
+    console.error(err);
+  }
 };
+
 
 export const doSignInWithEmailAndPassword = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
@@ -22,6 +36,17 @@ export const doSignInWithGoogle = async () => {
   try{
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    // console.log(`user: ${JSON.stringify(user)}`);
+    if(user && user.emailVerified){
+      console.log(`email is verified`);
+      // console.log(auth.currentUser.photoURL);
+      console.log(`emailverified: ${user.emailVerified}`);
+    }
+    else{
+      console.log("email is not verified!");
+      await doSendEmailVerification();
+    }
   }
   catch(err){
     console.log(err);

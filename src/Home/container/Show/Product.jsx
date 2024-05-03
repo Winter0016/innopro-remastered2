@@ -121,11 +121,10 @@ checking = checkdate();
                             </div>
                         </div>
                         <div className="productx-info">
-                            <span id='productx-fontfamily' className=" font-semibold text-3xl text-gray-700">{name}</span>
+                            <span id='productx-fontfamily' className="text-3xl text-gray-700">{name}</span>
                             <span id='productx-fontfamily' className=' font-light text-3xl text-gray-700'>
                                 {productnumber ? `(${productnumber})` : `(0)`}
                             </span><br/>
-                            <span className=" font-bold text-xl text-red-800">Khối lượng: 1kg</span><br/>
                             <span className="lg:text-2xl sm:text-2xl md:text-lg text-red-800 font-semibold">Giá : {price.toLocaleString("en-US")} VND</span> <br/>
                             <div className=' flex justify-center w-full mt-2'>
                                 <div onClick={() => {addToCart(id);addanimation()}} className="flex items-center justify-center p-3 text-base font-extrabold text-center text-yellow-600 border-2 rounded-lg  focus:ring-4 focus:ring-primary-300 hover:cursor-pointer hover:bg-green-100">
