@@ -941,19 +941,20 @@ hr{
 
 /* comment */
 .comment-container{
-    height:100vh;
+    height:fit-content;
     display: flex;
     flex-direction: column;
     margin:auto;
     gap:2rem;
     /* border:solid;
     border-color:red; */
+    padding:2rem;
     overflow: auto;
     background-color: beige;
 }
 #mycomment{
     width:37rem;
-    max-height:33rem ;
+    max-height:30rem;
     overflow: auto;
     display:flex;
     flex-direction: column;
@@ -965,6 +966,8 @@ hr{
     background-color: rgb(200, 200, 231);
     box-shadow: 20px 20px 5px rgb(1, 28, 37);
     margin:auto;
+    margin-bottom:2rem;
+    border:solid;
 }
 #enter-comment{
     display: flex;
@@ -973,6 +976,7 @@ hr{
     padding-top:0.5rem;
     width: 34rem;
     margin:auto;
+    margin-bottom: 3rem;
 }
 #enter-comment textarea{
     width:100%;
