@@ -967,7 +967,6 @@ hr{
     box-shadow: 20px 20px 5px rgb(1, 28, 37);
     margin:auto;
     margin-bottom:2rem;
-    border:solid;
 }
 #enter-comment{
     display: flex;
