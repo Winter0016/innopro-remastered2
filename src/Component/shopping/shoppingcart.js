@@ -21,10 +21,8 @@ export const Cart = () => {
     const navigate = useNavigate();
 
     useEffect( () =>{
-      return () =>{
-        setcartposition(document.getElementById(`cartposition`));
-      }
-    },[setcartposition])
+      return setcartposition(document.getElementById(`cartposition`));
+    })
   return (
     
     <>

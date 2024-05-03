@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Product } from "./Product";
 import { Salelist } from "./Salelist";
 import { useEffect } from "react";
@@ -9,40 +9,65 @@ export const Show = () => {
   const {productlist} = useAuth();
   const {salelist} = useAuth();
   const {loadingpage} = useAuth();
+  const [animationran,setanimationran] = useState(false);
   // console.log(JSON.stringify(productlist));
 
   useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("showslide");
-        } else {
-          entry.target.classList.remove("showslide");
-        }
+    if(window.innerWidth <= 768){
+      const observer3 = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("showslide");
+          }
+        });
       });
-    });
+  
+      const hiddenElements = document.querySelectorAll(".hiddenslide");
+      hiddenElements.forEach(el => observer3.observe(el));
 
-    const hiddenElements = document.querySelectorAll(".hiddenslide");
-    hiddenElements.forEach(el => observer.observe(el));
-
-    const observer2 = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("showslide2");
-        } else {
-          entry.target.classList.remove("showslide2");
-        }
+      const observer4 = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("showslide2");
+          }
+        });
       });
-    });
+  
+      const hiddenElements2 = document.querySelectorAll(".hiddenslide2");
+      hiddenElements2.forEach(el => observer4.observe(el));
+    }else{
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("showslide");
+          } else {
+            entry.target.classList.remove("showslide");
+          }
+        });
+      });
+  
+      const hiddenElements = document.querySelectorAll(".hiddenslide");
+      hiddenElements.forEach(el => observer.observe(el));
+  
+      const observer2 = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("showslide2");
+          } else {
+            entry.target.classList.remove("showslide2");
+          }
+        });
+      });
+  
+      const hiddenElements2 = document.querySelectorAll(".hiddenslide2");
+      hiddenElements2.forEach(el => observer2.observe(el));
 
-    const hiddenElements2 = document.querySelectorAll(".hiddenslide2");
-    hiddenElements2.forEach(el => observer2.observe(el));
-
-    // Clean up IntersectionObserver instances
-    return () => {
-      hiddenElements.forEach(el => observer.unobserve(el));
-      hiddenElements2.forEach(el => observer2.unobserve(el));
-    };
+      // Clean up IntersectionObserver instances
+      return () => {
+        hiddenElements.forEach(el => observer.unobserve(el));
+        hiddenElements2.forEach(el => observer2.unobserve(el));
+      };
+    }
   }, [loadingpage]);
 
     
