@@ -295,6 +295,7 @@
 /* finish */
 
 .finish-container{
+    /* border:solid; */
     width:100%;
     color:white;
     opacity :0;
@@ -335,7 +336,7 @@
 .si-container{
     /* border:solid; */
     /* border-color:blue; */
-    height:33rem;
+    height:28rem;
     opacity:0;
     transition: ease-in-out 0.5s;
     overflow-y: auto;
@@ -343,8 +344,8 @@
 }
 
 .si-container img{
-    height:17rem;
-    width:auto;
+    height:12rem;
+    width:12rem;
     object-fit: cover;
     border-radius: 0.5rem;
     overflow: hidden;
@@ -356,9 +357,7 @@
     font-weight: 600;
     letter-spacing: -0.025rem;
     text-align: center;
-    margin: 0; /* Add this to remove default margin */
-    padding: 0; /* Add this to remove default padding */
-    line-height: 1.2; /* Adjust line-height to reduce vertical spacing */
+
 }
 .si-info{
     width:100%;
@@ -1044,9 +1043,8 @@ hr{
         justify-content: center;
     }
     .si-container{
-        /* border:solid; */
         opacity:1;
-        height:24rem;
+        height:20rem;
     }
     .si-item-text {
         opacity: 1;
@@ -1157,7 +1155,7 @@ hr{
     }
     .si-container{
         opacity:1;
-        height:27rem;
+        height:20rem;
     }
     .si-item-text {
         opacity: 1;

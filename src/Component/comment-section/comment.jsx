@@ -3,7 +3,7 @@ import { Com } from './com';
 import { useAuth } from '../../context/shopContext';
 import images from '../../images/images';
 
-export const Comment = () => {
+function Comment () {
     const { commentlist } = useAuth();
     const {loadingpage} = useAuth();
     const {setusercomment,usercomment} = useAuth(); 
@@ -114,3 +114,5 @@ export const Comment = () => {
         </div>
     );
 };
+
+export default Comment;

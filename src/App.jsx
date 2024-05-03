@@ -1,34 +1,39 @@
-import React from 'react';
+import React, { useState, startTransition, Suspense } from 'react';
+import { lazy } from 'react';
 import { ShopContextProvider } from './context/shopContext';
-import { Header } from './Component/Header/Header';
-import { Login } from './Auth/login/index';
-import { Register } from './Auth/regis/index';
 import { Home } from './Home/Home';
+import { Routes, Route } from 'react-router-dom'; // Removed unused import
+import { Header } from './Component/Header/Header';
 import { Cart } from './Component/shopping/shoppingcart';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { Checkout } from './Component/shopcheckout/shop-checkout';
-import { Comment } from './Component/comment-section/comment';
-import { Testing_api } from './Component/testing api';
-function App() {
-  // const location = useLocation();
-  // const excludedpath = ['/comment'];
 
-  // const iscartvisible = !excludedpath.includes(location.pathname);
+
+const Login = lazy(() => import("./Auth/login/index"));
+const Register = lazy(() => import("./Auth/regis/index"));
+const Checkout = lazy(() => import('./Component/shopcheckout/shop-checkout'));
+const Comment = lazy(() => import('./Component/comment-section/comment'));
+const Testing_api = lazy(() => import('./Component/testing api'));
+
+function App() {
+  const LoadingIndicator = () => (
+    <div>Loading...</div>
+  );
+
   return (
     <ShopContextProvider className="relative">
-        <meta name="google-site-verification" content="RAOrR6udlfpJ2cZdeJFUk5-_AqWQI7bdrWg6vC6tSdM" />  
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
-        <Header />
-        <Cart/>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path='/checkout' element={<Checkout/>}></Route>
-          <Route path='/comment' element={<Comment/>}></Route>
-          <Route path="/testing" element={<Testing_api/>}></Route>
-        </Routes>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+      <meta name="google-site-verification" content="RAOrR6udlfpJ2cZdeJFUk5-_AqWQI7bdrWg6vC6tSdM" />
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+      <Header />
+      <Cart />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* Lazy-load the Login component with Suspense */}
+        <Route path="/login" element={<Suspense fallback={<LoadingIndicator />}><Login /></Suspense>} />
+        <Route path="/register" element={<Suspense fallback={<LoadingIndicator />}><Register /></Suspense>} />
+        <Route path='/checkout' element={<Suspense fallback={<LoadingIndicator />}><Checkout /></Suspense>} />
+        <Route path='/comment' element={<Suspense fallback={<LoadingIndicator />}><Comment /></Suspense>} />
+        <Route path="/testing" element={<Suspense fallback={<LoadingIndicator />}><Testing_api /></Suspense>} />
+      </Routes>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     </ShopContextProvider>
   );
 }

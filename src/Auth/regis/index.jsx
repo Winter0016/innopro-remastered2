@@ -6,7 +6,7 @@ import images from '../../images/images';
 import { doCreateUserWithEmailAndPassword, doSendEmailVerification } from '../../myfirebase/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const Register = () => {
+function Register() {
     const navigate = useNavigate();
     const { userLoggedIn } = useAuth();
     const{setchangebackground} = useAuth();
@@ -109,4 +109,4 @@ export const Register = () => {
     );
 };
 
-
+export default Register;

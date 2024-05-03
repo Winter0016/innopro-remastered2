@@ -6,7 +6,7 @@ import { doPasswordReset } from '../../myfirebase/auth';
 
 import { useAuth } from '../../context/shopContext';
 import images from '../../images/images';
-export const Login = () => {
+function Login(){
     const { userLoggedIn } = useAuth();
     const{setchangebackground} = useAuth();
     const [sendemailreset ,setsendemailreset] = useState('');

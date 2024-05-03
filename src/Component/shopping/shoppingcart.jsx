@@ -27,7 +27,7 @@ export const Cart = () => {
     
     <>
           <section className="fixed right-0 h-full z-50">
-          <div className={changebackground ? 'sidecart2 alternate-background' : 'sidecart2'}>
+            <div className={changebackground ? 'sidecart2 alternate-background' : 'sidecart2'}>
               <div className='si-item'>
                 <div className="si-icon-container">
                   <div className="productnumber">

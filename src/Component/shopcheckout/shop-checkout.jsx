@@ -3,7 +3,7 @@ import { useAuth } from '../../context/shopContext'
 
 import {auth} from "../../myfirebase/firebase-config";
 
-export const Checkout = () => {
+function Checkout (){
   const {submitorder} = useAuth();
   const {paymentdone} = useAuth();
   const{payingstatus} = useAuth();
@@ -82,3 +82,5 @@ export const Checkout = () => {
     </>
   )
 }
+
+export default Checkout;
