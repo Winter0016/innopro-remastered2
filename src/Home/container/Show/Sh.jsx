@@ -9,16 +9,14 @@ export const Show = () => {
   const {productlist} = useAuth();
   const {salelist} = useAuth();
   const {loadingpage} = useAuth();
-  const [animationran,setanimationran] = useState(false);
   // console.log(JSON.stringify(productlist));
 
   useEffect(() => {
     if(window.innerWidth <= 768){
       const observer3 = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("showslide");
-          }
+          entry.target.classList.add("showslide");
+          entry.target.classList.remove("hiddenslide");
         });
       });
   
@@ -27,15 +25,14 @@ export const Show = () => {
 
       const observer4 = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("showslide2");
-          }
+          entry.target.classList.add("showslide2");
+          entry.target.classList.remove("hiddenslide2");
         });
       });
   
       const hiddenElements2 = document.querySelectorAll(".hiddenslide2");
       hiddenElements2.forEach(el => observer4.observe(el));
-    }else{
+    }else if (window.innerWidth > 768){
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {

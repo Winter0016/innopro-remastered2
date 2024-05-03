@@ -15,7 +15,12 @@ const Testing_api = lazy(() => import('./Component/testing api'));
 
 function App() {
   const LoadingIndicator = () => (
-    <div>Loading...</div>
+    <div className="product-loading">
+      <div className="tiktok-spinner">
+        <div className="ball red"></div>
+        <div className="ball blue"></div>
+      </div>
+    </div>
   );
 
   return (
