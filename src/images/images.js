@@ -9,6 +9,7 @@ import city from "../assets/city.jpg";
 import chaque from "../assets/cha que.jpg"
 import logo from "../assets/logo.png";
 import callcenter from "../assets/call center.png"
+import threeleaf from "../assets/3leaf.png"
 
 export default {
     logo :logo,
@@ -22,4 +23,5 @@ export default {
     city: city,
     ChảQuế: chaque,
     callcenter:callcenter,
+    threeleaf : threeleaf,
 }

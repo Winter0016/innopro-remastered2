@@ -161,11 +161,43 @@
 
 
 /* ad */
-#ad-a-custom{
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+@keyframes leafFalling{
+    0%   {transform: translateY(-60px) rotate(-90deg); opacity: 1;}
+    100% {transform: translateY(190px) rotate(180deg); opacity: 0.3;}
 }
 
-
+#firstleaf{
+    opacity: 0;
+    position: absolute;
+    right:2rem;
+    top:1rem;
+    animation-name: leafFalling;
+    animation-delay: 1s;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+#secondleaf{
+    opacity: 0;
+    position: absolute;
+    left:3rem;
+    top:1rem;
+    animation-name: leafFalling;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-delay: 1.5s;
+}
+#thirdleaf{
+    opacity: 0;
+    position: absolute;
+    right:12rem;
+    top:1rem;
+    animation-name: leafFalling;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
 
 .ad-image{
     display: block;
@@ -180,7 +212,7 @@
     display:flex;
     justify-content: space-around;
     margin-bottom: 3rem;
-    margin-top: 3rem;
+    margin-top: 4rem;
     overflow: hidden;
 }
 .ad1-container{
@@ -195,9 +227,9 @@
     font-family: 'Madimi One';
     font-size: 4rem;
     margin-bottom: 2rem;
-    color: rgba(120, 255, 120, 0.933);
+    color: rgb(17, 139, 17);
     text-shadow: 0 0 3px #FF0000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /*ad */

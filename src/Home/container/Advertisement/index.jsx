@@ -54,7 +54,12 @@ export const Advertisement = () => {
     <>
         <section className="ad-container">
           <div className='ad1-container'>
-            <h1> Cửa hàng <br/> Nam Hương </h1>
+            <h1 className='relative overflow-hidden'> 
+              Cửa hàng <br/> Nam Hương
+              <img id='firstleaf' className='icon' src={images.threeleaf} alt="3leaf" />
+              <img id='secondleaf' className='icon' src={images.threeleaf} alt="3leaf" />
+              <img id='thirdleaf' className='icon' src={images.threeleaf} alt="3leaf" />
+            </h1>
             <div className=' flex gap-3 justify-center relative z-0'>
               <button onClick={() => handleClick()} className="border hover:scale-95 duration-300 relative group cursor-pointer text-sky-50  overflow-hidden h-16 w-52 rounded-md bg-sky-200 p-2 flex justify-center items-center font-extrabold">
                 <div className="absolute right-32 -top-4  group-hover:top-1 group-hover:right-2 z-10 w-40 h-40 rounded-full group-hover:scale-150 duration-500 bg-sky-900"></div>
