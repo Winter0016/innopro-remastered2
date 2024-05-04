@@ -117,14 +117,14 @@ checking = checkdate();
                             </div>
                             <div className='relative'>
                                 <img className='productx-imga' src={images[imageName]} alt={name} />
+                                <span id='productx-fontfamily' className='font-light text-3xl text-gray-700 absolute top-0 right-0 z-10 pr-2 pl-2 rounded-r-md rounded-b-none bg-yellow-300'>
+                                    {productnumber ? `${productnumber}` : `0`}
+                                </span>
                                 <img className='productx-imga2' src={images[imageName]} alt={name} ref={productimgposRef} />
                             </div>
                         </div>
                         <div className="productx-info">
-                            <span id='productx-fontfamily' className="text-3xl text-gray-700">{name}</span>
-                            <span id='productx-fontfamily' className=' font-light text-3xl text-gray-700'>
-                                {productnumber ? `(${productnumber})` : `(0)`}
-                            </span><br/>
+                            <span id='productx-fontfamily' className="text-3xl text-gray-700">{name}</span><br/>
                             <span className="lg:text-2xl sm:text-2xl md:text-lg text-red-800 font-semibold">Giá : {price.toLocaleString("en-US")} VND</span> <br/>
                             <div className=' flex justify-center w-full mt-2'>
                                 <div onClick={() => {addToCart(id);addanimation()}} className="flex items-center justify-center p-3 text-base font-extrabold text-center text-yellow-600 border-2 rounded-lg  focus:ring-4 focus:ring-primary-300 hover:cursor-pointer hover:bg-green-100">
