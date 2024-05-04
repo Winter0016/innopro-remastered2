@@ -100,13 +100,13 @@ const addanimation = () => {
                             <div>Hot Sale: Thứ {hotsales} </div>
                         </div>
                         <img className='productx-imga' src={images[imageName]} alt={name} />
+                        <span id='productx-fontfamily' className='font-light text-3xl text-gray-700 absolute top-0 right-0 z-10 pr-2 pl-2 rounded-r-md rounded-b-none bg-yellow-300'>
+                            {productnumber ? `${productnumber}` : `0`}
+                        </span>
                         <img className='productx-imga2' src={images[imageName]} alt={name} ref={productimgposRef} />
                     </div>
                     <div className="productx-info">
-                        <span id='productx-fontfamily' className="font-light text-3xl text-gray-700">{name}</span>
-                            <span id='productx-fontfamily' className=' font-light text-3xl text-gray-700'>
-                                {productnumber ? `(${productnumber})` : `(0)`}
-                            </span><br/>
+                        <span id='productx-fontfamily' className="font-light text-3xl text-gray-700">{name}</span><br/>
                         <span className="lg:text-2xl sm:text-2xl md:text-lg text-red-800 font-semibold">Giá : {price.toLocaleString("en-US")} VND</span> <br/>
                         <span className="text-xl text-black lg:pl-14 sm:pl-14 md:pl-10 line-through ..."> ({original.toLocaleString("en-US")}VND)</span>
                         <div className=' flex justify-center w-full mt-2'>
