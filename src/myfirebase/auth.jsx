@@ -8,12 +8,16 @@ import {
   signOut,
   signInWithPopup,
   GoogleAuthProvider,
+  updateProfile,
 } from "firebase/auth";
 
-export const doCreateUserWithEmailAndPassword = async (email, password) => {
+export const doCreateUserWithEmailAndPassword = async (email, password,username) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
+    await updateProfile(user,{
+      displayName: username
+    })
     
     if (user && user.emailVerified) {
       console.log(`Email is verified`);

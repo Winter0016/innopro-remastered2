@@ -330,7 +330,7 @@ const submitcomment = async () => {
   const dataupdate2 = {
     ...commentstorage, // Keep existing data
     [newId]: {
-      comment_username: auth?.currentUser?.displayName ? auth.currentUser.displayName : username,
+      comment_username: auth?.currentUser?.displayName ? auth.currentUser.displayName : "Anonymous",
       comment: usercomment,
       photo: auth?.currentUser?.photoURL ? auth.currentUser.photoURL : null,
       time: currentdate,

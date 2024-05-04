@@ -16,6 +16,7 @@ function Register() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isRegistering, setIsRegistering] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [username,setusername] = useState("");
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -27,7 +28,7 @@ function Register() {
                 return;
             }
             try {
-                await doCreateUserWithEmailAndPassword(email, password);
+                await doCreateUserWithEmailAndPassword(email, password,username);
                 navigate('/login'); // Redirect to login after successful registration
             } catch (error) {
                 setIsRegistering(false);
@@ -53,6 +54,17 @@ function Register() {
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg transition duration-300"
+                            />
+                        </div>
+                        <div>
+                            <label id='login-text-custom' className="text-sm font-bold">Username</label>
+                            <input
+                                type="text"
+                                autoComplete="username"
+                                required
+                                value={username}
+                                onChange={(e) => setusername(e.target.value)}
                                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg transition duration-300"
                             />
                         </div>
