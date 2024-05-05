@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import{ useEffect } from "react"
 import { useAuth } from '../../context/shopContext'
 
 import {auth} from "../../myfirebase/firebase-config";
@@ -9,6 +10,26 @@ function Checkout (){
   const{payingstatus} = useAuth();
   const {useremail,userphone,username,useraddress,usercomment} = useAuth()
   const {setuseremail,setuseraddress,setuserphone,setusercomment,setusername} = useAuth();
+
+  const {province,setprovince} = useState("");
+  useEffect(() => {
+    const getProvince = async () => {
+      try {
+        const response = await fetch('https://vapi.vnappmob.com/api/province', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        });
+        const data = await response.json();
+        setprovince(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getProvince(); // Call the function directly
+  }, []); // Empty dependency array to run once on mount
+
   return (
     <>
         <div className='checkout-show'>
@@ -67,6 +88,13 @@ function Checkout (){
                   <input id='form-input' className=" w-72 focus:outline-none focus:ring-0"type="text"placeholder='Họ Và Tên' value={username} required onChange={(e) => setusername(e.target.value)} />
                 </div>          
               </div>
+              <div className='flex flex-wrap pt-4 pl-4  overflow-hidden checkuot-submit'>
+              <select className="field-input" id="customer_shipping_province" name="customer_shipping_province">
+                <option value="">Chọn tỉnh \ Thành Phố</option>
+                <option value="">hey</option>
+                <option value="">Yo</option> 
+              </select>
+              </div> 
               <div className='flex flex-wrap pt-4 pl-4  overflow-hidden checkuot-submit'>
                 <button type="submit" className="text-white bg-blue-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center hover:cursor-pointer" disabled={payingstatus} > {payingstatus ? "Đang xử lý...." : "Đặt hàng"}</button>        
                 <div className="flex justify-center items-center ml-9 sm:mb-1">

@@ -306,8 +306,21 @@
     width:100%;
     gap: 2rem;
 }
+.field-input{
+    box-shadow: 0 0 0 1px #d9d9d9;
+    transition: all 0.2s ease-out;
+    background-color: white;
+    color: #333333;
+    border-radius: 4px;
+    display: block;
+    box-sizing: border-box;
+    width: fit-content;
+    padding: 0.94em 2.8em 0.94em 0.8em;
+    word-break: normal;
+}
+
 #form-checkout{
-    height:15rem;
+    height:fit-content;
     display: flex;
     align-items: center;
     box-shadow:  -1px -1px 5px rgba(0, 0, 0, 0.1), 2px 2px 5px rgba(0, 0, 0, 0.1);
