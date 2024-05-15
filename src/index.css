@@ -244,10 +244,7 @@
 /*ad */
 
 /* slideshow */
-.myslideshow-container{
-    /* background-image: linear-gradient(to right,pink,rgb(250, 250, 173)); */
-    /* background-color: #121212; */
-}
+
 .slideshow-container {
     max-width: 1150px;
     margin: auto;

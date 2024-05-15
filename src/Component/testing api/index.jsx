@@ -1,16 +1,10 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
+import Webcam from 'react-webcam';
 import { Employee } from './employee';
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-import {
-  MainContainer,
-  ChatContainer,
-  MessageList,
-  Message,
-  MessageInput,
-  TypingIndicator,
-} from "@chatscope/chat-ui-kit-react";
-export const Testing_api = () => {
+import {MainContainer,ChatContainer,MessageList,Message,MessageInput,TypingIndicator,} from "@chatscope/chat-ui-kit-react";
+function Testing_api (){
     const API_URL = 'http://localhost:3500/employees';
     const [employees, setEmployees] = useState([]);
     const [mytab,setmytab] = useState(0);
@@ -26,21 +20,36 @@ export const Testing_api = () => {
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [isfunnctioning,setisfunctioning] = useState(false);
     const [getuser,setgetuser]=useState();
-    const [errofetch,seterrorfetch]=useState("");   
+    const [errofetch,seterrorfetch]=useState("");
     const defaultID = "666666666666666666666666";
-    // console.log(`defaultid.length: ${defaultID.length}`)
-    // const handleSubmit = async (e) => {
-    //   e.preventDefault();
-    //   try {
-    //     const response = await axios.post('http://localhost:3500/auth', {
-    //       user: username,
-    //       pwd: password
-    //     });
-    //     console.log(response.data); // Handle successful login response
-    //   } catch (error) {
-    //     setError('Invalid username or password');
-    //   }
-    // };
+    const [cameraEnabled, setCameraEnabled] = useState(false);
+    const webcamRef = useRef(null);
+    const [capturedImage, setCapturedImage] = useState(null);
+
+    const captureImage = () => {
+        const imageSrc = webcamRef.current.getScreenshot();
+        setCameraEnabled(false);
+        setCapturedImage(imageSrc);
+        const byteCharacters = atob(imageSrc.split(',')[1]);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'image/jpeg' });
+    
+        // Create a File object from the Blob
+        const file = new File([blob], 'captured_image.jpeg', { type: 'image/jpeg' });
+    
+        // Create a FileList object containing the captured image file
+        const fileList = new DataTransfer();
+        fileList.items.add(file);
+    
+        // Set the FileList object to the file input field
+        const myFilesInput = document.getElementById('myFiles');
+        myFilesInput.files = fileList.files;
+    };
+    
     useEffect(() => {
         const getrefreshtoken = async () => {
             const cookieValue = document.cookie.split('; ').find(cookie => cookie.startsWith('jwt:'));
@@ -269,12 +278,7 @@ export const Testing_api = () => {
     };
     // clearAllCookies();
 
-    const [messages,setmessages] = useState([
-        {
-            message: "Hello from chatbot",
-            direction:"incoming",
-        },
-    ])
+    const [messages,setmessages] = useState([])
     const [isTyping, setIsTyping] = useState(false);
 
     const handlesend = async (message) => {
@@ -304,12 +308,46 @@ export const Testing_api = () => {
             setTimeout( () => {
                 setmessages([...messages,newmessage,chatbotmessage]);
                 setIsTyping(false);
-            },3000)
+            },2000)
         }catch(err){
             console.log(err);
         }
         // console.log(JSON.stringify(messages));
     }
+
+    // const form = document.getElementById('uploadForm')
+
+    const sendFiles = async (e) => {
+        e.preventDefault();
+        const myFiles = document.getElementById('myFiles').files
+
+        const formData = new FormData()
+
+        for (let i = 0; i < myFiles.length; i++) {
+            const file = myFiles[i]; // Retrieve the File object at the current index
+            formData.append(file.name, file); // Append the File object to the FormData
+        }
+        console.log(`formdata :`, formData);
+        const response = await fetch('http://localhost:3500/upload', {
+            method: 'POST',
+            body: formData
+        })
+
+        const json = await response.json()
+        if(json.message == "Đã xác nhận được thông tin của bạn"){
+            const newmessage = {
+                message: "Xin chào tôi là chatbot, tôi đã nhận được dữ liệu của bạn, bạn cần trích xuất thông tin nào?",
+                direction: "incoming",
+            }
+            setmessages([...messages,newmessage]);
+        }
+        const h3 = document.querySelector('h3')
+        h3.textContent = json?.message
+
+        console.log(json)
+    };
+    
+
     return (
         <div className='employees-container'>
             <div id='login-form-custom' className="w-full max-w-md p-8 rounded shadow-xl">
@@ -477,6 +515,27 @@ export const Testing_api = () => {
                     </form> 
                 )
             }
+            <div>
+                {cameraEnabled ? (
+                    <div>
+                        <Webcam
+                            audio={false}
+                            ref={webcamRef}
+                            screenshotFormat="image/jpeg"
+                        />
+                        <button onClick={captureImage}>Capture Image</button><br/>
+                        <button onClick={() => setCameraEnabled(false)}>Close Camera</button>
+                    </div>
+                ) : (
+                    <button onClick={() => setCameraEnabled(true)}>Access Camera</button>
+                )}
+                {capturedImage && <img src={capturedImage} alt="Captured" />}
+            </div>
+            <form id="uploadForm" onSubmit={sendFiles}>
+                <input type="file" id="myFiles" accept="*/*" multiple />
+                <button type='submit'>Submit</button>
+            </form>
+            <h3></h3>
             <div style={{ position:"relative", height: "500px", width: "700px", marginBottom :"5rem", overflow :"auto"  }}>
                 <MainContainer>
                     <ChatContainer>       
@@ -488,10 +547,11 @@ export const Testing_api = () => {
                             />
                         ))}
                     </MessageList>
-                    <MessageInput placeholder="Type message here" onSend={handlesend}/>        
+                    <MessageInput placeholder={messages.length === 0 ? "Hãy gửi dữ liệu để truy vấn" : "Bạn cần thông tin nào?"} disabled={messages.length === 0} onSend={handlesend}/>        
                     </ChatContainer>
                 </MainContainer>
             </div>
         </div>
     );
 }
+export default Testing_api;
